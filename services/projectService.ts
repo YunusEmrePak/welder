@@ -16,7 +16,7 @@ export const addProject = (
     price: price,
     material_cost: material_cost,
     paid_amount: paid_amount,
-    create_date: Date.now.toString(),
+    create_date: getCurrentDate(),
     status: notStarted,
     debt_amount: price - paid_amount,
     start_date: null,
@@ -25,4 +25,28 @@ export const addProject = (
   };
 
   insertProject(project);
+};
+
+const getCurrentDate = () => {
+  const monthNames = [
+    "Ocak",
+    "Subat",
+    "Mart",
+    "Nisan",
+    "Mayıs",
+    "Haziran",
+    "Temmuz",
+    "Ağustos",
+    "Eylül",
+    "Ekim",
+    "Kasım",
+    "Aralık",
+  ];
+
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth() + 1;
+  const day = currentDate.getDate();
+
+  return `${day} ${monthNames[month]} ${year}`;
 };
