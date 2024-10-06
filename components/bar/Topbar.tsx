@@ -24,10 +24,10 @@ const Topbar: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#E56E1E",
-    height: verticalScale(70),
+    height: verticalScale(75),
     width: "100%",
     paddingHorizontal: horizontalScale(15),
-    paddingTop: verticalScale(20),
+    paddingTop: verticalScale(25),
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
