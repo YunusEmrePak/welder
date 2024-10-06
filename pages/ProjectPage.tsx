@@ -1,12 +1,40 @@
-import { Text } from "react-native";
+import Topbar from "@/components/bar/Topbar";
+import ProjectItem from "@/components/project/ProjectItem";
+import { projectActions } from "@/redux/slices/projectSlice";
+import { RootState, useAppDispatch } from "@/store";
+import { verticalScale } from "@/themes/Metrics";
+import { useEffect } from "react";
+import { StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useSelector } from "react-redux";
 
 const ProjectPage = () => {
+  const dispatch = useAppDispatch();
+
+  const projectList = useSelector(
+    (state: RootState) => state.project.projectList
+  );
+
+  useEffect(() => {
+    dispatch(projectActions.setProjectList());
+  }, []);
+
   return (
-    <SafeAreaView>
-      <Text>Project Page</Text>
+    <SafeAreaView style={styles.container}>
+      <Topbar />
+      {projectList.map((item) => (
+        <ProjectItem key={item.id} item={item} />
+      ))}
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: "flex-start",
+    alignItems: "center",
+    // marginTop: verticalScale(15)
+  },
+});
 
 export default ProjectPage;

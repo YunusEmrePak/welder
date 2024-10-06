@@ -32,7 +32,7 @@ export default function TabLayout() {
           title: "Proje Listesi",
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? "code-slash" : "code-slash-outline"}
+              name={focused ? "list" : "list-outline"}
               color={color}
             />
           ),
@@ -44,7 +44,7 @@ export default function TabLayout() {
           title: "İşçi Listesi",
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? "code-slash" : "code-slash-outline"}
+              name={focused ? "person" : "person-outline"}
               color={color}
             />
           ),
