@@ -32,22 +32,11 @@ const updateProjectDto: UpdateProjectDto = {
   paid_amount: 20000,
 };
 
-const updateProjectDto: UpdateProjectDto = {
-  id: 2,
-  title: "Bahçe Kapısı" ,
-  detail: null ,
-  customer: "Ali Gülüm",
-  status: done ,
-  price: 120000 ,
-  material_cost: 80000,
-  paid_amount:20000  
-}
-
 export default function TabLayout() {
   useEffect(() => {
     createTables();
 
-    updateProject(updateProjectDto)
+    // updateProject(updateProjectDto)
     // updateEmployee(updateEmployeeDto)
     // addProject(projectDto);
     renderTable();
