@@ -10,7 +10,7 @@ import { updateEmployee } from "@/services/employeeService";
 import { UpdatedEmployeeDto } from "@/dto/update/updateEmployeeDto";
 import { UpdateProjectDto } from "@/dto/update/updateProjectDto";
 import { renderTable } from "@/utils/renderTable";
-import { done, inProgress, notStarted } from "@/enum/status";
+import { cancelled, done, inProgress, notStarted } from "@/enum/status";
 
 const projectDto: AddProjectDto = {
   title: "dis kapi",
@@ -22,14 +22,14 @@ const projectDto: AddProjectDto = {
 };
 
 const updateProjectDto: UpdateProjectDto = {
-  id: 2,
-  title: "Bahçe Kapısı",
+  id: 1,
+  title: "Ev kapisi",
   detail: null,
-  customer: "Ali Gülüm",
-  status: done,
-  price: 120000,
-  material_cost: 80000,
-  paid_amount: 20000,
+  customer: "Mehmet Subasi",
+  status: inProgress,
+  price: 1000,
+  material_cost: 500,
+  paid_amount: 500,
 };
 
 export default function TabLayout() {
@@ -39,7 +39,7 @@ export default function TabLayout() {
     // updateProject(updateProjectDto)
     // updateEmployee(updateEmployeeDto)
     // addProject(projectDto);
-    renderTable();
+    // renderTable();
   }, []);
 
   return (

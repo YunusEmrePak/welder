@@ -29,7 +29,7 @@ const statusMessage = {
   notStarted: "Başlanmadı",
   inProgress: "Devam Ediyor",
   done: "Bitti",
-  cancelled: "İptal Edildl",
+  cancelled: "İptal Edildi",
 };
 
 const ProjectItem: React.FC<ProjectProps> = ({ item }) => {
