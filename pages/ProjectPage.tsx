@@ -1,4 +1,6 @@
 import Topbar from "@/components/bar/Topbar";
+import ProjectAddItem from "@/components/project/ProjectAddItem";
+import ProjectAddItemModal from "@/components/project/ProjectAddItemModal";
 import ProjectItem from "@/components/project/ProjectItem";
 import { projectActions } from "@/redux/slices/projectSlice";
 import { RootState, useAppDispatch } from "@/store";
@@ -22,9 +24,11 @@ const ProjectPage = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Topbar />
+      <ProjectAddItem />
       {projectList.map((item) => (
         <ProjectItem key={item.id} item={item} />
       ))}
+      <ProjectAddItemModal />
     </SafeAreaView>
   );
 };

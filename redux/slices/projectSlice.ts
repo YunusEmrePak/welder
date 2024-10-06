@@ -4,27 +4,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export interface ProjectState {
   projectList: Project[];
+  isModalVisible: boolean;
 }
 
 const initialState: ProjectState = {
   projectList: [],
+  isModalVisible: false,
 };
-
-// export const getOrdersList = createAsyncThunk<OrderListResponse>(
-//   "orderListk",
-//   async (_, { rejectWithValue }) => {
-//     try {
-//       const response = await api.get<OrderListResponse>(`order/list`);
-//       return response.data;
-//     } catch (error) {
-//       const axiosError = error as AxiosError;
-//       if (!axiosError.response) {
-//         throw axiosError;
-//       }
-//       return rejectWithValue(axiosError.response.data);
-//     }
-//   }
-// );
 
 const projectSlice = createSlice({
   name: "projectSlice",
@@ -32,6 +18,9 @@ const projectSlice = createSlice({
   reducers: {
     setProjectList: (state) => {
       state.projectList = listProject();
+    },
+    setProjectAddModalVisible: (state) => {
+      state.isModalVisible = !state.isModalVisible;
     },
   },
   //   extraReducers: (builder) => {
