@@ -5,7 +5,7 @@ import {
   moderateScale,
   verticalScale,
 } from "@/themes/Metrics";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const ProjectAddItem: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +19,11 @@ const ProjectAddItem: React.FC = () => {
       <TouchableOpacity onPress={openAddItemModal}>
         <View style={styles.buttonContainer}>
           <Text style={styles.buttonText}>Proje Ekle</Text>
+          <Image
+            source={require("@/assets/icons/new-project.png")}
+            alt="newProjectIcon"
+            style={styles.addIcon}
+          />
         </View>
       </TouchableOpacity>
     </View>
@@ -46,15 +51,29 @@ const styles = StyleSheet.create({
     backgroundColor: "#d9d9d9",
   },
   buttonContainer: {
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#d4f3fc",
+    backgroundColor: "#E56E1E",
     paddingVertical: verticalScale(5),
     paddingHorizontal: horizontalScale(8),
     borderRadius: moderateScale(5),
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: moderateScale(10),
+    elevation: 3,
   },
   buttonText: {
     fontSize: moderateScale(18),
+    color: "#fff",
+  },
+  addIcon: {
+    width: horizontalScale(16),
+    height: verticalScale(16),
+    marginLeft: verticalScale(5),
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
