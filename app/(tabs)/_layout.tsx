@@ -18,7 +18,18 @@ const projectDto: AddProjectDto = {
   customer: "yunus emre",
   price: 6000,
   material_cost: 1500,
-  paid_amount: 0,
+  paid_amount: 6000,
+};
+
+const updateProjectDto: UpdateProjectDto = {
+  id: 2,
+  title: "Bahçe Kapısı",
+  detail: null,
+  customer: "Ali Gülüm",
+  status: done,
+  price: 120000,
+  material_cost: 80000,
+  paid_amount: 20000,
 };
 
 const updateProjectDto: UpdateProjectDto = {

@@ -25,10 +25,15 @@ const bgColor = {
   cancelled: "#fcd4d4",
 };
 
+const statusMessage = {
+  notStarted: "Başlanmadı",
+  inProgress: "Devam Ediyor",
+  done: "Bitti",
+  cancelled: "İptal Edildl",
+};
+
 const ProjectItem: React.FC<ProjectProps> = ({ item }) => {
   const [scaleAnim] = useState(new Animated.Value(1));
-
-  // console.log(item);
 
   const handlePressIn = () => {
     Animated.spring(scaleAnim, {
@@ -103,7 +108,13 @@ const ProjectItem: React.FC<ProjectProps> = ({ item }) => {
           <View style={styles.item}>
             <Text style={styles.title}>Borç </Text>
             <Text
-              style={[styles.value, styles.valueNumber]}
+              style={[
+                styles.value,
+                styles.valueNumber,
+                {
+                  color: item.debt_amount === 0 ? "green" : "#e37500",
+                },
+              ]}
               numberOfLines={1}
               ellipsizeMode="tail"
             >
@@ -113,7 +124,17 @@ const ProjectItem: React.FC<ProjectProps> = ({ item }) => {
         </View>
         <View style={[styles.column, styles.column3]}>
           <View style={styles.itemStatus}>
-            <Text style={styles.valueStatus}>Devam Ediyor</Text>
+            <Text
+              style={[
+                styles.valueStatus,
+                {
+                  color: item.status === "cancelled" ? "red" : "#000",
+                },
+              ]}
+            >
+              {statusMessage[item.status as keyof typeof statusMessage] ||
+                statusMessage.notStarted}
+            </Text>
           </View>
         </View>
       </Animated.View>
