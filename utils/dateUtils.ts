@@ -1,7 +1,7 @@
 export const getCurrentDate = () => {
   const monthNames = [
     "Ocak",
-    "Subat",
+    "Şubat",
     "Mart",
     "Nisan",
     "Mayıs",

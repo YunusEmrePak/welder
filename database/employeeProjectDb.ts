@@ -66,3 +66,9 @@ export const listEmployeeProject = () :EmployeeProject[] => {
     return db.getAllSync("SELECT * FROM employee_project") as EmployeeProject[];    
 
 }
+
+export const increaseWorkedDayEmployeeProjectDb = (employeeId: number, projectId: number) => {
+    return db.runSync(
+        "UPDATE employee_project Set worked_day= worked_day + 1 where employee_id=? and project_id=?",employeeId, projectId
+    )
+}

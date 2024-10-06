@@ -1,4 +1,6 @@
 import { Project } from "@/entity/project";
+import { cancelled, done, inProgress } from "@/enum/status";
+import { getCurrentDate } from "@/utils/dateUtils";
 import * as SQLite from "expo-sqlite";
 
 const db = SQLite.openDatabaseSync("project_management.db");
@@ -54,3 +56,22 @@ export const updateProjectDb = (updatedProject: Project) => {
     where id=${updatedProject.id}
     `);
 };
+
+export const makeProjectStatusInProgressDb = (id: number) => {
+  const result = db.runSync(
+    "UPDATE project SET status=?, start_date=? where id=?", inProgress, getCurrentDate(), id
+  )
+}
+
+
+export const makeProjectStatusDoneDb = (id: number) => {
+  const result = db.runSync(
+    "UPDATE project SET status=?, finish_date=? where id=?", done, getCurrentDate(), id
+  )
+}
+
+export const makeProjectStatusCancelledDb = (id: number) => {
+  const result = db.runSync(
+    "UPDATE project SET status=? where id=?", cancelled, id
+  )
+}

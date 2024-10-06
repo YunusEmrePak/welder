@@ -2,6 +2,7 @@ import {
   addEmployeeDb,
   deleteEmployeeByIdDb,
   findEmployeeByIdDb,
+  increaseWorkedDayEmployeeDb,
   listEmployeeDb,
   updateEmployeeDb,
 } from "@/database/employeeDb";
@@ -53,8 +54,8 @@ export const updateEmployee = (updateEmployeeDto: UpdatedEmployeeDto) => {
   updateEmployeeDb(oldEmployee)
 }
 
-export const increaseWorkedDayEmployee = () => {
-  
+export const increaseWorkedDayEmployee = (id: number) => {
+  increaseWorkedDayEmployeeDb(id)
 }
 
 export const printEmployee = () => {
