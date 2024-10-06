@@ -5,7 +5,12 @@ import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { createTables, dropTables } from "@/database/database";
 import { AddProjectDto } from "@/dto/add/addProjectDto";
-import { addProject } from "@/services/projectService";
+import { addProject, updateProject } from "@/services/projectService";
+import { updateEmployee } from "@/services/employeeService";
+import { UpdatedEmployeeDto } from "@/dto/update/updateEmployeeDto";
+import { UpdateProjectDto } from "@/dto/update/updateProjectDto";
+import { renderTable } from "@/utils/renderTable";
+import { done, inProgress, notStarted } from "@/enum/status";
 
 const projectDto: AddProjectDto = {
   title: "dis kapi",
@@ -16,11 +21,25 @@ const projectDto: AddProjectDto = {
   paid_amount: 0,
 };
 
+const updateProjectDto: UpdateProjectDto = {
+  id: 2,
+  title: "Bahçe Kapısı" ,
+  detail: null ,
+  customer: "Ali Gülüm",
+  status: done ,
+  price: 120000 ,
+  material_cost: 80000,
+  paid_amount:20000  
+}
+
 export default function TabLayout() {
   useEffect(() => {
     createTables();
 
+    updateProject(updateProjectDto)
+    // updateEmployee(updateEmployeeDto)
     // addProject(projectDto);
+    renderTable();
   }, []);
 
   return (
