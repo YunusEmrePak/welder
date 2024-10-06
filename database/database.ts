@@ -3,7 +3,6 @@ import * as SQLite from "expo-sqlite";
 const db = SQLite.openDatabaseSync("project_management.db");
 
 export const createTables = () => {
-  //   console.log("Hello");
   db.execSync(
     `CREATE TABLE IF NOT EXISTS project (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -43,6 +42,17 @@ export const createTables = () => {
           FOREIGN KEY (employee_project_id) REFERENCES employee_project (id)
         );
 
+        `
+  );
+};
+
+export const clearDb = () => {
+  db.execSync(
+    `
+    DELETE from employee_work_record;
+    DELETE from employee_project;
+    DELETE from project;
+    DELETE from employee;
         `
   );
 };

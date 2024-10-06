@@ -1,5 +1,14 @@
-import { insertProject } from "@/database/projectDb";
+import {
+  addProjectDb,
+  deleteProjectByIdDb,
+  findProjectByIdDb,
+  listProjectDb,
+  updateProjectDb,
+} from "@/database/projectDb";
+import { UpdateProjectDto } from "@/dto/updateProjectDto";
+import { Project } from "@/entity/project";
 import { notStarted } from "@/enum/status";
+import { getCurrentDate } from "@/utils/dateUtils";
 
 export const addProject = (
   title: string,
@@ -24,29 +33,75 @@ export const addProject = (
     id: null,
   };
 
-  insertProject(project);
+  return addProjectDb(project);
 };
 
-const getCurrentDate = () => {
-  const monthNames = [
-    "Ocak",
-    "Subat",
-    "Mart",
-    "Nisan",
-    "Mayıs",
-    "Haziran",
-    "Temmuz",
-    "Ağustos",
-    "Eylül",
-    "Ekim",
-    "Kasım",
-    "Aralık",
-  ];
+export const listProject = (): Project[] => {
+  return listProjectDb();
+};
 
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const month = currentDate.getMonth() + 1;
-  const day = currentDate.getDate();
+export const findProjectById = (id: number): Project | null => {
+  return findProjectByIdDb(id);
+};
 
-  return `${day} ${monthNames[month]} ${year}`;
+export const deleteProjectById = (id: number) => {
+  return deleteProjectByIdDb(id);
+};
+
+export const updateProject = (project: UpdateProjectDto) => {
+  let oldProject = findProjectById(project.id);
+  if (!oldProject)
+    throw new Error(`Can't find project with id = ${project.id}`);
+
+  if (project.title !== null && project.title !== "") {
+    oldProject.title = project.title;
+  }
+  if (project.detail !== null && project.detail !== "") {
+    oldProject.detail = project.detail;
+  }
+  if (project.customer !== null && project.customer !== "") {
+    oldProject.customer = project.customer;
+  }
+  if (project.status !== null && project.status !== "") {
+    oldProject.status = project.status;
+  }
+  if (project.price !== null && project.price > 0) {
+    oldProject.price = project.price;
+  }
+  if (project.material_cost !== null && project.material_cost > 0) {
+    oldProject.material_cost = project.material_cost;
+  }
+  if (project.paid_amount !== null && project.paid_amount > 0) {
+    oldProject.paid_amount = project.paid_amount;
+    oldProject.debt_amount = oldProject.price - oldProject.paid_amount;
+  }
+
+  updateProjectDb(oldProject);
+};
+
+export const printProject = () => {
+  const projects = listProject();
+
+  console.log(
+    "\n************************************************************************************************************\n"
+  );
+
+  console.log(
+    "ID | Title           | Customer      | Status    | Price   | Material Cost | Create Date | Start Date  | Finish Date | Paid Amount | Debt Amount"
+  );
+  console.log(
+    "------------------------------------------------------------------------------------------------------------"
+  );
+
+  projects.forEach((item) => {
+    console.log(
+      `${item.id}  | ${item.title.padEnd(15)} | ${item.customer.padEnd(
+        12
+      )} | ${item.status.padEnd(8)} | $${item.price} | $${
+        item.material_cost
+      } | ${item.create_date.padEnd(8)} | ${item.start_date || "N/A"} | ${
+        item.finish_date || "N/A"
+      } | $${item.paid_amount} | $${item.debt_amount}`
+    );
+  });
 };
