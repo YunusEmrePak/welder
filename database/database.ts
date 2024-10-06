@@ -2,6 +2,16 @@ import * as SQLite from "expo-sqlite";
 
 const db = SQLite.openDatabaseSync("project_management.db");
 
+
+export const dropTables = () => {
+  db.execSync(
+    `DROP TABLE IF EXISTS employee_project;
+     DROP TABLE IF EXISTS employee;
+     DROP TABLE IF EXISTS project;`
+  );
+};
+
+
 export const createTables = () => {
   db.execSync(
     `CREATE TABLE IF NOT EXISTS project (
@@ -17,30 +27,24 @@ export const createTables = () => {
           finish_date TEXT,
           paid_amount REAL,
           debt_amount REAL
-        );
+      );
 
-        CREATE TABLE IF NOT EXISTS employee (
+    CREATE TABLE IF NOT EXISTS employee (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           name_surname TEXT,
           daily_pay REAL,
           total_worked_day INTEGER,
           total_paid_amount REAL
-        );
+      );
 
-        CREATE TABLE IF NOT EXISTS employee_project (
+    CREATE TABLE IF NOT EXISTS employee_project (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           project_id INTEGER,
           employee_id INTEGER,
+          worked_day INTEGER,
           FOREIGN KEY (project_id) REFERENCES project (id),
           FOREIGN KEY (employee_id) REFERENCES employee (id)
-        );
-
-        CREATE TABLE IF NOT EXISTS employee_work_record (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          employee_project_id INTEGER,
-          total_worked_day INTEGER,
-          FOREIGN KEY (employee_project_id) REFERENCES employee_project (id)
-        );
+      );
 
         `
   );
@@ -49,10 +53,8 @@ export const createTables = () => {
 export const clearDb = () => {
   db.execSync(
     `
-    DELETE from employee_work_record;
     DELETE from employee_project;
     DELETE from project;
-    DELETE from employee;
-        `
+    DELETE from employee;`
   );
 };
