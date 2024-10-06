@@ -28,3 +28,26 @@ export const findEmployeeByIdDb = (id: number): Employee | null => {
 
   return result as Employee;
 };
+
+export const deleteEmployeeByIdDb = (id: number) => {
+  return db.runSync(`
+    DELETE from employee where id=${id}
+    `)
+}
+
+export const updateEmployeeDb = (employee: Employee) => {
+  db.runSync(`
+    UPDATE employee
+    SET name_surname='${employee.name_surname}',
+    daily_pay='${employee.daily_pay}'
+    where id='${employee.id}'
+    `)
+}
+
+export const updateTotalWorkedDayByEmployeeIdDb = (id: number, newTotalWorkedDay: number) => {
+  db.runSync(
+    "UPDATE employee SET total_worked_day=? where id=?",
+    newTotalWorkedDay,
+    id
+  )
+}

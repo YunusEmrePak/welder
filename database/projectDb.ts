@@ -37,7 +37,7 @@ export const findProjectByIdDb = (id: number): Project | null => {
 };
 
 export const deleteProjectByIdDb = (id: number) => {
-  return db.getFirstSync(`
+  return db.runSync(`
     DELETE from project where id=${id}
     `);
 };

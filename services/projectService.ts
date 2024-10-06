@@ -5,29 +5,23 @@ import {
   listProjectDb,
   updateProjectDb,
 } from "@/database/projectDb";
-import { UpdateProjectDto } from "@/dto/updateProjectDto";
+import { AddProjectDto } from "@/dto/add/addProjectDto";
+import { UpdateProjectDto } from "@/dto/update/updateProjectDto";
 import { Project } from "@/entity/project";
 import { notStarted } from "@/enum/status";
 import { getCurrentDate } from "@/utils/dateUtils";
 
-export const addProject = (
-  title: string,
-  detail: string,
-  customer: string,
-  price: number,
-  material_cost: number,
-  paid_amount: number
-) => {
+export const addProject = (addProjectDto: AddProjectDto) => {
   const project = {
-    title: title,
-    detail: detail,
-    customer: customer,
-    price: price,
-    material_cost: material_cost,
-    paid_amount: paid_amount,
+    title: addProjectDto.title,
+    detail: addProjectDto.detail,
+    customer: addProjectDto.customer,
+    price: addProjectDto.price,
+    material_cost: addProjectDto.material_cost,
+    paid_amount: addProjectDto.paid_amount,
     create_date: getCurrentDate(),
     status: notStarted,
-    debt_amount: price - paid_amount,
+    debt_amount: addProjectDto.price - addProjectDto.paid_amount,
     start_date: null,
     finish_date: null,
     id: null,
@@ -83,7 +77,7 @@ export const printProject = () => {
   const projects = listProject();
 
   console.log(
-    "\n************************************************************************************************************\n"
+    "\nPROJECT TABLE ************************************************************************************************\n"
   );
 
   console.log(
