@@ -1,10 +1,16 @@
 import { Tabs } from "expo-router";
-import React from "react";
+import React, { useEffect } from "react";
 
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
+import { createTables } from "@/database/database";
 
 export default function TabLayout() {
+
+  useEffect(() => {
+    createTables()
+  }, [])
+
   return (
     <Tabs
       screenOptions={{
