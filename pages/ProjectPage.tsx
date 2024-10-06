@@ -6,7 +6,7 @@ import { projectActions } from "@/redux/slices/projectSlice";
 import { RootState, useAppDispatch } from "@/store";
 import { verticalScale } from "@/themes/Metrics";
 import { useEffect } from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 
@@ -22,14 +22,14 @@ const ProjectPage = () => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Topbar />
       <ProjectAddItem />
       {projectList.map((item) => (
         <ProjectItem key={item.id} item={item} />
       ))}
       <ProjectAddItemModal />
-    </SafeAreaView>
+    </View>
   );
 };
 

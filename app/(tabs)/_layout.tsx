@@ -3,13 +3,25 @@ import React, { useEffect } from "react";
 
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
-import { createTables } from "@/database/database";
+import { createTables, dropTables } from "@/database/database";
+import { AddProjectDto } from "@/dto/add/addProjectDto";
+import { addProject } from "@/services/projectService";
+
+const projectDto: AddProjectDto = {
+  title: "dis kapi",
+  detail: "6x2 metal dis kapi",
+  customer: "yunus emre",
+  price: 6000,
+  material_cost: 1500,
+  paid_amount: 0,
+};
 
 export default function TabLayout() {
-
   useEffect(() => {
-    createTables()
-  }, [])
+    createTables();
+
+    // addProject(projectDto);
+  }, []);
 
   return (
     <Tabs
