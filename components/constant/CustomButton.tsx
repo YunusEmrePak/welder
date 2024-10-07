@@ -1,13 +1,27 @@
-import { ImageSourcePropType, StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
+import {
+  ImageSourcePropType,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Image,
+  ViewStyle,
+} from "react-native";
 import React from "react";
-import { horizontalScale, moderateScale, verticalScale } from "@/themes/Metrics";
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from "@/themes/Metrics";
 
 interface CustomButtonProps {
   name: string;
-  iconDirection?: string;
+  iconDirection?: "left" | "right";
   bgColor?: string;
   textColor?: string;
-  iconUrl?: ImageSourcePropType; // Updated to accept an image source
+  width: number | string;
+  height: number | string;
+  iconUrl?: ImageSourcePropType;
   onClick: () => void;
 }
 
@@ -17,16 +31,19 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   bgColor = "#E56E1E",
   textColor = "#fff",
   iconUrl,
+  width,
+  height,
   onClick,
 }) => {
   return (
-    <TouchableOpacity onPress={onClick}>
+    <TouchableOpacity
+      onPress={onClick}
+      style={{ width: "100%", justifyContent: "center", alignItems: "center" }}
+    >
       <View
         style={[
           styles.buttonContainer,
-          {
-            backgroundColor: bgColor,
-          },
+          { backgroundColor: bgColor, width, height } as ViewStyle,
         ]}
       >
         {iconDirection === "left" && iconUrl && (

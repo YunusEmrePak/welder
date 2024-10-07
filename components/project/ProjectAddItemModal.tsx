@@ -24,11 +24,11 @@ import Toast from "react-native-toast-message";
 
 const inputs: CutomInputItemState[] = [
   { inputName: "title" },
-  { inputName: "detail" },
   { inputName: "customer" },
   { inputName: "price" },
   { inputName: "material_cost" },
   { inputName: "paid_amount" },
+  { inputName: "detail" },
 ];
 
 const ProjectAddItemModal = () => {
@@ -42,6 +42,23 @@ const ProjectAddItemModal = () => {
   };
 
   const addProjectHandler = () => {
+    if (
+      addProjectForm.title === "" ||
+      addProjectForm.detail === "" ||
+      addProjectForm.customer === "" ||
+      addProjectForm.price.toString() === "" ||
+      addProjectForm.price < 0 ||
+      addProjectForm.material_cost.toString() === "" ||
+      addProjectForm.material_cost < 0 ||
+      addProjectForm.paid_amount.toString() === "" ||
+      addProjectForm.paid_amount < 0
+    ) {
+      ToastAndroid.show(
+        "Bütün alanları doldurmanız gerekmektedir.",
+        ToastAndroid.LONG
+      );
+      return;
+    }
     addProject(addProjectForm);
     dispatch(projectActions.setProjectList());
     dispatch(projectActions.setProjectAddModalVisible());
@@ -67,6 +84,8 @@ const ProjectAddItemModal = () => {
               name="Ekle"
               onClick={addProjectHandler}
               iconUrl={require("@/assets/icons/add.png")}
+              width={horizontalScale(270)}
+              height={verticalScale(45)}
             />
           </Pressable>
         </KeyboardAvoidingView>
@@ -94,7 +113,7 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(10),
     paddingHorizontal: horizontalScale(20),
     paddingVertical: verticalScale(15),
-    width: "70%",
+    width: "85%",
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
