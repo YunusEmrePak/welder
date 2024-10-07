@@ -3,6 +3,9 @@ import {
   deleteProjectByIdDb,
   findProjectByIdDb,
   listProjectDb,
+  makeProjectStatusCancelledDb,
+  makeProjectStatusDoneDb,
+  makeProjectStatusInProgressDb,
   updateProjectDb,
 } from "@/database/projectDb";
 import { AddProjectDto } from "@/dto/add/addProjectDto";
@@ -72,6 +75,28 @@ export const updateProject = (project: UpdateProjectDto) => {
 
   updateProjectDb(oldProject);
 };
+
+
+
+export const makeProjectStatusInProgress = (id: number) => {
+  makeProjectStatusInProgressDb(id) 
+}
+
+
+export const makeProjectStatusDone = (id: number) => {
+  makeProjectStatusDoneDb(id)
+}
+
+export const makeProjectStatusCancelled = (id: number) => {
+  makeProjectStatusCancelledDb(id)
+}
+
+
+
+
+
+
+
 
 export const printProject = () => {
   const projects = listProject();

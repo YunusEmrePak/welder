@@ -5,12 +5,13 @@ import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { createTables, dropTables } from "@/database/database";
 import { AddProjectDto } from "@/dto/add/addProjectDto";
-import { addProject, updateProject } from "@/services/projectService";
+import { addProject, makeProjectStatusCancelled, makeProjectStatusDone, makeProjectStatusInProgress, updateProject } from "@/services/projectService";
 import { updateEmployee } from "@/services/employeeService";
 import { UpdatedEmployeeDto } from "@/dto/update/updateEmployeeDto";
 import { UpdateProjectDto } from "@/dto/update/updateProjectDto";
 import { renderTable } from "@/utils/renderTable";
-import { cancelled, done, inProgress, notStarted } from "@/enum/status";
+import { done, inProgress, notStarted } from "@/enum/status";
+import { increaseWorkedDayEmployeeProject } from "@/services/employeeProjectService";
 
 const projectDto: AddProjectDto = {
   title: "dis kapi",
@@ -25,17 +26,19 @@ const updateProjectDto: UpdateProjectDto = {
   id: 1,
   title: "Ev kapisi",
   detail: null,
-  customer: "Mehmet Subasi",
+  customer: "Mahmut Kara",
   status: inProgress,
-  price: 1000,
-  material_cost: 500,
-  paid_amount: 500,
+  price: 6000,
+  material_cost: 1500,
+  paid_amount: 6000,
 };
 
 export default function TabLayout() {
   useEffect(() => {
     createTables();
 
+    // increaseWorkedDayEmployeeProject(1, 2)
+    // makeProjectStatusInProgress(2)
     // updateProject(updateProjectDto)
     // updateEmployee(updateEmployeeDto)
     // addProject(projectDto);

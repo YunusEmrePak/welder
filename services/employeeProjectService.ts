@@ -1,6 +1,7 @@
-import { assignEmployeeToProjectDb, dismissEmployeeFromProjectDb, findEmployeeProjectByForeignKeysDb, findEmployeeProjectByIdDb, listEmployeeProject, listEmployeeProjectByProjectIdDb } from "@/database/employeeProjectDb"
+import { assignEmployeeToProjectDb, dismissEmployeeFromProjectDb, findEmployeeProjectByForeignKeysDb, findEmployeeProjectByIdDb, increaseWorkedDayEmployeeProjectDb, listEmployeeProject, listEmployeeProjectByProjectIdDb } from "@/database/employeeProjectDb"
 import { AddEmployeeProjectDto } from "@/dto/add/addEmployeeProjectDto"
 import { EmployeeProject } from "@/entity/employeeProject"
+import { increaseWorkedDayEmployee } from "./employeeService"
 
 export const findEmployeeProjectById = (id: number) => {
     return findEmployeeProjectByIdDb(id)
@@ -22,6 +23,11 @@ export const listEmployeeProjectByProjectId = (projectId: number): EmployeeProje
     return listEmployeeProjectByProjectIdDb(projectId)
 }
 
+export const increaseWorkedDayEmployeeProject = (employeeId: number, projectId: number) => {
+    increaseWorkedDayEmployee(employeeId)
+    increaseWorkedDayEmployeeProjectDb(employeeId, projectId)
+}
+
 export const printEmployeeProject = () => {
     const employeeProjects: EmployeeProject[] = listEmployeeProject();
     console.log(
@@ -29,7 +35,7 @@ export const printEmployeeProject = () => {
     );
   
     console.log(
-      "ID  | Employee ID  | Project ID"
+      "ID  | Employee ID  | Project ID | Worked Day"
     );
     console.log(
       "-------------------------------------"
@@ -37,7 +43,7 @@ export const printEmployeeProject = () => {
   
     employeeProjects.forEach((employeeProject) => {
       console.log(
-        `${employeeProject.id}  | ${employeeProject.employee_id}           | ${employeeProject.project_id}`
+        `${employeeProject.id}  | ${employeeProject.employee_id}           | ${employeeProject.project_id}  | ${employeeProject.worked_day}`
       );
     });
   };
