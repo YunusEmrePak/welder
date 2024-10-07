@@ -58,6 +58,13 @@ export const increaseWorkedDayEmployee = (id: number) => {
   increaseWorkedDayEmployeeDb(id)
 }
 
+export const decreaseWorkedDayEmployee = (id: number) => {
+  decreaseWorkedDayEmployee(id)
+}
+
+
+
+
 export const printEmployee = () => {
   const employees: Employee[] = listEmployee(); // Assuming listEmployee() fetches the employee list
 

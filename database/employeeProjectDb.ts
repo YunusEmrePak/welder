@@ -72,3 +72,9 @@ export const increaseWorkedDayEmployeeProjectDb = (employeeId: number, projectId
         "UPDATE employee_project Set worked_day= worked_day + 1 where employee_id=? and project_id=?",employeeId, projectId
     )
 }
+
+export const decreaseWorkedDayEmployeeProjectDb = (employeeId: number, projectId: number) => {
+    return db.runSync(
+        "UPDATE employee_project Set worked_day= worked_day - 1 where employee_id=? and project_id=?",employeeId, projectId
+    )
+}
