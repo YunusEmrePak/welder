@@ -38,7 +38,13 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   return (
     <TouchableOpacity
       onPress={onClick}
-      style={{ width: "100%", justifyContent: "center", alignItems: "center" }}
+      style={
+        {
+          width,
+          justifyContent: "center",
+          alignItems: "center",
+        } as ViewStyle
+      }
     >
       <View
         style={[

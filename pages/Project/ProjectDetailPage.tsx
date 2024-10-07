@@ -1,4 +1,5 @@
 import Topbar from "@/components/bar/Topbar";
+import ProjectDetail from "@/components/project/ProjectDetail";
 import { projectActions } from "@/redux/slices/projectSlice";
 import { RootState, useAppDispatch } from "@/store";
 import { verticalScale } from "@/themes/Metrics";
@@ -24,26 +25,10 @@ const ProjectDetailPage: React.FC<ProjectDetailProps> = ({ id }) => {
   return (
     <View style={styles.container}>
       <Topbar />
-      <Text>Project Detail Page</Text>
       {projectDetailInformation && (
         <ScrollView style={styles.scrollView}>
           <View style={styles.scrollContainer}>
-            <Text>Id: {projectDetailInformation.id}</Text>
-            <Text>Başlık: {projectDetailInformation.title}</Text>
-            <Text>Detay: {projectDetailInformation.detail}</Text>
-            <Text>Müşteri: {projectDetailInformation.customer}</Text>
-            <Text>Durum: {projectDetailInformation.status}</Text>
-            <Text>Fiyat: {projectDetailInformation.price}</Text>
-            <Text>
-              Malzeme Ücreti: {projectDetailInformation.material_cost}
-            </Text>
-            <Text>
-              Oluşturma Tarihi: {projectDetailInformation.create_date}
-            </Text>
-            <Text>Başlama Tarihi: {projectDetailInformation.start_date}</Text>
-            <Text>Bitiş Tarihi: {projectDetailInformation.finish_date}</Text>
-            <Text>Ödenen Miktar: {projectDetailInformation.paid_amount}</Text>
-            <Text>Alınacak Miktar: {projectDetailInformation.debt_amount}</Text>
+            <ProjectDetail />
           </View>
         </ScrollView>
       )}

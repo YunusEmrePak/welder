@@ -15,7 +15,7 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   return (
     <Provider store={store}>
-      <StatusBar style="light" />
+      <StatusBar style="auto" />
       <Toast />
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

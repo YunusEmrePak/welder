@@ -14,7 +14,6 @@ import {
   View,
 } from "react-native";
 
-// Define the props type
 type ProjectProps = {
   item: Project;
 };
