@@ -55,3 +55,7 @@ export const updateTotalWorkedDayByEmployeeIdDb = (id: number, newTotalWorkedDay
 export const increaseWorkedDayEmployeeDb = (id: number) => {
   db.runSync("UPDATE employee SET total_worked_day = total_worked_day + 1, total_paid_amount = total_paid_amount + daily_pay WHERE id=?",  id)
 }
+
+export const decreaseWorkedDayEmployeeDb = (id: number) => {
+  db.runSync("UPDATE employee SET total_worked_day = total_worked_day - 1, total_paid_amount = total_paid_amount - daily_pay WHERE id=?",  id)
+}
