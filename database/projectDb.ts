@@ -23,7 +23,7 @@ export const addProjectDb = (project: Project) => {
 };
 
 export const listProjectDb = (): Project[] => {
-  return db.getAllSync("SELECT * FROM project") as Project[];
+  return db.getAllSync("SELECT * FROM project order by id desc") as Project[];
 };
 
 export const findProjectByIdDb = (id: number): Project | null => {
