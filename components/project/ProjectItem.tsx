@@ -4,6 +4,7 @@ import {
   moderateScale,
   verticalScale,
 } from "@/themes/Metrics";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
   Animated,
@@ -34,6 +35,7 @@ const statusMessage = {
 
 const ProjectItem: React.FC<ProjectProps> = ({ item }) => {
   const [scaleAnim] = useState(new Animated.Value(1));
+  const router = useRouter();
 
   const handlePressIn = () => {
     Animated.spring(scaleAnim, {
@@ -51,15 +53,20 @@ const ProjectItem: React.FC<ProjectProps> = ({ item }) => {
     }).start();
   };
 
+  const handlePress = () => {
+    if (typeof item.id === "number") {
+      router.push(`/project/${item.id}`);
+    } else {
+      console.error("Invalid project ID:", item.id);
+    }
+  };
+
   return (
     <TouchableOpacity
       activeOpacity={1}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
-      // onPress={() => {
-      //   // Add your onPress logic here
-      //   console.log('Container pressed');
-      // }}
+      onPress={handlePress}
     >
       <Animated.View
         style={[

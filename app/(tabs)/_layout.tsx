@@ -49,6 +49,7 @@ export default function TabLayout() {
         headerShown: false,
         tabBarActiveBackgroundColor: Colors["dark"].background,
         tabBarInactiveBackgroundColor: Colors["dark"].background,
+        tabBarHideOnKeyboard: true,
       }}
     >
       <Tabs.Screen

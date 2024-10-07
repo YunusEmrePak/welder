@@ -1,12 +1,15 @@
+import { findEmployeeProjectByIdDb } from "@/database/employeeProjectDb";
 import { AddProjectDto } from "@/dto/add/addProjectDto";
 import { Project } from "@/entity/project";
-import { listProject } from "@/services/projectService";
+import { listEmployeeProjectByProjectId } from "@/services/employeeProjectService";
+import { findProjectById, listProject } from "@/services/projectService";
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface ProjectState {
   projectList: Project[];
   isModalVisible: boolean;
   addProjectForm: AddProjectDto;
+  projectDetailInformation: Project | null;
 }
 
 const initialState: ProjectState = {
@@ -20,6 +23,20 @@ const initialState: ProjectState = {
     material_cost: 0,
     paid_amount: 0,
   },
+  projectDetailInformation: {
+    id: null,
+    title: "",
+    detail: "",
+    customer: "",
+    status: "",
+    price: 0,
+    material_cost: 0,
+    create_date: "",
+    paid_amount: 0,
+    debt_amount: 0,
+    start_date: null,
+    finish_date: null,
+  },
 };
 
 const projectSlice = createSlice({
@@ -28,6 +45,12 @@ const projectSlice = createSlice({
   reducers: {
     setProjectList: (state) => {
       state.projectList = listProject();
+    },
+    setProjectDetailInformation: (state, action) => {
+      state.projectDetailInformation = findProjectById(action.payload);
+    },
+    setProjectEmployeeList: (state, action) => {
+      console.log(listEmployeeProjectByProjectId(action.payload));
     },
     setProjectAddModalVisible: (state) => {
       state.isModalVisible = !state.isModalVisible;
@@ -49,6 +72,16 @@ const projectSlice = createSlice({
     },
     setProjectPaidAmount: (state, action) => {
       state.addProjectForm.paid_amount = action.payload;
+    },
+    setProjectFormClear: (state) => {
+      state.addProjectForm = {
+        title: "",
+        detail: "",
+        customer: "",
+        price: 0,
+        material_cost: 0,
+        paid_amount: 0,
+      };
     },
   },
   //   extraReducers: (builder) => {

@@ -19,7 +19,9 @@ interface CustomInputProps {
 
 const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
   const dispatch = useAppDispatch();
-  const { isModalVisible } = useSelector((state: RootState) => state.project);
+  const { isModalVisible, addProjectForm } = useSelector(
+    (state: RootState) => state.project
+  );
 
   const renderInput = (val: string) => {
     if (val === "title")
@@ -30,6 +32,7 @@ const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
           onChangeText={(value) =>
             dispatch(projectActions.setProjectTitle(value))
           }
+          value={addProjectForm.title}
         />
       );
     if (val === "detail")
@@ -40,6 +43,7 @@ const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
           onChangeText={(value) =>
             dispatch(projectActions.setProjectDetail(value))
           }
+          value={addProjectForm.detail}
         />
       );
     if (val === "customer")
@@ -50,36 +54,43 @@ const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
           onChangeText={(value) =>
             dispatch(projectActions.setProjectCustomer(value))
           }
+          value={addProjectForm.customer}
         />
       );
     if (val === "price")
       return (
         <TextInput
           style={styles.input}
+          keyboardType="number-pad"
           placeholder="Ücret"
           onChangeText={(value) =>
             dispatch(projectActions.setProjectPrice(value))
           }
+          value={addProjectForm.price === 0 ? "" : addProjectForm.price.toString()}
         />
       );
     if (val === "material_cost")
       return (
         <TextInput
           style={styles.input}
+          keyboardType="number-pad"
           placeholder="Malzeme Ücreti"
           onChangeText={(value) =>
             dispatch(projectActions.setProjectMaterialCost(value))
           }
+          value={addProjectForm.material_cost === 0 ? "" : addProjectForm.material_cost.toString()}
         />
       );
     if (val === "paid_amount")
       return (
         <TextInput
           style={styles.input}
+          keyboardType="number-pad"
           placeholder="Ödenmiş Miktar"
           onChangeText={(value) =>
             dispatch(projectActions.setProjectPaidAmount(value))
           }
+          value={addProjectForm.paid_amount === 0 ? "" : addProjectForm.paid_amount.toString()}
         />
       );
   };

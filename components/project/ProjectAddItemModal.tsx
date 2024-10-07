@@ -13,10 +13,14 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  ToastAndroid,
 } from "react-native";
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
 import CustomInput, { CutomInputItemState } from "../constant/CustomInput";
+import { addProject } from "@/services/projectService";
+
+import Toast from "react-native-toast-message";
 
 const inputs: CutomInputItemState[] = [
   { inputName: "title" },
@@ -37,8 +41,12 @@ const ProjectAddItemModal = () => {
     dispatch(projectActions.setProjectAddModalVisible());
   };
 
-  const addProject = () => {
-    console.log(addProjectForm);
+  const addProjectHandler = () => {
+    addProject(addProjectForm);
+    dispatch(projectActions.setProjectList());
+    dispatch(projectActions.setProjectAddModalVisible());
+    dispatch(projectActions.setProjectFormClear());
+    ToastAndroid.show("Proje başarıyla eklendi.", ToastAndroid.LONG);
   };
 
   return (
@@ -57,7 +65,7 @@ const ProjectAddItemModal = () => {
             ))}
             <CustomButton
               name="Ekle"
-              onClick={addProject}
+              onClick={addProjectHandler}
               iconUrl={require("@/assets/icons/add.png")}
             />
           </Pressable>

@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import EmployeePage from "../../pages/EmployeePage";
+import EmployeePage from "../../pages/Employee/EmployeePage";
 
 export default function EmployeeScreen() {
   return <EmployeePage />;
