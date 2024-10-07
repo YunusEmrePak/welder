@@ -23,8 +23,8 @@ const projectDto: AddProjectDto = {
 };
 
 const updateProjectDto: UpdateProjectDto = {
-  id: 2,
-  title: "Bahçe Kapısı",
+  id: 1,
+  title: "Ev kapisi",
   detail: null,
   customer: "Mahmut Kara",
   status: inProgress,
@@ -42,7 +42,7 @@ export default function TabLayout() {
     // updateProject(updateProjectDto)
     // updateEmployee(updateEmployeeDto)
     // addProject(projectDto);
-    renderTable();
+    // renderTable();
   }, []);
 
   return (
@@ -52,6 +52,7 @@ export default function TabLayout() {
         headerShown: false,
         tabBarActiveBackgroundColor: Colors["dark"].background,
         tabBarInactiveBackgroundColor: Colors["dark"].background,
+        tabBarHideOnKeyboard: true,
       }}
     >
       <Tabs.Screen

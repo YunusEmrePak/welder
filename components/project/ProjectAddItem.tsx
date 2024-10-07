@@ -6,6 +6,7 @@ import {
   verticalScale,
 } from "@/themes/Metrics";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import CustomButton from "../constant/CustomButton";
 
 const ProjectAddItem: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -16,7 +17,7 @@ const ProjectAddItem: React.FC = () => {
 
   return (
     <View style={[styles.container]}>
-      <TouchableOpacity onPress={openAddItemModal}>
+      {/* <TouchableOpacity onPress={openAddItemModal}>
         <View style={styles.buttonContainer}>
           <Text style={styles.buttonText}>Proje Ekle</Text>
           <Image
@@ -25,7 +26,12 @@ const ProjectAddItem: React.FC = () => {
             style={styles.addIcon}
           />
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+      <CustomButton
+        name="Proje Ekle"
+        onClick={openAddItemModal}
+        iconUrl={require('@/assets/icons/new-project.png')}
+      />
     </View>
   );
 };

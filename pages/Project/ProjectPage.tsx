@@ -6,7 +6,7 @@ import { projectActions } from "@/redux/slices/projectSlice";
 import { RootState, useAppDispatch } from "@/store";
 import { verticalScale } from "@/themes/Metrics";
 import { useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 
@@ -24,11 +24,15 @@ const ProjectPage = () => {
   return (
     <View style={styles.container}>
       <Topbar />
-      <ProjectAddItem />
-      {projectList.map((item) => (
-        <ProjectItem key={item.id} item={item} />
-      ))}
-      <ProjectAddItemModal />
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.scrollContainer}>
+          <ProjectAddItem />
+          {projectList.map((item) => (
+            <ProjectItem key={item.id} item={item} />
+          ))}
+          <ProjectAddItemModal />
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -37,7 +41,15 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: "flex-start",
     alignItems: "center",
-    // marginTop: verticalScale(15)
+  },
+  scrollView: {
+    width: "100%",
+  },
+  scrollContainer: {
+    width: "100%",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    paddingBottom: verticalScale(120),
   },
 });
 

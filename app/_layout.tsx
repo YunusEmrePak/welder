@@ -8,40 +8,21 @@ import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 import { Provider } from "react-redux";
+import Toast from "react-native-toast-message";
 
 SplashScreen.preventAutoHideAsync();
-
-const employeeDto: AddEmployeeDto = {
-    name_surname: "Yunus Emre",
-    daily_pay: 750
-}
-
-const projectDto: AddProjectDto = {
-  title: "dis kapi",
-  detail: "6x2 metal dis kapi",
-  customer: "yunus emre",
-  price: 6000,
-  material_cost: 1500,
-  paid_amount: 0
-}
-
-const projectEmployee: AddEmployeeProjectDto = {
-  employee_id: 1,
-  project_id: 2,
-}
-
-const updateEmployeeDto: UpdatedEmployeeDto = {
-  id: 2,
-  name_surname:"Ahmet Hamdi",
-  daily_pay:450
-}
 
 export default function RootLayout() {
   return (
     <Provider store={store}>
-      <StatusBar style="dark" />
+      <StatusBar style="light" />
+      <Toast />
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="project/[id]"
+          options={{ presentation: "modal", headerShown: false }}
+        />
       </Stack>
     </Provider>
   );

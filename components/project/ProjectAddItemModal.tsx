@@ -1,16 +1,52 @@
 import { projectActions } from "@/redux/slices/projectSlice";
 import { RootState, useAppDispatch } from "@/store";
-import { moderateScale } from "@/themes/Metrics";
+import {
+  horizontalScale,
+  moderateScale,
+  verticalScale,
+} from "@/themes/Metrics";
 import React from "react";
-import { Modal, StyleSheet, Text, Pressable, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  ToastAndroid,
+} from "react-native";
 import { useSelector } from "react-redux";
+import CustomButton from "../constant/CustomButton";
+import CustomInput, { CutomInputItemState } from "../constant/CustomInput";
+import { addProject } from "@/services/projectService";
+
+import Toast from "react-native-toast-message";
+
+const inputs: CutomInputItemState[] = [
+  { inputName: "title" },
+  { inputName: "detail" },
+  { inputName: "customer" },
+  { inputName: "price" },
+  { inputName: "material_cost" },
+  { inputName: "paid_amount" },
+];
 
 const ProjectAddItemModal = () => {
   const dispatch = useAppDispatch();
-  const { isModalVisible } = useSelector((state: RootState) => state.project);
+  const { isModalVisible, addProjectForm } = useSelector(
+    (state: RootState) => state.project
+  );
 
   const closeModal = () => {
     dispatch(projectActions.setProjectAddModalVisible());
+  };
+
+  const addProjectHandler = () => {
+    addProject(addProjectForm);
+    dispatch(projectActions.setProjectList());
+    dispatch(projectActions.setProjectAddModalVisible());
+    dispatch(projectActions.setProjectFormClear());
+    ToastAndroid.show("Proje başarıyla eklendi.", ToastAndroid.LONG);
   };
 
   return (
@@ -21,17 +57,19 @@ const ProjectAddItemModal = () => {
       onRequestClose={closeModal}
     >
       <Pressable style={styles.overlay} onPress={closeModal}>
-        <View style={styles.centeredView}>
+        <KeyboardAvoidingView style={styles.centeredView}>
           <Pressable style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={closeModal}
-            >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </Pressable>
+            <Text style={styles.title}>Proje Ekleme</Text>
+            {inputs.map((item) => (
+              <CustomInput key={item.inputName} item={item} />
+            ))}
+            <CustomButton
+              name="Ekle"
+              onClick={addProjectHandler}
+              iconUrl={require("@/assets/icons/add.png")}
+            />
           </Pressable>
-        </View>
+        </KeyboardAvoidingView>
       </Pressable>
     </Modal>
   );
@@ -47,10 +85,16 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  title: {
+    fontSize: moderateScale(20),
+    marginBottom: verticalScale(15),
+  },
   modalView: {
     backgroundColor: "white",
-    borderRadius: moderateScale(20),
-    padding: 35,
+    borderRadius: moderateScale(10),
+    paddingHorizontal: horizontalScale(20),
+    paddingVertical: verticalScale(15),
+    width: "70%",
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -62,7 +106,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
-    borderRadius: 20,
+    borderRadius: moderateScale(10),
     padding: 10,
     elevation: 2,
   },
@@ -77,6 +121,16 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center",
+  },
+  input: {
+    height: verticalScale(30),
+    width: horizontalScale(200),
+    backgroundColor: "#fcfcfc",
+    borderRadius: moderateScale(10),
+    borderColor: "#e3e3e9",
+    borderWidth: 1,
+    paddingHorizontal: horizontalScale(5),
+    marginBottom: verticalScale(10),
   },
 });
 

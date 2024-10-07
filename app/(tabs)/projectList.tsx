@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import ProjectPage from "../../pages/ProjectPage";
+import ProjectPage from "../../pages/Project/ProjectPage";
 
 export default function ProjectScreen() {
   return <ProjectPage />;
