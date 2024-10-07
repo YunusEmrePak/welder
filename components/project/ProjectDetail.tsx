@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(10),
     borderRadius: moderateScale(10),
     paddingTop: verticalScale(30),
-    paddingBottom: verticalScale(10),
+    paddingBottom: verticalScale(15),
     paddingHorizontal: horizontalScale(15),
   },
   titleIcon: {
@@ -205,7 +205,6 @@ const styles = StyleSheet.create({
   },
   customerContainer: {
     width: "100%",
-    height: verticalScale(240),
     marginTop: verticalScale(20),
   },
   moneyContainer: {
