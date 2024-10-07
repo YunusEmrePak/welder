@@ -1,5 +1,7 @@
 import Topbar from "@/components/bar/Topbar";
 import ProjectDetail from "@/components/project/ProjectDetail";
+import ProjectDetailStatusButton from "@/components/project/ProjectDetailStatusButtons";
+import ProjectEmployeeList from "@/components/project/ProjectEmployeeList";
 import { projectActions } from "@/redux/slices/projectSlice";
 import { RootState, useAppDispatch } from "@/store";
 import { verticalScale } from "@/themes/Metrics";
@@ -29,6 +31,11 @@ const ProjectDetailPage: React.FC<ProjectDetailProps> = ({ id }) => {
         <ScrollView style={styles.scrollView}>
           <View style={styles.scrollContainer}>
             <ProjectDetail />
+            <ProjectDetailStatusButton
+              status={projectDetailInformation.status}
+              id={projectDetailInformation.id}
+            />
+            <ProjectEmployeeList />
           </View>
         </ScrollView>
       )}

@@ -14,6 +14,7 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
+import { formatMoney } from "@/utils/formatMoney";
 
 const ProjectDetail = () => {
   const dispatch = useAppDispatch();
@@ -89,13 +90,13 @@ const ProjectDetail = () => {
             <View style={[styles.col]}>
               <Text style={styles.moneyTitle}>Gider</Text>
               <Text style={styles.moneyText}>
-                {projectDetailInformation?.material_cost}₺
+                {formatMoney(projectDetailInformation?.material_cost)}
               </Text>
             </View>
             <View style={[styles.col]}>
               <Text style={styles.moneyTitle}>Ödenen</Text>
               <Text style={styles.moneyText}>
-                {projectDetailInformation?.paid_amount}₺
+                {formatMoney(projectDetailInformation?.paid_amount)}
               </Text>
             </View>
           </View>
@@ -103,13 +104,13 @@ const ProjectDetail = () => {
             <View style={[styles.col]}>
               <Text style={styles.moneyTitle}>Ücret</Text>
               <Text style={styles.moneyText}>
-                {projectDetailInformation?.price}₺
+                {formatMoney(projectDetailInformation?.price)}
               </Text>
             </View>
             <View style={[styles.col]}>
               <Text style={styles.moneyTitle}>Borç</Text>
               <Text style={styles.moneyText}>
-                {projectDetailInformation?.debt_amount}₺
+                {formatMoney(projectDetailInformation?.debt_amount)}
               </Text>
             </View>
           </View>
@@ -119,7 +120,7 @@ const ProjectDetail = () => {
             name="Güncelle"
             onClick={openUpdateProjectModal}
             iconUrl={require("@/assets/icons/pen.png")}
-            width={horizontalScale(125)}
+            width={horizontalScale(140)}
             height={verticalScale(45)}
           />
         </View>

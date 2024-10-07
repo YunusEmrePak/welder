@@ -4,6 +4,7 @@ import {
   moderateScale,
   verticalScale,
 } from "@/themes/Metrics";
+import { formatMoney } from "@/utils/formatMoney";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
@@ -108,7 +109,7 @@ const ProjectItem: React.FC<ProjectProps> = ({ item }) => {
               numberOfLines={1}
               ellipsizeMode="tail"
             >
-              {item.price} TL
+              {formatMoney(item.price)}
             </Text>
           </View>
           <View style={styles.item}>
@@ -124,7 +125,7 @@ const ProjectItem: React.FC<ProjectProps> = ({ item }) => {
               numberOfLines={1}
               ellipsizeMode="tail"
             >
-              {item.debt_amount} TL
+              {formatMoney(item.debt_amount)}
             </Text>
           </View>
         </View>

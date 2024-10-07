@@ -19,6 +19,7 @@ const ProjectPage = () => {
 
   useEffect(() => {
     dispatch(projectActions.setProjectList());
+    console.log("here")
   }, []);
 
   return (

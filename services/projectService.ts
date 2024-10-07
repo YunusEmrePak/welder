@@ -76,27 +76,17 @@ export const updateProject = (project: UpdateProjectDto) => {
   updateProjectDb(oldProject);
 };
 
-
-
 export const makeProjectStatusInProgress = (id: number) => {
-  makeProjectStatusInProgressDb(id) 
-}
-
+  makeProjectStatusInProgressDb(id);
+};
 
 export const makeProjectStatusDone = (id: number) => {
-  makeProjectStatusDoneDb(id)
-}
+  makeProjectStatusDoneDb(id);
+};
 
 export const makeProjectStatusCancelled = (id: number) => {
-  makeProjectStatusCancelledDb(id)
-}
-
-
-
-
-
-
-
+  makeProjectStatusCancelledDb(id);
+};
 
 export const printProject = () => {
   const projects = listProject();
