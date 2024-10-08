@@ -55,7 +55,7 @@ const EmployeeAddItemModal = () => {
     dispatch(employeeActions.setEmployeeList());
     dispatch(employeeActions.setEmployeeAddModalVisible());
     dispatch(employeeActions.setEmployeeFormClear());
-    ToastAndroid.show("Proje başarıyla eklendi.", ToastAndroid.LONG);
+    ToastAndroid.show("İşçi başarıyla eklendi.", ToastAndroid.LONG);
   };
 
   return (

@@ -38,16 +38,13 @@ const updateProjectDto: UpdateProjectDto = {
 export default function TabLayout() {
   useEffect(() => {
     // clearDb();
-    createTables()
-
-    renderTable();
-    console.log("Total collected money: ", totalCollectedMoney())
-    console.log("Total Debt: ", totalDebt())
-    console.log("Total Material Cost: ", totalMaterialCost())
-    console.log("Total Employee Cost: ", totolEmployeeCost())
-
-    console.log(listProjectByAssignedEmployee(1))
-
+    createTables();
+    // renderTable();
+    // console.log("Total collected money: ", totalCollectedMoney())
+    // console.log("Total Debt: ", totalDebt())
+    // console.log("Total Material Cost: ", totalMaterialCost())
+    // console.log("Total Material Cost: ", totalMaterialCost())
+    // console.log("Total Employee Cost: ", totolEmployeeCost())
   }, []);
 
   return (

@@ -12,7 +12,7 @@ import {
   Pressable,
   StyleSheet,
   Text,
-  ToastAndroid
+  ToastAndroid,
 } from "react-native";
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
@@ -58,7 +58,7 @@ const EmployeeUpdateItemModal = () => {
     );
     dispatch(employeeActions.setEmployeeUpdateModalVisible());
     dispatch(employeeActions.setUpdateEmployeeFormClear());
-    ToastAndroid.show("Proje başarıyla güncellendi.", ToastAndroid.LONG);
+    ToastAndroid.show("İşçi başarıyla güncellendi.", ToastAndroid.LONG);
   };
 
   return (

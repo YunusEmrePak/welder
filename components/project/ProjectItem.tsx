@@ -1,4 +1,6 @@
 import { Project } from "@/entity/project";
+import { projectActions } from "@/redux/slices/projectSlice";
+import { useAppDispatch } from "@/store";
 import {
   horizontalScale,
   moderateScale,
@@ -34,6 +36,7 @@ const statusMessage = {
 };
 
 const ProjectItem: React.FC<ProjectProps> = ({ item }) => {
+  const dispatch = useAppDispatch();
   const [scaleAnim] = useState(new Animated.Value(1));
   const router = useRouter();
 

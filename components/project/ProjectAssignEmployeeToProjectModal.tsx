@@ -13,6 +13,7 @@ import {
   Pressable,
   StyleSheet,
   Text,
+  ToastAndroid,
   View,
 } from "react-native";
 import { useSelector } from "react-redux";
@@ -32,7 +33,13 @@ const inputs: CutomInputItemState[] = [
   { inputName: "updateDetail" },
 ];
 
-const ProjectAssignEmployeeToProjectModal = () => {
+interface ProjectAssignEmployeeToProjectProps {
+  id: number | null;
+}
+
+const ProjectAssignEmployeeToProjectModal: React.FC<
+  ProjectAssignEmployeeToProjectProps
+> = ({ id }) => {
   const dispatch = useAppDispatch();
   const {
     isAssignModalVisible,
@@ -49,17 +56,21 @@ const ProjectAssignEmployeeToProjectModal = () => {
   };
 
   useEffect(() => {
-    dispatch(
-      projectActions.setListEmployeeDoesNotWorkOnProject(
-        projectDetailInformation?.id
-      )
-    );
-  }, [isAssignModalVisible]);
+    dispatch(projectActions.setListEmployeeDoesNotWorkOnProject(id));
+    dispatch(projectActions.setSelectedEmployee([]));
+  }, [id]);
 
   const assignEmployeeHandler = () => {
+    console.log(id);
     dispatch(projectActions.setAssignEmployeeToProject(selectedEmployee));
     dispatch(projectActions.setAssignModalVisible());
     dispatch(projectActions.setSelectedEmployee([]));
+    dispatch(projectActions.setListEmployeeDoesNotWorkOnProject(id));
+    dispatch(projectActions.setEmployeesWorkOnProject(id));
+    ToastAndroid.show(
+      "İşçi başarıyla projeye atandı.",
+      ToastAndroid.LONG
+    );
     // printEmployeeProject();
   };
 
