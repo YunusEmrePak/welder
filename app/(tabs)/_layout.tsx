@@ -11,7 +11,7 @@ import { UpdatedEmployeeDto } from "@/dto/update/updateEmployeeDto";
 import { UpdateProjectDto } from "@/dto/update/updateProjectDto";
 import { renderTable } from "@/utils/renderTable";
 import { done, inProgress, notStarted } from "@/enum/status";
-import { increaseWorkedDayEmployeeProject } from "@/services/employeeProjectService";
+import { decreaseWorkedDayEmployeeProject, increaseWorkedDayEmployeeProject } from "@/services/employeeProjectService";
 import { totalCollectedMoney, totalDebt, totalMaterialCost, totolEmployeeCost } from "@/services/dashboardService";
 
 const projectDto: AddProjectDto = {
@@ -38,12 +38,14 @@ export default function TabLayout() {
   useEffect(() => {
     // clearDb();
     createTables();
-    // renderTable();
-    // console.log("Total collected money: ", totalCollectedMoney())
-    // console.log("Total Debt: ", totalDebt())
-    // console.log("Total Material Cost: ", totalMaterialCost())
-    // console.log("Total Material Cost: ", totalMaterialCost())
-    // console.log("Total Employee Cost: ", totolEmployeeCost())
+    increaseWorkedDayEmployeeProject(5, 9)
+    decreaseWorkedDayEmployeeProject(5,9)
+    renderTable();
+    console.log("Total collected money: ", totalCollectedMoney())
+    console.log("Total Debt: ", totalDebt())
+    console.log("Total Material Cost: ", totalMaterialCost())
+    console.log("Total Material Cost: ", totalMaterialCost())
+    console.log("Total Employee Cost: ", totolEmployeeCost())
 
   }, []);
 
