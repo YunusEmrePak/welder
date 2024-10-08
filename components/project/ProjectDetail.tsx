@@ -24,7 +24,7 @@ const ProjectDetail = () => {
   );
 
   const openUpdateProjectModal = () => {
-    console.log("Update Page");
+    dispatch(projectActions.setProjectUpdateModalVisible());
   };
 
   const statusMessage = {
@@ -89,7 +89,7 @@ const ProjectDetail = () => {
           <View style={[styles.row]}>
             <View style={[styles.col]}>
               <Text style={styles.moneyTitle}>Gider</Text>
-              <Text style={styles.moneyText}>
+              <Text style={[styles.moneyText, { color: "#b50000" }]}>
                 {formatMoney(projectDetailInformation?.material_cost)}
               </Text>
             </View>
@@ -109,7 +109,18 @@ const ProjectDetail = () => {
             </View>
             <View style={[styles.col]}>
               <Text style={styles.moneyTitle}>Borç</Text>
-              <Text style={styles.moneyText}>
+              <Text
+                style={[
+                  styles.moneyText,
+                  {
+                    color:
+                      projectDetailInformation?.debt_amount !== undefined &&
+                      projectDetailInformation?.debt_amount > 0
+                        ? "#e37500"
+                        : "green",
+                  },
+                ]}
+              >
                 {formatMoney(projectDetailInformation?.debt_amount)}
               </Text>
             </View>

@@ -6,7 +6,8 @@ import {
   verticalScale,
 } from "@/themes/Metrics";
 import React from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Text, View } from "react-native";
+import { StyleSheet, TextInput } from "react-native";
 import { useSelector } from "react-redux";
 
 export interface CutomInputItemState {
@@ -17,9 +18,11 @@ interface CustomInputProps {
   item: CutomInputItemState;
 }
 
-const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
+const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
   const dispatch = useAppDispatch();
-  const { addProjectForm } = useSelector((state: RootState) => state.project);
+  const { addProjectForm, updateProjectForm } = useSelector(
+    (state: RootState) => state.project
+  );
 
   const handleInputChange = (value: string) => {
     if (["price", "material_cost", "paid_amount"].includes(item.inputName)) {
@@ -40,31 +43,33 @@ const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
 
   const handleDispatch = (inputName: string, value: string) => {
     switch (inputName) {
-      case "title":
-        dispatch(projectActions.setProjectTitle(value));
+      case "updateTitle":
+        dispatch(projectActions.setUpdateProjectTitle(value));
         break;
-      case "detail":
-        dispatch(projectActions.setProjectDetail(value));
+      case "updateDetail":
+        dispatch(projectActions.setUpdateProjectDetail(value));
         break;
-      case "customer":
-        dispatch(projectActions.setProjectCustomer(value));
+      case "updateCustomer":
+        dispatch(projectActions.setUpdateProjectCustomer(value));
         break;
-      case "price":
+      case "updatePrice":
         dispatch(
-          projectActions.setProjectPrice(value === "" ? "" : parseInt(value))
-        );
-        break;
-      case "material_cost":
-        dispatch(
-          projectActions.setProjectMaterialCost(
-            value === "" ? "" : parseInt(value)
+          projectActions.setUpdateProjectPrice(
+            value === "" ? "" : parseFloat(value)
           )
         );
         break;
-      case "paid_amount":
+      case "updateMaterial_cost":
         dispatch(
-          projectActions.setProjectPaidAmount(
-            value === "" ? "" : parseInt(value)
+          projectActions.setUpdateProjectMaterialCost(
+            value === "" ? "" : parseFloat(value)
+          )
+        );
+        break;
+      case "updatePaid_amount":
+        dispatch(
+          projectActions.setUpdateProjectPaidAmount(
+            value === "" ? "" : parseFloat(value)
           )
         );
         break;
@@ -75,24 +80,33 @@ const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
 
   const getInputValue = () => {
     switch (item.inputName) {
-      case "title":
-        return addProjectForm.title;
-      case "detail":
-        return addProjectForm.detail;
-      case "customer":
-        return addProjectForm.customer;
-      case "price":
-        return addProjectForm.price.toString() === ""
+      case "updateTitle":
+        return updateProjectForm.title !== null ? updateProjectForm.title : "";
+      case "updateDetail":
+        return updateProjectForm.detail !== null
+          ? updateProjectForm.detail
+          : "";
+      case "updateCustomer":
+        return updateProjectForm.customer !== null
+          ? updateProjectForm.customer
+          : "";
+
+      case "updatePrice":
+        return updateProjectForm.price?.toString() === "" ||
+          updateProjectForm.price === null
           ? ""
-          : addProjectForm.price.toString();
-      case "material_cost":
-        return addProjectForm.material_cost.toString() === ""
+          : updateProjectForm?.price.toString();
+
+      case "updateMaterial_cost":
+        return updateProjectForm.material_cost?.toString() === "" ||
+          updateProjectForm.material_cost === null
           ? ""
-          : addProjectForm.material_cost.toString();
-      case "paid_amount":
-        return addProjectForm.paid_amount.toString() === ""
+          : updateProjectForm?.material_cost.toString();
+      case "updatePaid_amount":
+        return updateProjectForm.paid_amount?.toString() === "" ||
+          updateProjectForm.paid_amount === null
           ? ""
-          : addProjectForm.paid_amount.toString();
+          : updateProjectForm?.paid_amount.toString();
       default:
         return "";
     }
@@ -100,33 +114,33 @@ const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
 
   const getPlaceholder = () => {
     switch (item.inputName) {
-      case "title":
+      case "updateTitle":
         return "Başlık";
-      case "detail":
+      case "updateDetail":
         return "Detay";
-      case "customer":
+      case "updateCustomer":
         return "Müşteri İsmi";
-      case "price":
+      case "updatePrice":
         return "Ücret";
-      case "material_cost":
+      case "updateMaterial_cost":
         return "Malzeme Ücreti";
-      case "paid_amount":
+      case "updatePaid_amount":
         return "Ödenen Miktar";
       default:
         return "";
     }
   };
 
-  const isNumberInput = ["price", "material_cost", "paid_amount"].includes(
-    item.inputName
-  );
+  const isNumberInput = [
+    "updatePrice",
+    "updateMaterial_cost",
+    "updatePaid_amount",
+  ].includes(item.inputName);
 
-  const isDetailInput = item.inputName === "detail";
+  const isDetailInput = item.inputName === "updateDetail";
 
   return (
-    <View
-      style={[styles.container, isDetailInput && styles.detailInputContainer]}
-    >
+    <View style={[styles.container, isDetailInput && styles.detailInputContainer]}>
       <Text style={styles.label}>{getPlaceholder()}</Text>
       <TextInput
         style={[styles.input, isDetailInput && styles.detailInput]}
@@ -167,7 +181,7 @@ const styles = StyleSheet.create({
   detailInput: {
     height: verticalScale(90),
     textAlignVertical: "top",
-    paddingTop: verticalScale(15),
+    paddingTop: verticalScale(15)
   },
   label: {
     marginLeft: verticalScale(3),
@@ -177,7 +191,8 @@ const styles = StyleSheet.create({
     left: 2,
     zIndex: 5,
     fontSize: moderateScale(10),
-    color: "grey",
+    color: "grey"
   },
 });
-export default CustomInput;
+
+export default CustomUpdateInput;

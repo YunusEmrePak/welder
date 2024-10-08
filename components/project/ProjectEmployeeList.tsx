@@ -33,7 +33,6 @@ const ProjectEmployeeList: React.FC = () => {
 
   const addEmployee = () => {
     console.log("Employee Added");
-    console.log(projectDetailInformation?.status);
   };
 
   return (

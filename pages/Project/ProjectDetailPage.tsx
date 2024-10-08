@@ -2,6 +2,7 @@ import Topbar from "@/components/bar/Topbar";
 import ProjectDetail from "@/components/project/ProjectDetail";
 import ProjectDetailStatusButton from "@/components/project/ProjectDetailStatusButtons";
 import ProjectEmployeeList from "@/components/project/ProjectEmployeeList";
+import ProjectUpdateItemModal from "@/components/project/ProjectUpdateItemModal";
 import { projectActions } from "@/redux/slices/projectSlice";
 import { RootState, useAppDispatch } from "@/store";
 import { verticalScale } from "@/themes/Metrics";
@@ -33,9 +34,10 @@ const ProjectDetailPage: React.FC<ProjectDetailProps> = ({ id }) => {
             <ProjectDetail />
             <ProjectDetailStatusButton
               status={projectDetailInformation.status}
-              id={projectDetailInformation.id}
+              id={projectDetailInformation.id ? projectDetailInformation.id : 0}
             />
             <ProjectEmployeeList />
+            <ProjectUpdateItemModal />
           </View>
         </ScrollView>
       )}
