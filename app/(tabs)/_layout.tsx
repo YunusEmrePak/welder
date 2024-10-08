@@ -6,7 +6,7 @@ import { Colors } from "@/constants/Colors";
 import { createTables, dropTables } from "@/database/database";
 import { AddProjectDto } from "@/dto/add/addProjectDto";
 import { addProject, makeProjectStatusCancelled, makeProjectStatusDone, makeProjectStatusInProgress, updateProject } from "@/services/projectService";
-import { updateEmployee } from "@/services/employeeService";
+import { listEmployeeByAssignedProjectId, listEmployeeWhoDoesNotWorkOnProject, updateEmployee } from "@/services/employeeService";
 import { UpdatedEmployeeDto } from "@/dto/update/updateEmployeeDto";
 import { UpdateProjectDto } from "@/dto/update/updateProjectDto";
 import { renderTable } from "@/utils/renderTable";
@@ -43,7 +43,6 @@ export default function TabLayout() {
     console.log("Total Material Cost: ", totalMaterialCost())
     console.log("Total Material Cost: ", totalMaterialCost())
     console.log("Total Employee Cost: ", totolEmployeeCost())
-
   }, []);
 
   return (
