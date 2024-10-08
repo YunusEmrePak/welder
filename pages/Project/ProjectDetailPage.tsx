@@ -24,7 +24,7 @@ const ProjectDetailPage: React.FC<ProjectDetailProps> = ({ id }) => {
 
   useEffect(() => {
     dispatch(projectActions.setProjectDetailInformation(id));
-    dispatch(employeeActions.setEmployeeList());
+    dispatch(projectActions.setListEmployeeDoesNotWorkOnProject(id));
   }, []);
 
   return (

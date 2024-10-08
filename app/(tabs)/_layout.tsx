@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
-import { createTables, dropTables } from "@/database/database";
+import { clearDb, createTables, dropTables } from "@/database/database";
 import { AddProjectDto } from "@/dto/add/addProjectDto";
 import { addProject, makeProjectStatusCancelled, makeProjectStatusDone, makeProjectStatusInProgress, updateProject } from "@/services/projectService";
 import { updateEmployee } from "@/services/employeeService";
@@ -36,13 +36,14 @@ const updateProjectDto: UpdateProjectDto = {
 
 export default function TabLayout() {
   useEffect(() => {
+    // clearDb();
     createTables();
-    renderTable();
-    console.log("Total collected money: ", totalCollectedMoney())
-    console.log("Total Debt: ", totalDebt())
-    console.log("Total Material Cost: ", totalMaterialCost())
-    console.log("Total Material Cost: ", totalMaterialCost())
-    console.log("Total Employee Cost: ", totolEmployeeCost())
+    // renderTable();
+    // console.log("Total collected money: ", totalCollectedMoney())
+    // console.log("Total Debt: ", totalDebt())
+    // console.log("Total Material Cost: ", totalMaterialCost())
+    // console.log("Total Material Cost: ", totalMaterialCost())
+    // console.log("Total Employee Cost: ", totolEmployeeCost())
 
   }, []);
 

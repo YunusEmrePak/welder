@@ -5,30 +5,22 @@ import {
   moderateScale,
   verticalScale,
 } from "@/themes/Metrics";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import {
-  Animated,
   KeyboardAvoidingView,
   Modal,
   Platform,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
-  ToastAndroid,
   View,
 } from "react-native";
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
-import CustomInput, { CutomInputItemState } from "../constant/CustomInput";
-import { addProject, updateProject } from "@/services/projectService";
+import { CutomInputItemState } from "../constant/CustomInput";
 
-import Toast from "react-native-toast-message";
-import CustomUpdateInput from "../constant/CustomUpdateInput";
-import { animateMoneyText } from "@/utils/animateText";
-import { Dropdown, MultiSelect } from "react-native-element-dropdown";
 import { AntDesign } from "@expo/vector-icons";
-import { printEmployeeProject } from "@/services/employeeProjectService";
+import { MultiSelect } from "react-native-element-dropdown";
 
 const inputs: CutomInputItemState[] = [
   { inputName: "updateTitle" },
@@ -41,7 +33,7 @@ const inputs: CutomInputItemState[] = [
 
 const ProjectAssignEmployeeToProjectModal = () => {
   const dispatch = useAppDispatch();
-  const { isAssignModalVisible, selectedEmployee } = useSelector(
+  const { isAssignModalVisible, selectedEmployee, listEmployeeDoesNotWorkOnProject } = useSelector(
     (state: RootState) => state.project
   );
   const { employeeList } = useSelector((state: RootState) => state.employee);
@@ -53,23 +45,12 @@ const ProjectAssignEmployeeToProjectModal = () => {
   };
 
   const assignEmployeeHandler = () => {
-    console.log(selectedEmployee)
-    dispatch(projectActions.setAssignEmployeeToProject(selectedEmployee));
-    dispatch(projectActions.setAssignModalVisible());
-    dispatch(projectActions.setSelectedEmployee([]));
-    printEmployeeProject()
+    console.log(listEmployeeDoesNotWorkOnProject)
+    // dispatch(projectActions.setAssignEmployeeToProject(selectedEmployee));
+    // dispatch(projectActions.setAssignModalVisible());
+    // dispatch(projectActions.setSelectedEmployee([]));
+    // printEmployeeProject()
   };
-
-  const data = [
-    { label: "Item 1", value: "1" },
-    { label: "Item 2", value: "2" },
-    { label: "Item 3", value: "3" },
-    { label: "Item 4", value: "4" },
-    { label: "Item 5", value: "5" },
-    { label: "Item 6", value: "6" },
-    { label: "Item 7", value: "7" },
-    { label: "Item 8", value: "8" },
-  ];
 
   return (
     <Modal
@@ -94,7 +75,7 @@ const ProjectAssignEmployeeToProjectModal = () => {
                 inputSearchStyle={styles.inputSearchStyle}
                 iconStyle={styles.iconStyle}
                 search
-                data={employeeList}
+                data={listEmployeeDoesNotWorkOnProject}
                 labelField="name_surname"
                 valueField="id"
                 placeholder="İşçi Seç"
@@ -140,7 +121,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   selectedStyle: {
-    borderRadius: 12,
+    borderRadius: moderateScale(10),
   },
   title: {
     fontSize: moderateScale(20),
@@ -196,7 +177,7 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     margin: moderateScale(15),
-    height: verticalScale(40),
+    height: verticalScale(50),
     width: horizontalScale(270),
     backgroundColor: "white",
     borderRadius: moderateScale(10),

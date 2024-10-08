@@ -1,12 +1,14 @@
 import { AddEmployeeProjectDto } from "@/dto/add/addEmployeeProjectDto";
 import { AddProjectDto } from "@/dto/add/addProjectDto";
 import { UpdateProjectDto } from "@/dto/update/updateProjectDto";
+import { Employee } from "@/entity/employee";
 import { EmployeeProject } from "@/entity/employeeProject";
 import { Project } from "@/entity/project";
 import {
   assignEmployeeToProject,
   listEmployeeProjectByProjectId,
 } from "@/services/employeeProjectService";
+import { listEmployeeWhoDoesNotWorkOnProject } from "@/services/employeeService";
 import { findProjectById, listProject } from "@/services/projectService";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -21,6 +23,7 @@ export interface ProjectState {
   projectEmployeeList: EmployeeProject[];
   assignEmpToProject: AddEmployeeProjectDto;
   selectedEmployee: string[] | null;
+  listEmployeeDoesNotWorkOnProject: Employee[];
 }
 
 const initialState: ProjectState = {
@@ -28,6 +31,7 @@ const initialState: ProjectState = {
   isModalVisible: false,
   isUpdateModalVisible: false,
   isAssignModalVisible: false,
+  listEmployeeDoesNotWorkOnProject: [],
   projectEmployeeList: [],
   selectedEmployee: [],
   assignEmpToProject: {
@@ -102,6 +106,10 @@ const projectSlice = createSlice({
     },
     setSelectedEmployee: (state, action) => {
       state.selectedEmployee = action.payload;
+    },
+    setListEmployeeDoesNotWorkOnProject: (state, action) => {
+      state.listEmployeeDoesNotWorkOnProject =
+        listEmployeeWhoDoesNotWorkOnProject(action.payload);
     },
 
     setAssignEmployeeToProject: (state, action) => {
