@@ -8,7 +8,10 @@ import {
   assignEmployeeToProject,
   listEmployeeProjectByProjectId,
 } from "@/services/employeeProjectService";
-import { listEmployeeWhoDoesNotWorkOnProject } from "@/services/employeeService";
+import {
+  listEmployeeByAssignedProjectId,
+  listEmployeeWhoDoesNotWorkOnProject,
+} from "@/services/employeeService";
 import { findProjectById, listProject } from "@/services/projectService";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -24,6 +27,7 @@ export interface ProjectState {
   assignEmpToProject: AddEmployeeProjectDto;
   selectedEmployee: string[] | null;
   listEmployeeDoesNotWorkOnProject: Employee[];
+  listEmployeesWorkOnProject: ProjectDetailEmployeeDto[];
 }
 
 const initialState: ProjectState = {
@@ -32,6 +36,7 @@ const initialState: ProjectState = {
   isUpdateModalVisible: false,
   isAssignModalVisible: false,
   listEmployeeDoesNotWorkOnProject: [],
+  listEmployeesWorkOnProject: [],
   projectEmployeeList: [],
   selectedEmployee: [],
   assignEmpToProject: {
@@ -96,6 +101,11 @@ const projectSlice = createSlice({
       state.updateProjectForm.material_cost = project?.material_cost
         ? project?.material_cost
         : 0;
+    },
+
+    setEmployeesWorkOnProject: (state, action) => {
+      const list = listEmployeeByAssignedProjectId(action.payload);
+      state.listEmployeesWorkOnProject = list;
     },
 
     setAssignEmpToProjectEmployeeId: (state, action) => {

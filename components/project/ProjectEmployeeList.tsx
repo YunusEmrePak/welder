@@ -19,9 +19,15 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
-import { listEmployeeProjectByProjectId } from "@/services/employeeProjectService";
+import {
+  decreaseWorkedDayEmployeeProject,
+  increaseWorkedDayEmployeeProject,
+  listEmployeeProjectByProjectId,
+} from "@/services/employeeProjectService";
 import { EmployeeProject } from "@/entity/employeeProject";
 import ProjectAssignEmployeeToProjectModal from "./ProjectAssignEmployeeToProjectModal";
+import { listEmployeeByAssignedProjectId } from "@/services/employeeService";
+import { Employee } from "@/entity/employee";
 
 interface ProjectDetailProps {
   id: number | null;
@@ -30,13 +36,15 @@ interface ProjectDetailProps {
 const ProjectEmployeeList: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const { projectDetailInformation, projectEmployeeList } = useSelector(
-    (state: RootState) => state.project
-  );
+  const {
+    projectDetailInformation,
+    projectEmployeeList,
+    listEmployeesWorkOnProject,
+  } = useSelector((state: RootState) => state.project);
 
   useEffect(() => {
-    console.log(
-      listEmployeeProjectByProjectId(
+    dispatch(
+      projectActions.setEmployeesWorkOnProject(
         projectDetailInformation?.id ? projectDetailInformation?.id : 0
       )
     );
@@ -49,6 +57,25 @@ const ProjectEmployeeList: React.FC = () => {
       )
     );
     dispatch(projectActions.setAssignModalVisible());
+  };
+
+  const increaseWorkDay = (employeeId: number, projectId: number) => {
+    console.log(employeeId, projectId);
+    // increaseWorkedDayEmployeeProject(employee_id, project_id);
+    // dispatch(
+    //   projectActions.setEmployeesWorkOnProject(
+    //     projectDetailInformation?.id ? projectDetailInformation?.id : 0
+    //   )
+    // );
+  };
+
+  const decreaseWorkDay = (employee_id: number, project_id: number) => {
+    decreaseWorkedDayEmployeeProject(employee_id, project_id);
+    // dispatch(
+    //   projectActions.setEmployeesWorkOnProject(
+    //     projectDetailInformation?.id ? projectDetailInformation?.id : 0
+    //   )
+    // );
   };
 
   return (
@@ -76,7 +103,7 @@ const ProjectEmployeeList: React.FC = () => {
           },
         ]}
       >
-        {projectEmployeeList.map((item: EmployeeProject) => (
+        {listEmployeesWorkOnProject.map((item: ProjectDetailEmployeeDto) => (
           <View key={item.id} style={styles.employeeContainer}>
             <View style={styles.titleContainer}>
               <Image
@@ -84,17 +111,37 @@ const ProjectEmployeeList: React.FC = () => {
                 style={styles.icon}
               />
               <Text style={[styles.text, styles.titleText]}>
-                Yunus Emre Pak
+                {item.name_surname}
               </Text>
             </View>
             <View style={styles.dayButtons}>
-              <TouchableOpacity style={styles.dayButtonContainer}>
+              <TouchableOpacity
+                onPress={() =>
+                  decreaseWorkDay(
+                    item.id,
+                    projectDetailInformation?.id
+                      ? projectDetailInformation?.id
+                      : 0
+                  )
+                }
+                style={styles.dayButtonContainer}
+              >
                 <Text style={styles.dayButton}>-</Text>
               </TouchableOpacity>
               <View style={styles.workDay}>
-                <Text style={styles.workText}>3</Text>
+                <Text style={styles.workText}>{item.worked_day}</Text>
               </View>
-              <TouchableOpacity style={styles.dayButtonContainer}>
+              <TouchableOpacity
+                onPress={() =>
+                  increaseWorkDay(
+                    item.id,
+                    projectDetailInformation?.id
+                      ? projectDetailInformation?.id
+                      : 0
+                  )
+                }
+                style={styles.dayButtonContainer}
+              >
                 <Text style={styles.dayButton}>+</Text>
               </TouchableOpacity>
             </View>
@@ -151,7 +198,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   workText: {
-    fontSize: moderateScale(20),
+    fontSize: moderateScale(18),
   },
   dayButton: {
     fontSize: moderateScale(23),
@@ -170,7 +217,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
   },
   titleText: {
-    fontSize: moderateScale(18),
+    fontSize: moderateScale(16),
     marginLeft: horizontalScale(5),
   },
   text: {

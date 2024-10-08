@@ -5,7 +5,7 @@ import {
   moderateScale,
   verticalScale,
 } from "@/themes/Metrics";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   KeyboardAvoidingView,
   Modal,
@@ -21,6 +21,7 @@ import { CutomInputItemState } from "../constant/CustomInput";
 
 import { AntDesign } from "@expo/vector-icons";
 import { MultiSelect } from "react-native-element-dropdown";
+import { printEmployeeProject } from "@/services/employeeProjectService";
 
 const inputs: CutomInputItemState[] = [
   { inputName: "updateTitle" },
@@ -33,9 +34,12 @@ const inputs: CutomInputItemState[] = [
 
 const ProjectAssignEmployeeToProjectModal = () => {
   const dispatch = useAppDispatch();
-  const { isAssignModalVisible, selectedEmployee, listEmployeeDoesNotWorkOnProject } = useSelector(
-    (state: RootState) => state.project
-  );
+  const {
+    isAssignModalVisible,
+    selectedEmployee,
+    listEmployeeDoesNotWorkOnProject,
+    projectDetailInformation,
+  } = useSelector((state: RootState) => state.project);
   const { employeeList } = useSelector((state: RootState) => state.employee);
   const [value, setValue] = useState<string | null>(null);
   const [selected, setSelected] = useState<string[] | null>([]);
@@ -44,12 +48,19 @@ const ProjectAssignEmployeeToProjectModal = () => {
     dispatch(projectActions.setAssignModalVisible());
   };
 
+  useEffect(() => {
+    dispatch(
+      projectActions.setListEmployeeDoesNotWorkOnProject(
+        projectDetailInformation?.id
+      )
+    );
+  }, [isAssignModalVisible]);
+
   const assignEmployeeHandler = () => {
-    console.log(listEmployeeDoesNotWorkOnProject)
-    // dispatch(projectActions.setAssignEmployeeToProject(selectedEmployee));
-    // dispatch(projectActions.setAssignModalVisible());
-    // dispatch(projectActions.setSelectedEmployee([]));
-    // printEmployeeProject()
+    dispatch(projectActions.setAssignEmployeeToProject(selectedEmployee));
+    dispatch(projectActions.setAssignModalVisible());
+    dispatch(projectActions.setSelectedEmployee([]));
+    // printEmployeeProject();
   };
 
   return (
