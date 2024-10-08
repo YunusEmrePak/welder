@@ -5,12 +5,10 @@ import {
   moderateScale,
   verticalScale,
 } from "@/themes/Metrics";
-import React, { useRef } from "react";
+import React from "react";
 import {
-  Animated,
   KeyboardAvoidingView,
   Modal,
-  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -20,46 +18,32 @@ import {
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
 import CustomInput, { CutomInputItemState } from "../constant/CustomInput";
-import { addProject, updateProject } from "@/services/projectService";
+import { addProject } from "@/services/projectService";
 
 import Toast from "react-native-toast-message";
-import CustomUpdateInput from "../constant/CustomUpdateInput";
-import { animateMoneyText } from "@/utils/animateText";
+import { employeeActions } from "@/redux/slices/employeeSlice";
+import { addEmployee } from "@/services/employeeService";
 
 const inputs: CutomInputItemState[] = [
-  { inputName: "updateTitle" },
-  { inputName: "updateCustomer" },
-  { inputName: "updatePrice" },
-  { inputName: "updateMaterial_cost" },
-  { inputName: "updatePaid_amount" },
-  { inputName: "updateDetail" },
+  { inputName: "name_surname" },
+  { inputName: "daily_pay" },
 ];
 
-const ProjectUpdateItemModal = () => {
+const EmployeeAddItemModal = () => {
   const dispatch = useAppDispatch();
-  const { isUpdateModalVisible, updateProjectForm } = useSelector(
-    (state: RootState) => state.project
+  const { isModalVisible, addEmployeeForm } = useSelector(
+    (state: RootState) => state.employee
   );
 
   const closeModal = () => {
-    dispatch(projectActions.setProjectUpdateModalVisible());
-    dispatch(projectActions.setUpdateProjectFormClear());
+    dispatch(employeeActions.setEmployeeAddModalVisible());
+    dispatch(employeeActions.setEmployeeFormClear());
   };
 
-  const addProjectHandler = () => {
+  const addEmployeeHandler = () => {
     if (
-      updateProjectForm.title === "" ||
-      updateProjectForm.detail === "" ||
-      updateProjectForm.customer === "" ||
-      updateProjectForm.price === null ||
-      updateProjectForm.price.toString() === "" ||
-      updateProjectForm.price < 0 ||
-      updateProjectForm.material_cost === null ||
-      updateProjectForm.material_cost.toString() === "" ||
-      updateProjectForm.material_cost < 0 ||
-      updateProjectForm.paid_amount === null ||
-      updateProjectForm.paid_amount.toString() === "" ||
-      updateProjectForm.paid_amount < 0
+      addEmployeeForm.name_surname === "" ||
+      addEmployeeForm.daily_pay.toString() === ""
     ) {
       ToastAndroid.show(
         "Bütün alanları doldurmanız gerekmektedir.",
@@ -67,36 +51,31 @@ const ProjectUpdateItemModal = () => {
       );
       return;
     }
-    updateProject(updateProjectForm);
-    dispatch(projectActions.setProjectList());
-    dispatch(projectActions.setProjectDetailInformation(updateProjectForm.id));
-    dispatch(projectActions.setProjectUpdateModalVisible());
-    dispatch(projectActions.setUpdateProjectFormClear());
-    ToastAndroid.show("Proje başarıyla güncellendi.", ToastAndroid.LONG);
+    addEmployee(addEmployeeForm);
+    dispatch(employeeActions.setEmployeeList());
+    dispatch(employeeActions.setEmployeeAddModalVisible());
+    dispatch(employeeActions.setEmployeeFormClear());
+    ToastAndroid.show("Proje başarıyla eklendi.", ToastAndroid.LONG);
   };
 
   return (
     <Modal
       animationType="fade"
       transparent={true}
-      visible={isUpdateModalVisible}
+      visible={isModalVisible}
       onRequestClose={closeModal}
     >
       <Pressable style={styles.overlay} onPress={closeModal}>
-        <KeyboardAvoidingView
-          style={styles.centeredView}
-          keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
-          behavior="padding"
-        >
+        <KeyboardAvoidingView style={styles.centeredView}>
           <Pressable style={styles.modalView}>
-            <Text style={styles.title}>Proje Güncelleme</Text>
+            <Text style={styles.title}>İşçi Ekleme</Text>
             {inputs.map((item) => (
-              <CustomUpdateInput key={item.inputName} item={item} />
+              <CustomInput key={item.inputName} item={item} />
             ))}
             <CustomButton
-              name="Güncelle"
-              onClick={addProjectHandler}
-              iconUrl={require("@/assets/icons/pen.png")}
+              name="Ekle"
+              onClick={addEmployeeHandler}
+              iconUrl={require("@/assets/icons/add.png")}
               width={horizontalScale(270)}
               height={verticalScale(45)}
             />
@@ -166,4 +145,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProjectUpdateItemModal;
+export default EmployeeAddItemModal;

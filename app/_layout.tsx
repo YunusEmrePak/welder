@@ -23,6 +23,10 @@ export default function RootLayout() {
           name="project/[id]"
           options={{ presentation: "modal", headerShown: false }}
         />
+        <Stack.Screen
+          name="employee/[id]"
+          options={{ presentation: "modal", headerShown: false }}
+        />
       </Stack>
     </Provider>
   );

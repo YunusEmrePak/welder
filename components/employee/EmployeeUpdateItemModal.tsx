@@ -1,65 +1,49 @@
-import { projectActions } from "@/redux/slices/projectSlice";
 import { RootState, useAppDispatch } from "@/store";
 import {
   horizontalScale,
   moderateScale,
   verticalScale,
 } from "@/themes/Metrics";
-import React, { useRef } from "react";
+import React from "react";
 import {
-  Animated,
   KeyboardAvoidingView,
   Modal,
   Platform,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
-  ToastAndroid,
+  ToastAndroid
 } from "react-native";
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
-import CustomInput, { CutomInputItemState } from "../constant/CustomInput";
-import { addProject, updateProject } from "@/services/projectService";
+import { CutomInputItemState } from "../constant/CustomInput";
 
-import Toast from "react-native-toast-message";
+import { employeeActions } from "@/redux/slices/employeeSlice";
+import { updateEmployee } from "@/services/employeeService";
 import CustomUpdateInput from "../constant/CustomUpdateInput";
-import { animateMoneyText } from "@/utils/animateText";
 
 const inputs: CutomInputItemState[] = [
-  { inputName: "updateTitle" },
-  { inputName: "updateCustomer" },
-  { inputName: "updatePrice" },
-  { inputName: "updateMaterial_cost" },
-  { inputName: "updatePaid_amount" },
-  { inputName: "updateDetail" },
+  { inputName: "updatedName_surname" },
+  { inputName: "UpdatedDaily_pay" },
 ];
 
-const ProjectUpdateItemModal = () => {
+const EmployeeUpdateItemModal = () => {
   const dispatch = useAppDispatch();
-  const { isUpdateModalVisible, updateProjectForm } = useSelector(
-    (state: RootState) => state.project
+  const { isUpdateModalVisible, updateEmployeeForm } = useSelector(
+    (state: RootState) => state.employee
   );
 
   const closeModal = () => {
-    dispatch(projectActions.setProjectUpdateModalVisible());
-    dispatch(projectActions.setUpdateProjectFormClear());
+    dispatch(employeeActions.setEmployeeUpdateModalVisible());
+    dispatch(employeeActions.setUpdateEmployeeFormClear());
   };
 
-  const addProjectHandler = () => {
+  const addEmployeeHandler = () => {
     if (
-      updateProjectForm.title === "" ||
-      updateProjectForm.detail === "" ||
-      updateProjectForm.customer === "" ||
-      updateProjectForm.price === null ||
-      updateProjectForm.price.toString() === "" ||
-      updateProjectForm.price < 0 ||
-      updateProjectForm.material_cost === null ||
-      updateProjectForm.material_cost.toString() === "" ||
-      updateProjectForm.material_cost < 0 ||
-      updateProjectForm.paid_amount === null ||
-      updateProjectForm.paid_amount.toString() === "" ||
-      updateProjectForm.paid_amount < 0
+      updateEmployeeForm.name_surname === "" ||
+      updateEmployeeForm.daily_pay === null ||
+      updateEmployeeForm.daily_pay.toString() === "" ||
+      updateEmployeeForm.daily_pay < 0
     ) {
       ToastAndroid.show(
         "Bütün alanları doldurmanız gerekmektedir.",
@@ -67,11 +51,13 @@ const ProjectUpdateItemModal = () => {
       );
       return;
     }
-    updateProject(updateProjectForm);
-    dispatch(projectActions.setProjectList());
-    dispatch(projectActions.setProjectDetailInformation(updateProjectForm.id));
-    dispatch(projectActions.setProjectUpdateModalVisible());
-    dispatch(projectActions.setUpdateProjectFormClear());
+    updateEmployee(updateEmployeeForm);
+    dispatch(employeeActions.setEmployeeList());
+    dispatch(
+      employeeActions.setEmployeeDetailInformation(updateEmployeeForm.id)
+    );
+    dispatch(employeeActions.setEmployeeUpdateModalVisible());
+    dispatch(employeeActions.setUpdateEmployeeFormClear());
     ToastAndroid.show("Proje başarıyla güncellendi.", ToastAndroid.LONG);
   };
 
@@ -95,7 +81,7 @@ const ProjectUpdateItemModal = () => {
             ))}
             <CustomButton
               name="Güncelle"
-              onClick={addProjectHandler}
+              onClick={addEmployeeHandler}
               iconUrl={require("@/assets/icons/pen.png")}
               width={horizontalScale(270)}
               height={verticalScale(45)}
@@ -166,4 +152,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProjectUpdateItemModal;
+export default EmployeeUpdateItemModal;

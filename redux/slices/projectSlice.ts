@@ -1,8 +1,12 @@
-import { findEmployeeProjectByIdDb } from "@/database/employeeProjectDb";
+import { AddEmployeeProjectDto } from "@/dto/add/addEmployeeProjectDto";
 import { AddProjectDto } from "@/dto/add/addProjectDto";
 import { UpdateProjectDto } from "@/dto/update/updateProjectDto";
+import { EmployeeProject } from "@/entity/employeeProject";
 import { Project } from "@/entity/project";
-import { listEmployeeProjectByProjectId } from "@/services/employeeProjectService";
+import {
+  assignEmployeeToProject,
+  listEmployeeProjectByProjectId,
+} from "@/services/employeeProjectService";
 import { findProjectById, listProject } from "@/services/projectService";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -10,15 +14,26 @@ export interface ProjectState {
   projectList: Project[];
   isModalVisible: boolean;
   isUpdateModalVisible: boolean;
+  isAssignModalVisible: boolean;
   addProjectForm: AddProjectDto;
   updateProjectForm: UpdateProjectDto;
   projectDetailInformation: Project | null;
+  projectEmployeeList: EmployeeProject[];
+  assignEmpToProject: AddEmployeeProjectDto;
+  selectedEmployee: string[] | null;
 }
 
 const initialState: ProjectState = {
   projectList: [],
   isModalVisible: false,
   isUpdateModalVisible: false,
+  isAssignModalVisible: false,
+  projectEmployeeList: [],
+  selectedEmployee: [],
+  assignEmpToProject: {
+    employee_id: 0,
+    project_id: 0,
+  },
   addProjectForm: {
     title: "",
     detail: "",
@@ -79,14 +94,36 @@ const projectSlice = createSlice({
         : 0;
     },
 
-    setProjectEmployeeList: (state, action) => {
-      console.log(listEmployeeProjectByProjectId(action.payload));
+    setAssignEmpToProjectEmployeeId: (state, action) => {
+      state.assignEmpToProject.employee_id = action.payload;
+    },
+    setAssignEmpToProjectProjectId: (state, action) => {
+      state.assignEmpToProject.project_id = action.payload;
+    },
+    setSelectedEmployee: (state, action) => {
+      state.selectedEmployee = action.payload;
+    },
+
+    setAssignEmployeeToProject: (state, action) => {
+      const employeeList = action.payload;
+      employeeList.forEach((element: any) => {
+        let assignEmployeeDto: AddEmployeeProjectDto = {
+          project_id: state.projectDetailInformation?.id
+            ? state.projectDetailInformation?.id
+            : 0,
+          employee_id: element,
+        };
+        assignEmployeeToProject(assignEmployeeDto);
+      });
     },
     setProjectAddModalVisible: (state) => {
       state.isModalVisible = !state.isModalVisible;
     },
     setProjectUpdateModalVisible: (state) => {
       state.isUpdateModalVisible = !state.isUpdateModalVisible;
+    },
+    setAssignModalVisible: (state) => {
+      state.isAssignModalVisible = !state.isAssignModalVisible;
     },
     setProjectTitle: (state, action) => {
       state.addProjectForm.title = action.payload;
@@ -157,21 +194,6 @@ const projectSlice = createSlice({
         : 0;
     },
   },
-  //   extraReducers: (builder) => {
-  //     builder
-  //       .addCase(getOrdersList.fulfilled, (state, action) => {
-  //         state.loading = false;
-  //         state.orderList = action.payload.data;
-  //       })
-  //       .addCase(getOrdersList.pending, (state) => {
-  //         state.loading = true;
-  //         state.error = null;
-  //       })
-  //       .addCase(getOrdersList.rejected, (state, action) => {
-  //         state.loading = false;
-  //         state.error = action.error.message || "Error fetching filtered data";
-  //       });
-  //   },
 });
 
 export const projectActions = projectSlice.actions;

@@ -19,6 +19,9 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
+import { listEmployeeProjectByProjectId } from "@/services/employeeProjectService";
+import { EmployeeProject } from "@/entity/employeeProject";
+import ProjectAssignEmployeeToProjectModal from "./ProjectAssignEmployeeToProjectModal";
 
 interface ProjectDetailProps {
   id: number | null;
@@ -27,20 +30,30 @@ interface ProjectDetailProps {
 const ProjectEmployeeList: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const { projectDetailInformation } = useSelector(
+  const { projectDetailInformation, projectEmployeeList } = useSelector(
     (state: RootState) => state.project
   );
 
+  useEffect(() => {
+    console.log(
+      listEmployeeProjectByProjectId(
+        projectDetailInformation?.id ? projectDetailInformation?.id : 0
+      )
+    );
+  }, []);
+
   const addEmployee = () => {
-    console.log("Employee Added");
+    dispatch(
+      projectActions.setAssignEmpToProjectProjectId(
+        projectDetailInformation?.id
+      )
+    );
+    dispatch(projectActions.setAssignModalVisible());
   };
 
   return (
     <View style={styles.container}>
-      {!(
-        projectDetailInformation?.status === "cancelled" ||
-        projectDetailInformation?.status === "done"
-      ) && (
+      {projectDetailInformation?.status === "inProgress" && (
         <CustomButton
           name="İşçi Ekle"
           onClick={addEmployee}
@@ -63,107 +76,32 @@ const ProjectEmployeeList: React.FC = () => {
           },
         ]}
       >
-        <View style={styles.employeeContainer}>
-          <View style={styles.titleContainer}>
-            <Image
-              source={require("@/assets/icons/worker.png")}
-              style={styles.icon}
-            />
-            <Text style={[styles.text, styles.titleText]}>Yunus Emre Pak</Text>
-          </View>
-          <View style={styles.dayButtons}>
-            <TouchableOpacity style={styles.dayButtonContainer}>
-              <Text style={styles.dayButton}>-</Text>
-            </TouchableOpacity>
-            <View style={styles.workDay}>
-              <Text style={styles.workText}>3</Text>
+        {projectEmployeeList.map((item: EmployeeProject) => (
+          <View key={item.id} style={styles.employeeContainer}>
+            <View style={styles.titleContainer}>
+              <Image
+                source={require("@/assets/icons/worker.png")}
+                style={styles.icon}
+              />
+              <Text style={[styles.text, styles.titleText]}>
+                Yunus Emre Pak
+              </Text>
             </View>
-            <TouchableOpacity style={styles.dayButtonContainer}>
-              <Text style={styles.dayButton}>+</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.employeeContainer}>
-          <View style={styles.titleContainer}>
-            <Image
-              source={require("@/assets/icons/worker.png")}
-              style={styles.icon}
-            />
-            <Text style={[styles.text, styles.titleText]}>Yunus Emre Pak</Text>
-          </View>
-          <View style={styles.dayButtons}>
-            <TouchableOpacity style={styles.dayButtonContainer}>
-              <Text style={styles.dayButton}>-</Text>
-            </TouchableOpacity>
-            <View style={styles.workDay}>
-              <Text style={styles.workText}>3</Text>
+            <View style={styles.dayButtons}>
+              <TouchableOpacity style={styles.dayButtonContainer}>
+                <Text style={styles.dayButton}>-</Text>
+              </TouchableOpacity>
+              <View style={styles.workDay}>
+                <Text style={styles.workText}>3</Text>
+              </View>
+              <TouchableOpacity style={styles.dayButtonContainer}>
+                <Text style={styles.dayButton}>+</Text>
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.dayButtonContainer}>
-              <Text style={styles.dayButton}>+</Text>
-            </TouchableOpacity>
           </View>
-        </View>
-        <View style={styles.employeeContainer}>
-          <View style={styles.titleContainer}>
-            <Image
-              source={require("@/assets/icons/worker.png")}
-              style={styles.icon}
-            />
-            <Text style={[styles.text, styles.titleText]}>Yunus Emre Pak</Text>
-          </View>
-          <View style={styles.dayButtons}>
-            <TouchableOpacity style={styles.dayButtonContainer}>
-              <Text style={styles.dayButton}>-</Text>
-            </TouchableOpacity>
-            <View style={styles.workDay}>
-              <Text style={styles.workText}>3</Text>
-            </View>
-            <TouchableOpacity style={styles.dayButtonContainer}>
-              <Text style={styles.dayButton}>+</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.employeeContainer}>
-          <View style={styles.titleContainer}>
-            <Image
-              source={require("@/assets/icons/worker.png")}
-              style={styles.icon}
-            />
-            <Text style={[styles.text, styles.titleText]}>Yunus Emre Pak</Text>
-          </View>
-          <View style={styles.dayButtons}>
-            <TouchableOpacity style={styles.dayButtonContainer}>
-              <Text style={styles.dayButton}>-</Text>
-            </TouchableOpacity>
-            <View style={styles.workDay}>
-              <Text style={styles.workText}>3</Text>
-            </View>
-            <TouchableOpacity style={styles.dayButtonContainer}>
-              <Text style={styles.dayButton}>+</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.employeeContainer}>
-          <View style={styles.titleContainer}>
-            <Image
-              source={require("@/assets/icons/worker.png")}
-              style={styles.icon}
-            />
-            <Text style={[styles.text, styles.titleText]}>Yunus Emre Pak</Text>
-          </View>
-          <View style={styles.dayButtons}>
-            <TouchableOpacity style={styles.dayButtonContainer}>
-              <Text style={styles.dayButton}>-</Text>
-            </TouchableOpacity>
-            <View style={styles.workDay}>
-              <Text style={styles.workText}>3</Text>
-            </View>
-            <TouchableOpacity style={styles.dayButtonContainer}>
-              <Text style={styles.dayButton}>+</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        ))}
       </View>
+      <ProjectAssignEmployeeToProjectModal />
     </View>
   );
 };

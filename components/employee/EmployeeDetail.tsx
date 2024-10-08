@@ -19,67 +19,21 @@ import {
 import { RootState, useAppDispatch } from "@/store";
 import { projectActions } from "@/redux/slices/projectSlice";
 import { animateMoneyText } from "@/utils/animateText";
+import { employeeActions } from "@/redux/slices/employeeSlice";
 
-const ProjectDetail = () => {
+const EmployeeDetail = () => {
   const dispatch = useAppDispatch();
 
-  const { projectDetailInformation } = useSelector(
-    (state: RootState) => state.project
+  const { employeeDetailInformation } = useSelector(
+    (state: RootState) => state.employee
   );
 
-  const openUpdateProjectModal = () => {
-    dispatch(projectActions.setProjectUpdateModalVisible());
-  };
-
-  const statusMessage = {
-    notStarted: "Başlanmadı",
-    inProgress: "Devam Ediyor",
-    done: "Bitti",
-    cancelled: "İptal Edildi",
-  };
-
-  const color = {
-    notStarted: "grey",
-    inProgress: "#0084ff",
-    done: "#007a3f",
-    cancelled: "#b50000",
-  };
-
-  const bgColor = {
-    notStarted: "#d9d9d9",
-    inProgress: "#d4f3fc",
-    done: "#d4fce0",
-    cancelled: "#fcd4d4",
+  const openUpdateEmployeeModal = () => {
+    dispatch(employeeActions.setEmployeeUpdateModalVisible());
   };
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          backgroundColor:
-            bgColor[projectDetailInformation?.status as keyof typeof bgColor] ||
-            bgColor.notStarted,
-        },
-      ]}
-    >
-      <View style={styles.titleDetailContainer}>
-        <View style={styles.titleContainer}>
-          <Image
-            source={require("@/assets/icons/titleIcon.png")}
-            style={styles.titleIcon}
-          />
-          <Text style={[styles.text, styles.titleText]}>
-            {projectDetailInformation?.title}
-          </Text>
-        </View>
-        <View style={styles.detailContainer}>
-          <Text style={[styles.text, styles.detailText]}>
-            {projectDetailInformation?.detail}
-          </Text>
-        </View>
-      </View>
-
+    <View style={[styles.container]}>
       <View style={styles.customerContainer}>
         <View style={styles.titleContainer}>
           <Image
@@ -87,48 +41,34 @@ const ProjectDetail = () => {
             style={styles.titleIcon}
           />
           <Text style={[styles.text, styles.titleText]}>
-            {projectDetailInformation?.customer}
+            {employeeDetailInformation?.name_surname}
           </Text>
         </View>
 
         <View style={styles.moneyContainer}>
           <View style={[styles.row]}>
             <View style={[styles.col]}>
-              <Text style={styles.moneyTitle}>Gider</Text>
-              <Text style={[styles.moneyText, { color: "#b50000" }]}>
-                {formatMoney(projectDetailInformation?.material_cost)}
-              </Text>
-            </View>
-            <View style={[styles.col]}>
-              <Text style={styles.moneyTitle}>Ödenen</Text>
+              <Text style={styles.moneyTitle}>Günlük Kazanç:</Text>
               <Text style={[styles.moneyText]}>
-                {formatMoney(projectDetailInformation?.paid_amount)}
+                {formatMoney(employeeDetailInformation?.daily_pay)}
               </Text>
             </View>
           </View>
-
           <View style={[styles.row]}>
             <View style={[styles.col]}>
-              <Text style={styles.moneyTitle}>Ücret</Text>
+              <Text style={styles.moneyTitle}>Toplam Ödenen Miktar:</Text>
               <Text style={[styles.moneyText]}>
-                {formatMoney(projectDetailInformation?.price)}
+                {formatMoney(employeeDetailInformation?.total_paid_amount)}
               </Text>
             </View>
+          </View>
+          <View style={[styles.row]}>
             <View style={[styles.col]}>
-              <Text style={styles.moneyTitle}>Borç</Text>
-              <Text
-                style={[
-                  styles.moneyText,
-                  {
-                    color:
-                      projectDetailInformation?.debt_amount !== undefined &&
-                      projectDetailInformation?.debt_amount > 0
-                        ? "#e37500"
-                        : "green",
-                  },
-                ]}
-              >
-                {formatMoney(projectDetailInformation?.debt_amount)}
+              <Text style={styles.moneyTitle}>
+                Toplam Çalıştığı Gün Sayısı:
+              </Text>
+              <Text style={[styles.moneyText]}>
+                {employeeDetailInformation?.total_worked_day}
               </Text>
             </View>
           </View>
@@ -137,39 +77,12 @@ const ProjectDetail = () => {
         <View style={styles.buttonContainer}>
           <CustomButton
             name="Güncelle"
-            onClick={openUpdateProjectModal}
+            onClick={openUpdateEmployeeModal}
             iconUrl={require("@/assets/icons/pen.png")}
             width={horizontalScale(140)}
             height={verticalScale(45)}
           />
         </View>
-      </View>
-
-      <View style={styles.progressContainer}>
-        <View
-          style={[
-            styles.progressDot,
-            {
-              backgroundColor:
-                color[projectDetailInformation?.status as keyof typeof color] ||
-                color.notStarted,
-            },
-          ]}
-        ></View>
-        <Text
-          style={[
-            styles.progressText,
-            {
-              color:
-                color[projectDetailInformation?.status as keyof typeof color] ||
-                color.notStarted,
-            },
-          ]}
-        >
-          {statusMessage[
-            projectDetailInformation?.status as keyof typeof statusMessage
-          ] || statusMessage.notStarted}
-        </Text>
       </View>
     </View>
   );
@@ -184,9 +97,10 @@ const styles = StyleSheet.create({
     height: "auto",
     marginTop: verticalScale(10),
     borderRadius: moderateScale(10),
-    paddingTop: verticalScale(30),
+    paddingTop: verticalScale(10),
     paddingBottom: verticalScale(15),
     paddingHorizontal: horizontalScale(15),
+    backgroundColor: "#d9d9d9",
   },
   titleIcon: {
     width: horizontalScale(25),
@@ -226,7 +140,6 @@ const styles = StyleSheet.create({
   },
   customerContainer: {
     width: "100%",
-    marginTop: verticalScale(20),
   },
   moneyContainer: {
     width: "100%",
@@ -237,17 +150,18 @@ const styles = StyleSheet.create({
   },
   moneyText: {
     fontSize: moderateScale(26),
+    marginLeft: horizontalScale(10),
   },
   row: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "flex-start",
     alignItems: "center",
     width: "100%",
     marginBottom: verticalScale(20),
   },
   col: {
+    flexDirection: "row",
     alignItems: "center",
-    width: "50%",
   },
   buttonContainer: {
     width: "100%",
@@ -273,4 +187,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProjectDetail;
+export default EmployeeDetail;
