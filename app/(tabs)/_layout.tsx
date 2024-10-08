@@ -6,7 +6,7 @@ import { Colors } from "@/constants/Colors";
 import { clearDb, createTables, dropTables } from "@/database/database";
 import { AddProjectDto } from "@/dto/add/addProjectDto";
 import { addProject, makeProjectStatusCancelled, makeProjectStatusDone, makeProjectStatusInProgress, updateProject } from "@/services/projectService";
-import { updateEmployee } from "@/services/employeeService";
+import { listEmployeeByAssignedProjectId, listEmployeeWhoDoesNotWorkOnProject, updateEmployee } from "@/services/employeeService";
 import { UpdatedEmployeeDto } from "@/dto/update/updateEmployeeDto";
 import { UpdateProjectDto } from "@/dto/update/updateProjectDto";
 import { renderTable } from "@/utils/renderTable";

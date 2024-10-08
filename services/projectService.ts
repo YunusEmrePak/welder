@@ -2,6 +2,7 @@ import {
   addProjectDb,
   deleteProjectByIdDb,
   findProjectByIdDb,
+  listProjectByAssignedEmployeeIdDb,
   listProjectDb,
   makeProjectStatusCancelledDb,
   makeProjectStatusDoneDb,
@@ -35,6 +36,11 @@ export const addProject = (addProjectDto: AddProjectDto) => {
 
 export const listProject = (): Project[] => {
   return listProjectDb();
+};
+
+
+export const listProjectByAssignedEmployee = (projectId: number): Project[] => {
+  return listProjectByAssignedEmployeeIdDb(projectId);
 };
 
 export const findProjectById = (id: number): Project | null => {

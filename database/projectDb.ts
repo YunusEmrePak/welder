@@ -26,7 +26,7 @@ export const listProjectDb = (): Project[] => {
   return db.getAllSync("SELECT * FROM project order by id desc") as Project[];
 };
 
-export const listProjectByAssignedEmployeeId = (employeeId: number): Project[] => {
+export const listProjectByAssignedEmployeeIdDb = (employeeId: number): Project[] => {
   return db.getAllSync("SELECT * FROM project LEFT JOIN employee_project ON project.id=employee_project.project_id where employee_project.employee_id=?", employeeId) as Project[];
 } 
 

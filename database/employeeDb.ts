@@ -18,11 +18,11 @@ export const listEmployeeDb = (): Employee[] => {
 };
 
 export const listEmployeeWhoDoesNotWorkOnProjectDb = (projectId: number): Employee[] => {
-  return db.getAllSync("SELECT * FROM employee LEFT JOIN employee_project ON employee.id = employee_project.employee_id WHERE employee_project.project_id IS NULL OR employee_project.project_id != ?;", projectId) as Employee[];
+  return db.getAllSync("SELECT employee.id, employee.name_surname  FROM employee LEFT JOIN employee_project ON employee.id = employee_project.employee_id WHERE employee_project.project_id IS NULL OR employee_project.project_id != ?;", projectId) as Employee[];
 }
 
 export const listEmployeeByAssignedProjectIdDb = (projectId: number): Employee[] => {
-  return db.getAllSync("SELECT * FROM employee LEFT JOIN employee_project ON employee.id = employee_project.employee_id where employee_project.project_id=?", projectId) as Employee[];
+  return db.getAllSync("SELECT employee.id, employee.name_surname, employee_project.worked_day FROM employee LEFT JOIN employee_project ON employee.id = employee_project.employee_id where employee_project.project_id=?", projectId) as Employee[];
 }
 
 export const findEmployeeByIdDb = (id: number): Employee | null => {
