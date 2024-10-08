@@ -1,5 +1,6 @@
 import {
   addEmployeeDb,
+  decreaseWorkedDayEmployeeDb,
   deleteEmployeeByIdDb,
   findEmployeeByIdDb,
   increaseWorkedDayEmployeeDb,
@@ -74,7 +75,7 @@ export const increaseWorkedDayEmployee = (id: number) => {
 };
 
 export const decreaseWorkedDayEmployee = (id: number) => {
-  decreaseWorkedDayEmployee(id);
+  decreaseWorkedDayEmployeeDb(id);
 };
 
 export const printEmployee = () => {
