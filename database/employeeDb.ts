@@ -17,6 +17,14 @@ export const listEmployeeDb = (): Employee[] => {
   return db.getAllSync("SELECT * FROM employee") as Employee[];
 };
 
+export const listEmployeeWhoDoesNotWorkOnProjectDb = (projectId: number): Employee[] => {
+  return db.getAllSync("SELECT * FROM employee LEFT JOIN employee_project ON employee.id = employee_project.employee_id WHERE employee_project.project_id IS NULL OR employee_project.project_id != ?;", projectId) as Employee[];
+}
+
+export const listEmployeeByAssignedProjectIdDb = (projectId: number): Employee[] => {
+  return db.getAllSync("SELECT * FROM employee LEFT JOIN employee_project ON employee.id = employee_project.employee_id where employee_project.project_id=?", projectId) as Employee[];
+}
+
 export const findEmployeeByIdDb = (id: number): Employee | null => {
   const result = db.getFirstSync(`
     SELECT * from employee where id=${id}
@@ -58,4 +66,9 @@ export const increaseWorkedDayEmployeeDb = (id: number) => {
 
 export const decreaseWorkedDayEmployeeDb = (id: number) => {
   db.runSync("UPDATE employee SET total_worked_day = total_worked_day - 1, total_paid_amount = total_paid_amount - daily_pay WHERE id=?",  id)
+}
+
+export const totolEmployeeCostDb = (): number => {
+  const result = db.getFirstSync("SELECT SUM(total_paid_amount) from employee");
+  return result ? result["SUM(total_paid_amount)"] : 0;
 }

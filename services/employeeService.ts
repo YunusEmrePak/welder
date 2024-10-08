@@ -3,7 +3,9 @@ import {
   deleteEmployeeByIdDb,
   findEmployeeByIdDb,
   increaseWorkedDayEmployeeDb,
+  listEmployeeByAssignedProjectIdDb,
   listEmployeeDb,
+  listEmployeeWhoDoesNotWorkOnProjectDb,
   updateEmployeeDb,
 } from "@/database/employeeDb";
 import { AddEmployeeDto } from "@/dto/add/addEmployeeDto";
@@ -26,6 +28,17 @@ export const addEmployee = (addEmployeeDto: AddEmployeeDto) => {
 export const listEmployee = (): Employee[] => {
   return listEmployeeDb();
 };
+
+export const listEmployeeWhoDoesNotWorkOnProject = (projectId: number): Employee[] => {
+  return listEmployeeWhoDoesNotWorkOnProjectDb(projectId)
+}
+
+
+export const listEmployeeByAssignedProjectId = (projectId: number): Employee[] => {
+  return listEmployeeByAssignedProjectIdDb(projectId)
+}
+
+
 
 export const findEmployeeById = (id: number): Employee | null => {
   return findEmployeeByIdDb(id);

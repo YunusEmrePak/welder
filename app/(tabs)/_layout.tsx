@@ -12,6 +12,7 @@ import { UpdateProjectDto } from "@/dto/update/updateProjectDto";
 import { renderTable } from "@/utils/renderTable";
 import { done, inProgress, notStarted } from "@/enum/status";
 import { increaseWorkedDayEmployeeProject } from "@/services/employeeProjectService";
+import { totalCollectedMoney, totalDebt, totalMaterialCost, totolEmployeeCost } from "@/services/dashboardService";
 
 const projectDto: AddProjectDto = {
   title: "dis kapi",
@@ -36,13 +37,13 @@ const updateProjectDto: UpdateProjectDto = {
 export default function TabLayout() {
   useEffect(() => {
     createTables();
+    renderTable();
+    console.log("Total collected money: ", totalCollectedMoney())
+    console.log("Total Debt: ", totalDebt())
+    console.log("Total Material Cost: ", totalMaterialCost())
+    console.log("Total Material Cost: ", totalMaterialCost())
+    console.log("Total Employee Cost: ", totolEmployeeCost())
 
-    // increaseWorkedDayEmployeeProject(1, 2)
-    // makeProjectStatusInProgress(2)
-    // updateProject(updateProjectDto)
-    // updateEmployee(updateEmployeeDto)
-    // addProject(projectDto);
-    // renderTable();
   }, []);
 
   return (

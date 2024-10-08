@@ -26,6 +26,10 @@ export const listProjectDb = (): Project[] => {
   return db.getAllSync("SELECT * FROM project order by id desc") as Project[];
 };
 
+export const listProjectByAssignedEmployeeId = (employeeId: number): Project[] => {
+  return db.getAllSync("SELECT * FROM project LEFT JOIN employee_project ON project.id=employee_project.project_id where employee_project.employee_id=?", employeeId) as Project[];
+} 
+
 export const findProjectByIdDb = (id: number): Project | null => {
   const result = db.getFirstSync(`
     SELECT * from project where id=${id}
@@ -74,4 +78,19 @@ export const makeProjectStatusCancelledDb = (id: number) => {
   const result = db.runSync(
     "UPDATE project SET status=? where id=?", cancelled, id
   )
+}
+
+export const totalCollectedMoneyDb = (): number => {
+  const result = db.getFirstSync("SELECT SUM(paid_amount) from project");
+  return result ? result["SUM(paid_amount)"] : 0;
+}
+
+export const totalDebtDb = (): number => {
+  const result = db.getFirstSync("SELECT SUM(debt_amount) from project");
+  return result ? result["SUM(debt_amount)"] : 0;
+}
+
+export const totalMaterialCostDb = (): number => {
+  const result = db.getFirstSync("SELECT SUM(material_cost) from project");
+  return result ? result["SUM(material_cost)"] : 0;
 }
