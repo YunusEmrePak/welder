@@ -13,6 +13,7 @@ import {
   Pressable,
   StyleSheet,
   Text,
+  ToastAndroid,
   View,
 } from "react-native";
 import { useSelector } from "react-redux";
@@ -55,7 +56,6 @@ const ProjectAssignEmployeeToProjectModal: React.FC<
   };
 
   useEffect(() => {
-    console.log(id);
     dispatch(projectActions.setListEmployeeDoesNotWorkOnProject(id));
     dispatch(projectActions.setSelectedEmployee([]));
   }, [id]);
@@ -67,6 +67,10 @@ const ProjectAssignEmployeeToProjectModal: React.FC<
     dispatch(projectActions.setSelectedEmployee([]));
     dispatch(projectActions.setListEmployeeDoesNotWorkOnProject(id));
     dispatch(projectActions.setEmployeesWorkOnProject(id));
+    ToastAndroid.show(
+      "İşçi başarıyla projeye atandı.",
+      ToastAndroid.LONG
+    );
     // printEmployeeProject();
   };
 

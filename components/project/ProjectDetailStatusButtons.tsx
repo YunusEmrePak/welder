@@ -10,7 +10,14 @@ import {
   verticalScale,
 } from "@/themes/Metrics";
 import { useEffect } from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  ToastAndroid,
+  View,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
@@ -39,18 +46,21 @@ const ProjectDetailStatusButton: React.FC<StatusButtonProps> = ({
     makeProjectStatusCancelled(id);
     dispatch(projectActions.setProjectDetailInformation(id));
     dispatch(projectActions.setProjectList());
+    ToastAndroid.show("Proje İptal Edildi.", ToastAndroid.LONG);
   };
 
   const startProject = () => {
     makeProjectStatusInProgress(id);
     dispatch(projectActions.setProjectDetailInformation(id));
     dispatch(projectActions.setProjectList());
+    ToastAndroid.show("Proje Başlatıldı.", ToastAndroid.LONG);
   };
 
   const finishProject = () => {
     makeProjectStatusDone(id);
     dispatch(projectActions.setProjectDetailInformation(id));
     dispatch(projectActions.setProjectList());
+    ToastAndroid.show("Proje Bitirildi.", ToastAndroid.LONG);
   };
 
   const statusMessage = {
@@ -72,10 +82,7 @@ const ProjectDetailStatusButton: React.FC<StatusButtonProps> = ({
       style={[
         styles.container,
         {
-          justifyContent:
-            status === "cancelled"
-              ? "flex-end"
-              : "space-between",
+          justifyContent: status === "cancelled" ? "flex-end" : "space-between",
         },
       ]}
     >
@@ -90,7 +97,9 @@ const ProjectDetailStatusButton: React.FC<StatusButtonProps> = ({
         />
       )}
 
-      {status === "notStarted" || status === "cancelled" || status === "done" ? (
+      {status === "notStarted" ||
+      status === "cancelled" ||
+      status === "done" ? (
         <CustomButton
           name="Başlat"
           onClick={startProject}
