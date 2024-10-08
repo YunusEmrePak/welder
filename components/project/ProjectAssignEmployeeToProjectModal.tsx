@@ -32,7 +32,13 @@ const inputs: CutomInputItemState[] = [
   { inputName: "updateDetail" },
 ];
 
-const ProjectAssignEmployeeToProjectModal = () => {
+interface ProjectAssignEmployeeToProjectProps {
+  id: number | null;
+}
+
+const ProjectAssignEmployeeToProjectModal: React.FC<
+  ProjectAssignEmployeeToProjectProps
+> = ({ id }) => {
   const dispatch = useAppDispatch();
   const {
     isAssignModalVisible,
@@ -60,6 +66,7 @@ const ProjectAssignEmployeeToProjectModal = () => {
     dispatch(projectActions.setAssignEmployeeToProject(selectedEmployee));
     dispatch(projectActions.setAssignModalVisible());
     dispatch(projectActions.setSelectedEmployee([]));
+    dispatch(projectActions.setEmployeesWorkOnProject(id));
     // printEmployeeProject();
   };
 

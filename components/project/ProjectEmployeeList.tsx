@@ -33,7 +33,7 @@ interface ProjectDetailProps {
   id: number | null;
 }
 
-const ProjectEmployeeList: React.FC = () => {
+const ProjectEmployeeList: React.FC<ProjectDetailProps> = ({ id }) => {
   const dispatch = useAppDispatch();
 
   const {
@@ -43,11 +43,8 @@ const ProjectEmployeeList: React.FC = () => {
   } = useSelector((state: RootState) => state.project);
 
   useEffect(() => {
-    dispatch(
-      projectActions.setEmployeesWorkOnProject(
-        projectDetailInformation?.id ? projectDetailInformation?.id : 0
-      )
-    );
+    console.log(id);
+    dispatch(projectActions.setEmployeesWorkOnProject(id ? id : 0));
   }, []);
 
   const addEmployee = () => {
@@ -61,7 +58,7 @@ const ProjectEmployeeList: React.FC = () => {
 
   const increaseWorkDay = (employeeId: number, projectId: number) => {
     console.log(employeeId, projectId);
-    // increaseWorkedDayEmployeeProject(employee_id, project_id);
+    increaseWorkedDayEmployeeProject(employeeId, projectId);
     // dispatch(
     //   projectActions.setEmployeesWorkOnProject(
     //     projectDetailInformation?.id ? projectDetailInformation?.id : 0
@@ -148,7 +145,7 @@ const ProjectEmployeeList: React.FC = () => {
           </View>
         ))}
       </View>
-      <ProjectAssignEmployeeToProjectModal />
+      <ProjectAssignEmployeeToProjectModal id={id} />
     </View>
   );
 };
