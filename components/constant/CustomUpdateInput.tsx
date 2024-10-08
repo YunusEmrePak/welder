@@ -1,3 +1,4 @@
+import { employeeActions } from "@/redux/slices/employeeSlice";
 import { projectActions } from "@/redux/slices/projectSlice";
 import { RootState, useAppDispatch } from "@/store";
 import {
@@ -23,9 +24,16 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
   const { addProjectForm, updateProjectForm } = useSelector(
     (state: RootState) => state.project
   );
+  const { addEmployeeForm, updateEmployeeForm } = useSelector(
+    (state: RootState) => state.employee
+  );
 
   const handleInputChange = (value: string) => {
-    if (["price", "material_cost", "paid_amount"].includes(item.inputName)) {
+    if (
+      ["price", "material_cost", "paid_amount", "daily_pay"].includes(
+        item.inputName
+      )
+    ) {
       if (value === "") {
         handleDispatch(item.inputName, value);
         return;
@@ -73,6 +81,16 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
           )
         );
         break;
+      case "updatedName_surname":
+        dispatch(employeeActions.setUpdateEmployeeNameSurname(value));
+        break;
+      case "UpdatedDaily_pay":
+        dispatch(
+          employeeActions.setUpdateEmployeeDailyPay(
+            value === "" ? "" : parseFloat(value)
+          )
+        );
+        break;
       default:
         break;
     }
@@ -107,6 +125,15 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
           updateProjectForm.paid_amount === null
           ? ""
           : updateProjectForm?.paid_amount.toString();
+      case "updatedName_surname":
+        return updateEmployeeForm.name_surname !== null
+          ? updateEmployeeForm.name_surname
+          : "";
+      case "UpdatedDaily_pay":
+        return updateEmployeeForm.daily_pay?.toString() === "" ||
+          updateEmployeeForm.daily_pay === null
+          ? ""
+          : updateEmployeeForm?.daily_pay.toString();
       default:
         return "";
     }
@@ -126,6 +153,10 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
         return "Malzeme Ücreti";
       case "updatePaid_amount":
         return "Ödenen Miktar";
+      case "updatedName_surname":
+        return "İsim Soyisim";
+      case "UpdatedDaily_pay":
+        return "Günlük Kazanç";
       default:
         return "";
     }
@@ -135,12 +166,15 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
     "updatePrice",
     "updateMaterial_cost",
     "updatePaid_amount",
+    "UpdatedDaily_pay",
   ].includes(item.inputName);
 
   const isDetailInput = item.inputName === "updateDetail";
 
   return (
-    <View style={[styles.container, isDetailInput && styles.detailInputContainer]}>
+    <View
+      style={[styles.container, isDetailInput && styles.detailInputContainer]}
+    >
       <Text style={styles.label}>{getPlaceholder()}</Text>
       <TextInput
         style={[styles.input, isDetailInput && styles.detailInput]}
@@ -181,7 +215,7 @@ const styles = StyleSheet.create({
   detailInput: {
     height: verticalScale(90),
     textAlignVertical: "top",
-    paddingTop: verticalScale(15)
+    paddingTop: verticalScale(15),
   },
   label: {
     marginLeft: verticalScale(3),
@@ -191,7 +225,7 @@ const styles = StyleSheet.create({
     left: 2,
     zIndex: 5,
     fontSize: moderateScale(10),
-    color: "grey"
+    color: "grey",
   },
 });
 

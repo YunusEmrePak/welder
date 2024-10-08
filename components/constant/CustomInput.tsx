@@ -1,3 +1,4 @@
+import { employeeActions } from "@/redux/slices/employeeSlice";
 import { projectActions } from "@/redux/slices/projectSlice";
 import { RootState, useAppDispatch } from "@/store";
 import {
@@ -20,9 +21,14 @@ interface CustomInputProps {
 const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
   const dispatch = useAppDispatch();
   const { addProjectForm } = useSelector((state: RootState) => state.project);
+  const { addEmployeeForm } = useSelector((state: RootState) => state.employee);
 
   const handleInputChange = (value: string) => {
-    if (["price", "material_cost", "paid_amount"].includes(item.inputName)) {
+    if (
+      ["price", "material_cost", "paid_amount", "daily_pay"].includes(
+        item.inputName
+      )
+    ) {
       if (value === "") {
         handleDispatch(item.inputName, value);
         return;
@@ -68,6 +74,17 @@ const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
           )
         );
         break;
+
+      case "name_surname":
+        dispatch(employeeActions.setEmployeeName(value));
+        break;
+      case "daily_pay":
+        dispatch(
+          employeeActions.setEmployeeDailyPay(
+            value === "" ? "" : parseInt(value)
+          )
+        );
+        break;
       default:
         break;
     }
@@ -93,6 +110,12 @@ const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
         return addProjectForm.paid_amount.toString() === ""
           ? ""
           : addProjectForm.paid_amount.toString();
+      case "name_surname":
+        return addEmployeeForm.name_surname;
+      case "daily_pay":
+        return addEmployeeForm.daily_pay.toString() === ""
+          ? ""
+          : addEmployeeForm.daily_pay.toString();
       default:
         return "";
     }
@@ -112,14 +135,21 @@ const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
         return "Malzeme Ücreti";
       case "paid_amount":
         return "Ödenen Miktar";
+      case "name_surname":
+        return "İsim Soyisim";
+      case "daily_pay":
+        return "Günlük Kazanç";
       default:
         return "";
     }
   };
 
-  const isNumberInput = ["price", "material_cost", "paid_amount"].includes(
-    item.inputName
-  );
+  const isNumberInput = [
+    "price",
+    "material_cost",
+    "paid_amount",
+    "daily_pay",
+  ].includes(item.inputName);
 
   const isDetailInput = item.inputName === "detail";
 

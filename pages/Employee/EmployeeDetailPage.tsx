@@ -1,4 +1,6 @@
 import Topbar from "@/components/bar/Topbar";
+import EmployeeDetail from "@/components/employee/EmployeeDetail";
+import EmployeeUpdateItemModal from "@/components/employee/EmployeeUpdateItemModal";
 import ProjectDetail from "@/components/project/ProjectDetail";
 import ProjectDetailStatusButton from "@/components/project/ProjectDetailStatusButtons";
 import ProjectEmployeeList from "@/components/project/ProjectEmployeeList";
@@ -11,35 +13,29 @@ import React, { useEffect } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 
-interface ProjectDetailProps {
+interface EmployeeDetailProps {
   id: string | string[];
 }
 
-const ProjectDetailPage: React.FC<ProjectDetailProps> = ({ id }) => {
+const EmployeeDetailPage: React.FC<EmployeeDetailProps> = ({ id }) => {
   const dispatch = useAppDispatch();
 
-  const { projectDetailInformation } = useSelector(
-    (state: RootState) => state.project
+  const { employeeDetailInformation } = useSelector(
+    (state: RootState) => state.employee
   );
 
   useEffect(() => {
-    dispatch(projectActions.setProjectDetailInformation(id));
-    dispatch(employeeActions.setEmployeeList());
+    dispatch(employeeActions.setEmployeeDetailInformation(id));
   }, []);
 
   return (
     <View style={styles.container}>
       <Topbar />
-      {projectDetailInformation && (
+      {employeeDetailInformation && (
         <ScrollView style={styles.scrollView}>
           <View style={styles.scrollContainer}>
-            <ProjectDetail />
-            <ProjectDetailStatusButton
-              status={projectDetailInformation.status}
-              id={projectDetailInformation.id ? projectDetailInformation.id : 0}
-            />
-            <ProjectEmployeeList />
-            <ProjectUpdateItemModal />
+            <EmployeeDetail />
+            <EmployeeUpdateItemModal />
           </View>
         </ScrollView>
       )}
@@ -63,4 +59,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProjectDetailPage;
+export default EmployeeDetailPage;

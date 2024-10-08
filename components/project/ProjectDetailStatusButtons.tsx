@@ -73,7 +73,7 @@ const ProjectDetailStatusButton: React.FC<StatusButtonProps> = ({
         styles.container,
         {
           justifyContent:
-            status === "cancelled" || status === "done"
+            status === "cancelled"
               ? "flex-end"
               : "space-between",
         },
@@ -90,7 +90,7 @@ const ProjectDetailStatusButton: React.FC<StatusButtonProps> = ({
         />
       )}
 
-      {status === "notStarted" || status === "cancelled" ? (
+      {status === "notStarted" || status === "cancelled" || status === "done" ? (
         <CustomButton
           name="Başlat"
           onClick={startProject}
