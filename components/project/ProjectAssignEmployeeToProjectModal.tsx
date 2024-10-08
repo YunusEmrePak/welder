@@ -55,17 +55,17 @@ const ProjectAssignEmployeeToProjectModal: React.FC<
   };
 
   useEffect(() => {
-    dispatch(
-      projectActions.setListEmployeeDoesNotWorkOnProject(
-        projectDetailInformation?.id
-      )
-    );
-  }, [isAssignModalVisible]);
+    console.log(id);
+    dispatch(projectActions.setListEmployeeDoesNotWorkOnProject(id));
+    dispatch(projectActions.setSelectedEmployee([]));
+  }, [id]);
 
   const assignEmployeeHandler = () => {
+    console.log(id);
     dispatch(projectActions.setAssignEmployeeToProject(selectedEmployee));
     dispatch(projectActions.setAssignModalVisible());
     dispatch(projectActions.setSelectedEmployee([]));
+    dispatch(projectActions.setListEmployeeDoesNotWorkOnProject(id));
     dispatch(projectActions.setEmployeesWorkOnProject(id));
     // printEmployeeProject();
   };

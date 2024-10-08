@@ -35,9 +35,9 @@ const ProjectDetailPage: React.FC<ProjectDetailProps> = ({ id }) => {
             <ProjectDetail />
             <ProjectDetailStatusButton
               status={projectDetailInformation.status}
-              id={projectDetailInformation.id ? projectDetailInformation.id : 0}
+              id={parseInt(id.toString())}
             />
-            <ProjectEmployeeList id={parseInt(id.toString())} />
+            <ProjectEmployeeList status={projectDetailInformation.status} id={parseInt(id.toString())} />
             <ProjectUpdateItemModal />
           </View>
         </ScrollView>

@@ -16,6 +16,7 @@ import {
   Text,
   View,
   TouchableOpacity,
+  ToastAndroid,
 } from "react-native";
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
@@ -28,12 +29,14 @@ import { EmployeeProject } from "@/entity/employeeProject";
 import ProjectAssignEmployeeToProjectModal from "./ProjectAssignEmployeeToProjectModal";
 import { listEmployeeByAssignedProjectId } from "@/services/employeeService";
 import { Employee } from "@/entity/employee";
+import { employeeActions } from "@/redux/slices/employeeSlice";
 
-interface ProjectDetailProps {
+interface StatusButtonProps {
+  status: string;
   id: number | null;
 }
 
-const ProjectEmployeeList: React.FC<ProjectDetailProps> = ({ id }) => {
+const ProjectEmployeeList: React.FC<StatusButtonProps> = ({ id, status }) => {
   const dispatch = useAppDispatch();
 
   const {
@@ -43,9 +46,8 @@ const ProjectEmployeeList: React.FC<ProjectDetailProps> = ({ id }) => {
   } = useSelector((state: RootState) => state.project);
 
   useEffect(() => {
-    console.log(id);
     dispatch(projectActions.setEmployeesWorkOnProject(id ? id : 0));
-  }, []);
+  }, [projectDetailInformation]);
 
   const addEmployee = () => {
     dispatch(
@@ -57,22 +59,21 @@ const ProjectEmployeeList: React.FC<ProjectDetailProps> = ({ id }) => {
   };
 
   const increaseWorkDay = (employeeId: number, projectId: number) => {
-    console.log(employeeId, projectId);
     increaseWorkedDayEmployeeProject(employeeId, projectId);
-    // dispatch(
-    //   projectActions.setEmployeesWorkOnProject(
-    //     projectDetailInformation?.id ? projectDetailInformation?.id : 0
-    //   )
-    // );
+    dispatch(projectActions.setEmployeesWorkOnProject(projectId));
+    dispatch(employeeActions.setEmployeeList());
   };
 
-  const decreaseWorkDay = (employee_id: number, project_id: number) => {
-    decreaseWorkedDayEmployeeProject(employee_id, project_id);
-    // dispatch(
-    //   projectActions.setEmployeesWorkOnProject(
-    //     projectDetailInformation?.id ? projectDetailInformation?.id : 0
-    //   )
-    // );
+  const decreaseWorkDay = (
+    employeeId: number,
+    projectId: number,
+    workDay: number
+  ) => {
+    if (workDay > 0) {
+      decreaseWorkedDayEmployeeProject(employeeId, projectId);
+      dispatch(projectActions.setEmployeesWorkOnProject(projectId));
+      dispatch(employeeActions.setEmployeeList());
+    }
   };
 
   return (
@@ -118,10 +119,20 @@ const ProjectEmployeeList: React.FC<ProjectDetailProps> = ({ id }) => {
                     item.id,
                     projectDetailInformation?.id
                       ? projectDetailInformation?.id
-                      : 0
+                      : 0,
+                    item.worked_day
                   )
                 }
-                style={styles.dayButtonContainer}
+                disabled={item.worked_day === 0 || status !== "inProgress"}
+                style={[
+                  styles.dayButtonContainer,
+                  {
+                    opacity:
+                      item.worked_day === 0 || status !== "inProgress"
+                        ? 0.5
+                        : 1,
+                  },
+                ]}
               >
                 <Text style={styles.dayButton}>-</Text>
               </TouchableOpacity>
@@ -137,7 +148,13 @@ const ProjectEmployeeList: React.FC<ProjectDetailProps> = ({ id }) => {
                       : 0
                   )
                 }
-                style={styles.dayButtonContainer}
+                disabled={status !== "inProgress"}
+                style={[
+                  styles.dayButtonContainer,
+                  {
+                    opacity: status !== "inProgress" ? 0.5 : 1,
+                  },
+                ]}
               >
                 <Text style={styles.dayButton}>+</Text>
               </TouchableOpacity>
