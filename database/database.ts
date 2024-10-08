@@ -42,6 +42,7 @@ export const createTables = () => {
           project_id INTEGER,
           employee_id INTEGER,
           worked_day INTEGER,
+          paid_amount REAL,
           FOREIGN KEY (project_id) REFERENCES project (id),
           FOREIGN KEY (employee_id) REFERENCES employee (id)
       );

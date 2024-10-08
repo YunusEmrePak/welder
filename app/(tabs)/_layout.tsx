@@ -5,14 +5,15 @@ import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { clearDb, createTables, dropTables } from "@/database/database";
 import { AddProjectDto } from "@/dto/add/addProjectDto";
-import { addProject, makeProjectStatusCancelled, makeProjectStatusDone, makeProjectStatusInProgress, updateProject } from "@/services/projectService";
+import { addProject, listProjectByAssignedEmployee, makeProjectStatusCancelled, makeProjectStatusDone, makeProjectStatusInProgress, updateProject } from "@/services/projectService";
 import { listEmployeeByAssignedProjectId, listEmployeeWhoDoesNotWorkOnProject, updateEmployee } from "@/services/employeeService";
 import { UpdatedEmployeeDto } from "@/dto/update/updateEmployeeDto";
 import { UpdateProjectDto } from "@/dto/update/updateProjectDto";
 import { renderTable } from "@/utils/renderTable";
 import { done, inProgress, notStarted } from "@/enum/status";
-import { decreaseWorkedDayEmployeeProject, increaseWorkedDayEmployeeProject } from "@/services/employeeProjectService";
+import { assignEmployeeToProject, decreaseWorkedDayEmployeeProject, dismissEmployeeFromProject, increaseWorkedDayEmployeeProject } from "@/services/employeeProjectService";
 import { totalCollectedMoney, totalDebt, totalMaterialCost, totolEmployeeCost } from "@/services/dashboardService";
+import { increaseWorkedDayEmployeeProjectDb } from "@/database/employeeProjectDb";
 
 const projectDto: AddProjectDto = {
   title: "dis kapi",
@@ -37,13 +38,16 @@ const updateProjectDto: UpdateProjectDto = {
 export default function TabLayout() {
   useEffect(() => {
     // clearDb();
-    createTables();
+    createTables()
+
     renderTable();
     console.log("Total collected money: ", totalCollectedMoney())
     console.log("Total Debt: ", totalDebt())
     console.log("Total Material Cost: ", totalMaterialCost())
-    console.log("Total Material Cost: ", totalMaterialCost())
     console.log("Total Employee Cost: ", totolEmployeeCost())
+
+    console.log(listProjectByAssignedEmployee(1))
+
   }, []);
 
   return (

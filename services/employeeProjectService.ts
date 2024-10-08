@@ -40,7 +40,7 @@ export const printEmployeeProject = () => {
     );
   
     console.log(
-      "ID  | Employee ID  | Project ID | Worked Day"
+      "ID  | Employee ID  | Project ID | Worked Day | Paid Amount"
     );
     console.log(
       "-------------------------------------"
@@ -48,7 +48,7 @@ export const printEmployeeProject = () => {
   
     employeeProjects.forEach((employeeProject) => {
       console.log(
-        `${employeeProject.id}  | ${employeeProject.employee_id}           | ${employeeProject.project_id}  | ${employeeProject.worked_day}`
+        `${employeeProject.id}  | ${employeeProject.employee_id}           | ${employeeProject.project_id}  | ${employeeProject.worked_day}  | ${employeeProject.paid_amount}`
       );
     });
   };

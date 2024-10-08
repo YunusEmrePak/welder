@@ -39,7 +39,7 @@ export const listProject = (): Project[] => {
 };
 
 
-export const listProjectByAssignedEmployee = (projectId: number): Project[] => {
+export const listProjectByAssignedEmployee = (projectId: number): ProjectDetailEmployeeDto[] => {
   return listProjectByAssignedEmployeeIdDb(projectId);
 };
 

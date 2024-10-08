@@ -32,7 +32,7 @@ export const findEmployeeProjectByForeignKeysDb = (addEmployeeProjectDto: AddEmp
 
 export const assignEmployeeToProjectDb = (addEmployeeProjectDto: AddEmployeeProjectDto) => {
     db.runSync(
-        "INSERT INTO employee_project (project_id, employee_id, worked_day) VALUES (?, ?, 0)",
+        "INSERT INTO employee_project (project_id, employee_id, worked_day, paid_amount) VALUES (?, ?, 0, 0)",
         addEmployeeProjectDto.project_id,
         addEmployeeProjectDto.employee_id
         );
@@ -69,7 +69,7 @@ export const listEmployeeProject = () :EmployeeProject[] => {
 
 export const increaseWorkedDayEmployeeProjectDb = (employeeId: number, projectId: number) => {
     return db.runSync(
-        "UPDATE employee_project Set worked_day= worked_day + 1 where employee_id=? and project_id=?",employeeId, projectId
+        "UPDATE employee_project Set worked_day= worked_day + 1, paid_amount= paid_amount + (SELECT employee.daily_pay from employee where employee.id = employee_project.employee_id)  where employee_id=? and project_id=?",employeeId, projectId
     )
 }
 
