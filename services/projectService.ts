@@ -79,6 +79,8 @@ export const updateProject = (project: UpdateProjectDto) => {
     oldProject.debt_amount = oldProject.price - oldProject.paid_amount;
   }
 
+  oldProject.debt_amount = oldProject.price - oldProject.paid_amount
+  
   updateProjectDb(oldProject);
 };
 
