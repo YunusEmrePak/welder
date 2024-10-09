@@ -34,8 +34,8 @@ const SettingsPage = () => {
   return (
     <View style={styles.container}>
       <Topbar />
-      <ScrollView style={styles.scrollView}>
-        <View style={styles.scrollContainer}>
+      <View style={styles.dataContainer}>
+        <View style={styles.buttonContainer}>
           <View
             style={{
               width: "100%",
@@ -85,8 +85,12 @@ const SettingsPage = () => {
             </Text>
           </View>
         </View>
-        <SettingsReloadModal />
-      </ScrollView>
+        <View>
+          <Text style={styles.signiture}>@2024 Fume</Text>
+          <Text style={styles.signiture}>Lütfen reklamımızı yapınız.</Text>
+        </View>
+      </View>
+      <SettingsReloadModal />
     </View>
   );
 };
@@ -96,13 +100,23 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
   },
-  scrollView: {
-    width: "80%",
+  dataContainer: {
+    width: "85%",
+    justifyContent: "space-between",
+    alignItems: "center",
+    height: verticalScale(700),
   },
-  scrollContainer: {
+  buttonContainer: {
     width: "100%",
     justifyContent: "flex-start",
     alignItems: "center",
+    backgroundColor: "red",
+  },
+  signiture: {
+    fontSize: moderateScale(15),
+    color: "grey",
+    textAlign: "center",
+    marginTop: verticalScale(5)
   },
 });
 
