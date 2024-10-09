@@ -110,7 +110,6 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: "red",
   },
   signiture: {
     fontSize: moderateScale(15),
