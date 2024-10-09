@@ -81,6 +81,7 @@ const ProjectAssignEmployeeToProjectModal: React.FC<
             <View style={styles.dropdownContainer}>
               <MultiSelect
                 style={styles.dropdown}
+                activeColor="#ffc39c"
                 placeholderStyle={styles.placeholderStyle}
                 selectedTextStyle={styles.selectedTextStyle}
                 inputSearchStyle={styles.inputSearchStyle}
