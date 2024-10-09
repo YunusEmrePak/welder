@@ -195,8 +195,8 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   icon: {
-    width: horizontalScale(25),
-    height: verticalScale(25),
+    width: horizontalScale(24),
+    height: verticalScale(24),
     justifyContent: "center",
     alignItems: "center",
   },
