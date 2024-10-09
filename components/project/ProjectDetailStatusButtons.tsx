@@ -63,13 +63,6 @@ const ProjectDetailStatusButton: React.FC<StatusButtonProps> = ({
     ToastAndroid.show("Proje Bitirildi.", ToastAndroid.LONG);
   };
 
-  const statusMessage = {
-    notStarted: "Başlanmadı",
-    inProgress: "Devam Ediyor",
-    done: "Bitti",
-    cancelled: "İptal Edildi",
-  };
-
   const buttonColor = {
     notStarted: "grey",
     inProgress: "#0084ff",

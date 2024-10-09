@@ -16,13 +16,16 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 import * as Updates from "expo-updates";
+import { dashboardActions } from "@/redux/slices/dashboardSlice";
 
 const SettingsPage = () => {
   const dispatch = useAppDispatch();
 
+  const { isImported } = useSelector((state: RootState) => state.dashboard);
+
   const importHandler = async () => {
     await importDb();
-    Updates.reloadAsync();
+    // Updates.reloadAsync();
   };
 
   const exportHandler = () => {
@@ -79,7 +82,7 @@ const SettingsPage = () => {
                 lineHeight: verticalScale(26),
               }}
             >
-              * Veriyi içe aktarırken olan verileriniz silinir.
+              * Veriyi içe aktarırken mevcut verileriniz silinir.
             </Text>
           </View>
         </View>
@@ -100,7 +103,6 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "flex-start",
     alignItems: "center",
-    paddingBottom: verticalScale(120),
   },
 });
 

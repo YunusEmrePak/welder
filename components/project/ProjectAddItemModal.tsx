@@ -8,17 +8,18 @@ import {
 } from "@/themes/Metrics";
 import React from "react";
 import {
+  Keyboard,
   KeyboardAvoidingView,
   Modal,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
-  ToastAndroid
+  ToastAndroid,
 } from "react-native";
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
 import CustomInput, { CutomInputItemState } from "../constant/CustomInput";
-
 
 const inputs: CutomInputItemState[] = [
   { inputName: "title" },
@@ -76,7 +77,10 @@ const ProjectAddItemModal = () => {
       onRequestClose={closeModal}
     >
       <Pressable style={styles.overlay} onPress={closeModal}>
-        <KeyboardAvoidingView style={styles.centeredView}>
+        <KeyboardAvoidingView
+          style={styles.centeredView}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
           <Pressable style={styles.modalView}>
             <Text style={styles.title}>Proje Ekleme</Text>
             {inputs.map((item) => (

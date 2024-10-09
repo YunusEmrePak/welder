@@ -134,6 +134,30 @@ const ProjectDetail = () => {
             </View>
           </View>
         </View>
+        <View style={styles.divider}></View>
+
+        <View style={styles.dateContainer}>
+          <View style={styles.dateRow}>
+            <Text style={styles.dateTitle}>Oluşturma Tarihi:</Text>
+            <Text style={styles.dateTitle}>Başlama Tarihi:</Text>
+            <Text style={styles.dateTitle}>Bitiş Tarihi:</Text>
+          </View>
+          <View style={styles.dateRow}>
+            <Text style={styles.dateText}>
+              {projectDetailInformation?.create_date}
+            </Text>
+            <Text style={styles.dateText}>
+              {projectDetailInformation?.start_date
+                ? projectDetailInformation?.start_date
+                : "-"}
+            </Text>
+            <Text style={styles.dateText}>
+              {projectDetailInformation?.finish_date
+                ? projectDetailInformation?.finish_date
+                : "-"}
+            </Text>
+          </View>
+        </View>
 
         <View style={styles.buttonContainer}>
           <CustomButton
@@ -228,6 +252,7 @@ const styles = StyleSheet.create({
   customerContainer: {
     width: "100%",
     marginTop: verticalScale(20),
+    alignItems: "center",
   },
   moneyContainer: {
     width: "100%",
@@ -271,6 +296,29 @@ const styles = StyleSheet.create({
   },
   progressText: {
     fontSize: moderateScale(16),
+  },
+  divider: {
+    borderTopWidth: verticalScale(1),
+    width: "90%",
+  },
+  dateContainer: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "space-around",
+    alignItems: "center",
+    paddingTop: verticalScale(15),
+    paddingBottom: verticalScale(20),
+  },
+  dateRow: {
+    height: verticalScale(80),
+    justifyContent: "space-between",
+  },
+  dateTitle: {
+    fontSize: moderateScale(18),
+  },
+  dateText: {
+    fontSize: moderateScale(18),
+    color: "#917876",
   },
 });
 
