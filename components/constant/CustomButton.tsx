@@ -91,8 +91,8 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   icon: {
-    width: horizontalScale(21),
-    height: verticalScale(21),
+    width: horizontalScale(22),
+    height: verticalScale(22),
     marginLeft: verticalScale(5),
     justifyContent: "center",
     alignItems: "center",

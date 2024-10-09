@@ -105,8 +105,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#d9d9d9",
   },
   titleIcon: {
-    width: horizontalScale(24),
-    height: verticalScale(24),
+    width: horizontalScale(25),
+    height: verticalScale(25),
     marginLeft: verticalScale(5),
     justifyContent: "center",
     alignItems: "center",

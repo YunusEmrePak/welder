@@ -66,6 +66,7 @@ const DashboardTotalMoneyItem: React.FC<TotalAndProjectsProps> = ({
 const styles = StyleSheet.create({
   container: {
     width: "95%",
+    height: verticalScale(115),
     borderRadius: moderateScale(10),
     paddingVertical: verticalScale(7),
     paddingHorizontal: horizontalScale(8),
@@ -91,7 +92,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "40%",
-    height: verticalScale(100),
+    height: "100%",
+    // backgroundColor: "red"
   },
   item1: {
     // backgroundColor: "red",
