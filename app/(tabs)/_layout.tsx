@@ -42,17 +42,17 @@ export default function TabLayout() {
     createTables();
 
 
-    renderTable();
-    console.log("Total collected money: ", totalCollectedMoney())
-    console.log("Total Debt: ", totalDebt())
-    console.log("Total Material Cost: ", totalMaterialCost())
-    console.log("Total Material Cost: ", totalMaterialCost())
-    console.log("Total Employee Cost: ", totolEmployeeCost())
+    // renderTable();
+    // console.log("Total collected money: ", totalCollectedMoney())
+    // console.log("Total Debt: ", totalDebt())
+    // console.log("Total Material Cost: ", totalMaterialCost())
+    // console.log("Total Material Cost: ", totalMaterialCost())
+    // console.log("Total Employee Cost: ", totolEmployeeCost())
 
-    console.log("Number of not started: ", numberOfNotStartedProjects())
-    console.log("Number of in progress: ", numberOfInProgressProjects())
-    console.log("Number of done: ", numberOfDoneProjects())
-    console.log("Number of canceled: ", numberOfCancelledProjects())
+    // console.log("Number of not started: ", numberOfNotStartedProjects())
+    // console.log("Number of in progress: ", numberOfInProgressProjects())
+    // console.log("Number of done: ", numberOfDoneProjects())
+    // console.log("Number of canceled: ", numberOfCancelledProjects())
   }, []);
 
   return (

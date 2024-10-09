@@ -99,12 +99,13 @@ const ProjectEmployeeList: React.FC<StatusButtonProps> = ({ id, status }) => {
               </Text>
             </View>
             <View style={styles.dayButtons}>
-              {item.worked_day === 0 || status !== "inProgress" ? (
+              {item.worked_day === 0 ? (
                 <CustomButton
                   iconUrl={require("@/assets/icons/delete.png")}
                   onClick={() => dismissEmployee(item.id, id ? id : 0)}
                   width={horizontalScale(40)}
                   height={verticalScale(35)}
+                  disabled={status !== "inProgress" ? true : false}
                 />
               ) : (
                 <CustomButton
@@ -131,6 +132,7 @@ const ProjectEmployeeList: React.FC<StatusButtonProps> = ({ id, status }) => {
                 onClick={() => increaseWorkDay(item.id, id ? id : 0)}
                 width={horizontalScale(40)}
                 height={verticalScale(35)}
+                disabled={status !== "inProgress" ? true : false}
               />
             </View>
           </View>
