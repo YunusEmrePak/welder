@@ -5,7 +5,7 @@ import {
   moderateScale,
   verticalScale,
 } from "@/themes/Metrics";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   KeyboardAvoidingView,
   Modal,
@@ -22,7 +22,6 @@ import { CutomInputItemState } from "../constant/CustomInput";
 
 import { AntDesign } from "@expo/vector-icons";
 import { MultiSelect } from "react-native-element-dropdown";
-import { printEmployeeProject } from "@/services/employeeProjectService";
 
 const inputs: CutomInputItemState[] = [
   { inputName: "updateTitle" },
@@ -45,28 +44,21 @@ const ProjectAssignEmployeeToProjectModal: React.FC<
     isAssignModalVisible,
     selectedEmployee,
     listEmployeeDoesNotWorkOnProject,
-    projectDetailInformation,
   } = useSelector((state: RootState) => state.project);
-  const { employeeList } = useSelector((state: RootState) => state.employee);
-  const [value, setValue] = useState<string | null>(null);
-  const [selected, setSelected] = useState<string[] | null>([]);
 
   const closeModal = () => {
     dispatch(projectActions.setAssignModalVisible());
-  };
-
-  useEffect(() => {
-    dispatch(projectActions.setListEmployeeDoesNotWorkOnProject(id));
     dispatch(projectActions.setSelectedEmployee([]));
-  }, [id]);
+    dispatch(projectActions.setListEmployeeDoesNotWorkOnProject(id));
+  };
 
   const assignEmployeeHandler = () => {
     if (selectedEmployee?.length && selectedEmployee?.length > 0) {
       dispatch(projectActions.setAssignEmployeeToProject(selectedEmployee));
-      dispatch(projectActions.setAssignModalVisible());
-      dispatch(projectActions.setListEmployeeDoesNotWorkOnProject(id));
       dispatch(projectActions.setEmployeesWorkOnProject(id));
+      dispatch(projectActions.setListEmployeeDoesNotWorkOnProject(id));
       dispatch(projectActions.setSelectedEmployee([]));
+      dispatch(projectActions.setAssignModalVisible());
       ToastAndroid.show("İşçi başarıyla projeye atandı.", ToastAndroid.LONG);
     }
   };

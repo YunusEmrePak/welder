@@ -71,7 +71,7 @@ const EmployeeProjectItem: React.FC<ProjectProps> = ({ item }) => {
             numberOfLines={1}
             ellipsizeMode="tail"
           >
-            {formatMoney(item.worked_day)}
+            {item.worked_day}
           </Text>
         </View>
       </View>
@@ -116,16 +116,11 @@ const styles = StyleSheet.create({
     height: verticalScale(85),
   },
   column1: {
-    width: "45%",
+    width: "65%",
     paddingRight: horizontalScale(3),
   },
   column2: {
-    width: "25%",
-  },
-  column3: {
-    width: "30%",
-    justifyContent: "center",
-    alignItems: "flex-end",
+    width: "35%",
   },
   title: {
     color: "#000",

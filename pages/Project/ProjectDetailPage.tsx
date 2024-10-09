@@ -24,7 +24,9 @@ const ProjectDetailPage: React.FC<ProjectDetailProps> = ({ id }) => {
 
   useEffect(() => {
     dispatch(projectActions.setProjectDetailInformation(id));
-  }, []);
+    dispatch(projectActions.setListEmployeeDoesNotWorkOnProject(id));
+    dispatch(projectActions.setEmployeesWorkOnProject(id));
+  }, [id]);
 
   return (
     <View style={styles.container}>

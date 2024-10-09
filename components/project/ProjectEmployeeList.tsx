@@ -29,16 +29,8 @@ const ProjectEmployeeList: React.FC<StatusButtonProps> = ({ id, status }) => {
     (state: RootState) => state.project
   );
 
-  useEffect(() => {
-    dispatch(projectActions.setEmployeesWorkOnProject(id ? id : 0));
-  }, [projectDetailInformation]);
-
   const addEmployee = () => {
-    dispatch(
-      projectActions.setAssignEmpToProjectProjectId(
-        projectDetailInformation?.id
-      )
-    );
+    dispatch(projectActions.setAssignEmpToProjectProjectId(id));
     dispatch(projectActions.setAssignModalVisible());
   };
 
@@ -110,14 +102,7 @@ const ProjectEmployeeList: React.FC<StatusButtonProps> = ({ id, status }) => {
               {item.worked_day === 0 || status !== "inProgress" ? (
                 <CustomButton
                   iconUrl={require("@/assets/icons/delete.png")}
-                  onClick={() =>
-                    dismissEmployee(
-                      item.id,
-                      projectDetailInformation?.id
-                        ? projectDetailInformation?.id
-                        : 0
-                    )
-                  }
+                  onClick={() => dismissEmployee(item.id, id ? id : 0)}
                   width={horizontalScale(40)}
                   height={verticalScale(35)}
                 />
@@ -125,13 +110,7 @@ const ProjectEmployeeList: React.FC<StatusButtonProps> = ({ id, status }) => {
                 <CustomButton
                   name="-"
                   onClick={() =>
-                    decreaseWorkDay(
-                      item.id,
-                      projectDetailInformation?.id
-                        ? projectDetailInformation?.id
-                        : 0,
-                      item.worked_day
-                    )
+                    decreaseWorkDay(item.id, id ? id : 0, item.worked_day)
                   }
                   width={horizontalScale(40)}
                   height={verticalScale(35)}
@@ -149,14 +128,7 @@ const ProjectEmployeeList: React.FC<StatusButtonProps> = ({ id, status }) => {
 
               <CustomButton
                 name="+"
-                onClick={() =>
-                  increaseWorkDay(
-                    item.id,
-                    projectDetailInformation?.id
-                      ? projectDetailInformation?.id
-                      : 0
-                  )
-                }
+                onClick={() => increaseWorkDay(item.id, id ? id : 0)}
                 width={horizontalScale(40)}
                 height={verticalScale(35)}
               />

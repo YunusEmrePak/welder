@@ -120,6 +120,10 @@ const projectSlice = createSlice({
     setListEmployeeDoesNotWorkOnProject: (state, action) => {
       const list = listEmployeeWhoDoesNotWorkOnProject(action.payload);
       state.listEmployeeDoesNotWorkOnProject = list;
+      console.log("Slice Id: ", action.payload, list)
+      console.log()
+      console.log()
+      console.log()
     },
 
     setAssignEmployeeToProject: (state, action) => {

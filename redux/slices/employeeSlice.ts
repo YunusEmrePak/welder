@@ -50,7 +50,6 @@ const employeeSlice = createSlice({
     setListProjectByAssignedEmployee: (state, action) => {
       const list = listProjectByAssignedEmployee(action.payload);
       state.listProjectOnEmployees = list;
-      console.log(list);
     },
 
     setEmployeeAddModalVisible: (state) => {
