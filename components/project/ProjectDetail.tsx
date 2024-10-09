@@ -318,7 +318,7 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontSize: moderateScale(18),
-    color: "#917876",
+    color: "#816866",
   },
 });
 

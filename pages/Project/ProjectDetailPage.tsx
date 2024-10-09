@@ -45,10 +45,10 @@ const ProjectDetailPage: React.FC<ProjectDetailProps> = ({ id }) => {
               id={parseInt(id.toString())}
             />
             <ProjectDeleteItem id={parseInt(id.toString())} />
-            <ProjectUpdateItemModal />
           </View>
         </ScrollView>
       )}
+      <ProjectUpdateItemModal />
     </View>
   );
 };

@@ -183,6 +183,7 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
         onChangeText={handleInputChange}
         value={getInputValue()}
         keyboardType={isNumberInput ? "number-pad" : "default"}
+        multiline={isDetailInput ? true : false}
       />
     </View>
   );

@@ -13,6 +13,7 @@ import {
   StyleSheet,
   Text,
   ToastAndroid,
+  View,
 } from "react-native";
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
@@ -69,11 +70,7 @@ const EmployeeUpdateItemModal = () => {
       onRequestClose={closeModal}
     >
       <Pressable style={styles.overlay} onPress={closeModal}>
-        <KeyboardAvoidingView
-          style={styles.centeredView}
-          keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
-          behavior="padding"
-        >
+        <View style={styles.centeredView}>
           <Pressable style={styles.modalView}>
             <Text style={styles.title}>Proje Güncelleme</Text>
             {inputs.map((item) => (
@@ -87,7 +84,7 @@ const EmployeeUpdateItemModal = () => {
               height={verticalScale(45)}
             />
           </Pressable>
-        </KeyboardAvoidingView>
+        </View>
       </Pressable>
     </Modal>
   );
