@@ -61,17 +61,14 @@ const ProjectAssignEmployeeToProjectModal: React.FC<
   }, [id]);
 
   const assignEmployeeHandler = () => {
-    console.log(id);
-    dispatch(projectActions.setAssignEmployeeToProject(selectedEmployee));
-    dispatch(projectActions.setAssignModalVisible());
-    dispatch(projectActions.setSelectedEmployee([]));
-    dispatch(projectActions.setListEmployeeDoesNotWorkOnProject(id));
-    dispatch(projectActions.setEmployeesWorkOnProject(id));
-    ToastAndroid.show(
-      "İşçi başarıyla projeye atandı.",
-      ToastAndroid.LONG
-    );
-    // printEmployeeProject();
+    if (selectedEmployee?.length && selectedEmployee?.length > 0) {
+      dispatch(projectActions.setAssignEmployeeToProject(selectedEmployee));
+      dispatch(projectActions.setAssignModalVisible());
+      dispatch(projectActions.setListEmployeeDoesNotWorkOnProject(id));
+      dispatch(projectActions.setEmployeesWorkOnProject(id));
+      dispatch(projectActions.setSelectedEmployee([]));
+      ToastAndroid.show("İşçi başarıyla projeye atandı.", ToastAndroid.LONG);
+    }
   };
 
   return (
@@ -124,6 +121,11 @@ const ProjectAssignEmployeeToProjectModal: React.FC<
               iconUrl={require("@/assets/icons/pen.png")}
               width={horizontalScale(270)}
               height={verticalScale(45)}
+              disabled={
+                selectedEmployee?.length && selectedEmployee?.length > 0
+                  ? false
+                  : true
+              }
             />
           </Pressable>
         </KeyboardAvoidingView>
@@ -165,32 +167,9 @@ const styles = StyleSheet.create({
     shadowRadius: moderateScale(4),
     elevation: 5,
   },
-  button: {
-    borderRadius: moderateScale(10),
-    padding: 10,
-    elevation: 2,
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
   modalText: {
     marginBottom: 15,
     textAlign: "center",
-  },
-  input: {
-    height: verticalScale(30),
-    width: horizontalScale(200),
-    backgroundColor: "#fcfcfc",
-    borderRadius: moderateScale(10),
-    borderColor: "#e3e3e9",
-    borderWidth: 1,
-    paddingHorizontal: horizontalScale(5),
-    marginBottom: verticalScale(10),
   },
   dropdownContainer: {
     alignItems: "center",
@@ -201,44 +180,34 @@ const styles = StyleSheet.create({
     margin: moderateScale(15),
     height: verticalScale(50),
     width: horizontalScale(270),
-    backgroundColor: "white",
+    backgroundColor: "#fff",
     borderRadius: moderateScale(10),
     padding: moderateScale(12),
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 2,
     },
     shadowOpacity: 0.2,
     shadowRadius: 1.41,
-    elevation: 2,
+    elevation: 3,
   },
   icon: {
-    marginRight: 5,
-  },
-  item: {
-    padding: 17,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  textItem: {
-    flex: 1,
-    fontSize: 16,
+    marginRight: verticalScale(5),
   },
   placeholderStyle: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
   },
   selectedTextStyle: {
-    fontSize: 16,
+    fontSize: moderateScale(16),
   },
   iconStyle: {
-    width: 20,
-    height: 20,
+    width: horizontalScale(20),
+    height: verticalScale(20),
   },
   inputSearchStyle: {
-    height: 40,
-    fontSize: 16,
+    height: verticalScale(40),
+    fontSize: moderateScale(16),
   },
 });
 
