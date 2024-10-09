@@ -40,6 +40,8 @@ export default function TabLayout() {
     // clearDb();
     // dropTables();
     createTables();
+
+
     renderTable();
     console.log("Total collected money: ", totalCollectedMoney())
     console.log("Total Debt: ", totalDebt())
