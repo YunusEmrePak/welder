@@ -56,7 +56,7 @@ const DashboardTotalMoneyItem: React.FC<TotalAndProjectsProps> = ({
       <View style={[styles.item, styles.item1]}>
         <Text style={styles.title}>{title} </Text>
         <Text style={[styles.valueName]} numberOfLines={1} ellipsizeMode="tail">
-          {item !== null ? formatMoney(item) : `0₺`}
+          {item !== null ? formatMoney(item) : "0₺"}
         </Text>
       </View>
     </LinearGradient>

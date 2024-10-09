@@ -1,4 +1,3 @@
-import { Employee } from "@/entity/employee";
 import {
   numberOfCancelledProjects,
   numberOfDoneProjects,
@@ -10,7 +9,6 @@ import {
   totalProfit,
   totolEmployeeCost,
 } from "@/services/dashboardService";
-import { listEmployee } from "@/services/employeeService";
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface TotalAndProjects {

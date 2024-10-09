@@ -8,7 +8,7 @@ import { dashboardActions } from "@/redux/slices/dashboardSlice";
 import { projectActions } from "@/redux/slices/projectSlice";
 import { RootState, useAppDispatch } from "@/store";
 import { verticalScale } from "@/themes/Metrics";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
@@ -22,6 +22,7 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(dashboardActions.setTotalMoneyAndProjects());
+    console.log(totalAndProject)
   }, [totalAndProject]);
 
   const item = [

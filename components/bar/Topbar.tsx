@@ -11,12 +11,19 @@ import { Image, StyleSheet, Text, View } from "react-native";
 const Topbar: React.FC = () => {
   return (
     <View style={styles.container}>
+      <View style={styles.left}>
+        <Image
+          source={require("@/assets/icons/welder.png")}
+          alt="Logo"
+          style={styles.logo}
+        />
+        <Text style={styles.text}>Welder</Text>
+      </View>
       <Image
-        source={require("@/assets/icons/welder.png")}
+        source={require("@/assets/icons/4kırmızı.png")}
         alt="Logo"
-        style={styles.logo}
+        style={styles.logo2}
       />
-      <Text style={styles.text}>Welder</Text>
     </View>
   );
 };
@@ -29,17 +36,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: horizontalScale(15),
     paddingTop: verticalScale(30),
     flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  left: {
+    flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
   },
   text: {
     color: "#fff",
     fontSize: moderateScale(20),
-    marginLeft: horizontalScale(10)
+    marginLeft: horizontalScale(10),
   },
   logo: {
     width: horizontalScale(32),
     height: verticalScale(32),
+  },
+  logo2: {
+    width: horizontalScale(20),
+    height: verticalScale(28),
   },
 });
 

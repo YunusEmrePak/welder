@@ -1,10 +1,10 @@
-import { Tabs, useNavigation, useRouter } from "expo-router";
-import React, { useEffect, useCallback } from "react";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { createTables } from "@/database/database";
-import { useAppDispatch } from "@/store";
 import { dashboardActions } from "@/redux/slices/dashboardSlice";
+import { useAppDispatch } from "@/store";
+import { Tabs, useNavigation, useRouter } from "expo-router";
+import React, { useCallback, useEffect } from "react";
 
 export default function TabLayout() {
   const dispatch = useAppDispatch();
@@ -19,6 +19,18 @@ export default function TabLayout() {
     dispatch(dashboardActions.setTotalMoneyAndProjects());
 
     router.push(`/(tabs)/`);
+  }, [navigation]);
+
+  const handleProjectTabPress = useCallback(() => {
+    dispatch(dashboardActions.setTotalMoneyAndProjects());
+
+    router.push(`/(tabs)/projectList`);
+  }, [navigation]);
+
+  const handleEmployeeTabPress = useCallback(() => {
+    dispatch(dashboardActions.setTotalMoneyAndProjects());
+
+    router.push(`/(tabs)/employeeList`);
   }, [navigation]);
 
   return (
@@ -60,6 +72,12 @@ export default function TabLayout() {
             />
           ),
         }}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault();
+            handleProjectTabPress();
+          },
+        }}
       />
       <Tabs.Screen
         name="employeeList"
@@ -71,6 +89,12 @@ export default function TabLayout() {
               color={color}
             />
           ),
+        }}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault();
+            handleEmployeeTabPress();
+          },
         }}
       />
       <Tabs.Screen
