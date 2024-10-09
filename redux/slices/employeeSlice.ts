@@ -1,7 +1,11 @@
 import { AddEmployeeDto } from "@/dto/add/addEmployeeDto";
 import { UpdatedEmployeeDto } from "@/dto/update/updateEmployeeDto";
 import { Employee } from "@/entity/employee";
-import { findEmployeeById, listEmployee } from "@/services/employeeService";
+import {
+  findEmployeeById,
+  isEmployeeDeletable,
+  listEmployee,
+} from "@/services/employeeService";
 import { listProjectByAssignedEmployee } from "@/services/projectService";
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -9,6 +13,8 @@ export interface EmployeeState {
   employeeList: Employee[];
   isModalVisible: boolean;
   isUpdateModalVisible: boolean;
+  isDeleteModalVisible: boolean;
+  isEmployeeDeletable: boolean;
   addEmployeeForm: AddEmployeeDto;
   updateEmployeeForm: UpdatedEmployeeDto;
   listProjectOnEmployees: ProjectDetailEmployeeDto[];
@@ -19,6 +25,8 @@ const initialState: EmployeeState = {
   employeeList: [],
   isModalVisible: false,
   isUpdateModalVisible: false,
+  isDeleteModalVisible: false,
+  isEmployeeDeletable: false,
   listProjectOnEmployees: [],
   addEmployeeForm: {
     name_surname: "",
@@ -46,16 +54,19 @@ const employeeSlice = createSlice({
       const employeeList = listEmployee();
       state.employeeList = employeeList;
     },
-
     setListProjectByAssignedEmployee: (state, action) => {
       const list = listProjectByAssignedEmployee(action.payload);
       state.listProjectOnEmployees = list;
     },
-
     setEmployeeAddModalVisible: (state) => {
       state.isModalVisible = !state.isModalVisible;
     },
-
+    setDeleteModalVisible: (state) => {
+      state.isDeleteModalVisible = !state.isDeleteModalVisible;
+    },
+    setIsEmployeeDeletable: (state, action) => {
+      state.isEmployeeDeletable = isEmployeeDeletable(action.payload);
+    },
     setEmployeeDetailInformation: (state, action) => {
       const employee = findEmployeeById(action.payload);
       state.employeeDetailInformation = employee;
@@ -67,7 +78,6 @@ const employeeSlice = createSlice({
         ? employee?.daily_pay
         : 0;
     },
-
     setEmployeeUpdateModalVisible: (state) => {
       state.isUpdateModalVisible = !state.isUpdateModalVisible;
     },
@@ -77,7 +87,6 @@ const employeeSlice = createSlice({
     setEmployeeDailyPay: (state, action) => {
       state.addEmployeeForm.daily_pay = action.payload;
     },
-
     setUpdateEmployeeId: (state, action) => {
       state.updateEmployeeForm.id = action.payload;
     },
@@ -87,14 +96,12 @@ const employeeSlice = createSlice({
     setUpdateEmployeeDailyPay: (state, action) => {
       state.updateEmployeeForm.daily_pay = action.payload;
     },
-
     setEmployeeFormClear: (state) => {
       state.addEmployeeForm = {
         name_surname: "",
         daily_pay: 0,
       };
     },
-
     setUpdateEmployeeFormClear: (state) => {
       const employee = findEmployeeById(state.updateEmployeeForm.id);
       state.updateEmployeeForm.id = employee?.id ? employee?.id : 0;

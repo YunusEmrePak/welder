@@ -58,7 +58,7 @@ const EmployeeUpdateItemModal = () => {
     );
     dispatch(employeeActions.setEmployeeUpdateModalVisible());
     dispatch(employeeActions.setUpdateEmployeeFormClear());
-    ToastAndroid.show("İşçi başarıyla güncellendi.", ToastAndroid.LONG);
+    ToastAndroid.show("Çalışan başarıyla güncellendi.", ToastAndroid.LONG);
   };
 
   return (

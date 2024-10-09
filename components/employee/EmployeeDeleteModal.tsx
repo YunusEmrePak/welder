@@ -16,76 +16,53 @@ import {
   StyleSheet,
   Text,
   ToastAndroid,
+  View,
 } from "react-native";
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
 import CustomInput, { CutomInputItemState } from "../constant/CustomInput";
-import { addProject, updateProject } from "@/services/projectService";
+import {
+  addProject,
+  deleteProjectById,
+  updateProject,
+} from "@/services/projectService";
 
 import Toast from "react-native-toast-message";
 import CustomUpdateInput from "../constant/CustomUpdateInput";
 import { animateMoneyText } from "@/utils/animateText";
+import { useRouter } from "expo-router";
+import { employeeActions } from "@/redux/slices/employeeSlice";
+import { deleteEmployeeById } from "@/services/employeeService";
 
-const inputs: CutomInputItemState[] = [
-  { inputName: "updateTitle" },
-  { inputName: "updateCustomer" },
-  { inputName: "updatePrice" },
-  { inputName: "updateMaterial_cost" },
-  { inputName: "updatePaid_amount" },
-  { inputName: "updateDetail" },
-];
+interface ModalProps {
+  id: number | null;
+}
 
-const ProjectUpdateItemModal = () => {
+const EmployeeDeleteModal: React.FC<ModalProps> = ({ id }) => {
   const dispatch = useAppDispatch();
-  const { isUpdateModalVisible, updateProjectForm } = useSelector(
-    (state: RootState) => state.project
+  const router = useRouter();
+
+  const { isDeleteModalVisible, isEmployeeDeletable } = useSelector(
+    (state: RootState) => state.employee
   );
 
   const closeModal = () => {
-    dispatch(projectActions.setProjectUpdateModalVisible());
-    dispatch(projectActions.setUpdateProjectFormClear());
+    dispatch(employeeActions.setDeleteModalVisible());
   };
 
-  const addProjectHandler = () => {
-    if (
-      updateProjectForm.title === "" ||
-      updateProjectForm.customer === "" ||
-      updateProjectForm.price === null ||
-      updateProjectForm.price.toString() === "" ||
-      updateProjectForm.price < 0 ||
-      updateProjectForm.material_cost === null ||
-      updateProjectForm.material_cost.toString() === "" ||
-      updateProjectForm.material_cost < 0 ||
-      updateProjectForm.paid_amount === null ||
-      updateProjectForm.paid_amount.toString() === "" ||
-      updateProjectForm.paid_amount < 0
-    ) {
-      ToastAndroid.show(
-        "Bütün alanları doldurmanız gerekmektedir.",
-        ToastAndroid.LONG
-      );
-      return;
-    }
-    if (updateProjectForm.paid_amount > updateProjectForm.price) {
-      ToastAndroid.show(
-        "Ödenen miktar ücretten fazla olamaz.",
-        ToastAndroid.LONG
-      );
-      return;
-    }
-    updateProject(updateProjectForm);
-    dispatch(projectActions.setProjectList());
-    dispatch(projectActions.setProjectDetailInformation(updateProjectForm.id));
-    dispatch(projectActions.setProjectUpdateModalVisible());
-    dispatch(projectActions.setUpdateProjectFormClear());
-    ToastAndroid.show("Proje başarıyla güncellendi.", ToastAndroid.LONG);
+  const deleteEmployeeHandler = () => {
+    dispatch(employeeActions.setDeleteModalVisible());
+    deleteEmployeeById(id ? id : 0);
+    dispatch(employeeActions.setEmployeeList());
+    router.back();
+    ToastAndroid.show("Çalışan başarıyla silindi.", ToastAndroid.LONG);
   };
 
   return (
     <Modal
       animationType="fade"
       transparent={true}
-      visible={isUpdateModalVisible}
+      visible={isDeleteModalVisible}
       onRequestClose={closeModal}
     >
       <Pressable style={styles.overlay} onPress={closeModal}>
@@ -95,17 +72,48 @@ const ProjectUpdateItemModal = () => {
           behavior="padding"
         >
           <Pressable style={styles.modalView}>
-            <Text style={styles.title}>Proje Güncelleme</Text>
-            {inputs.map((item) => (
-              <CustomUpdateInput key={item.inputName} item={item} />
-            ))}
-            <CustomButton
-              name="Güncelle"
-              onClick={addProjectHandler}
-              iconUrl={require("@/assets/icons/pen.png")}
-              width={horizontalScale(270)}
-              height={verticalScale(45)}
-            />
+            {!isEmployeeDeletable ? (
+              <View style={{ width: "100%" }}>
+                <Text style={styles.title}>
+                  Bu çalışan başka projelerde çalıştığı için silinemiyor
+                </Text>
+                <CustomButton
+                  name="Tamam"
+                  onClick={closeModal}
+                  width={"100%"}
+                  height={verticalScale(45)}
+                  bgColor="blue"
+                />
+              </View>
+            ) : (
+              <View style={{ width: "100%" }}>
+                <Text style={styles.title}>
+                  Bu çalışanı silmek istediğinizden emin misiniz?
+                </Text>
+                <View
+                  style={{
+                    width: "100%",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <CustomButton
+                    name="Evet"
+                    onClick={deleteEmployeeHandler}
+                    width={"47%"}
+                    height={verticalScale(45)}
+                    bgColor="#b50000"
+                  />
+                  <CustomButton
+                    name="Hayır"
+                    onClick={closeModal}
+                    width={"47%"}
+                    height={verticalScale(45)}
+                    bgColor="blue"
+                  />
+                </View>
+              </View>
+            )}
           </Pressable>
         </KeyboardAvoidingView>
       </Pressable>
@@ -172,4 +180,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProjectUpdateItemModal;
+export default EmployeeDeleteModal;

@@ -66,7 +66,7 @@ const ProjectEmployeeList: React.FC<StatusButtonProps> = ({ id, status }) => {
     <View style={styles.container}>
       {projectDetailInformation?.status === "inProgress" && (
         <CustomButton
-          name="İşçi Ekle"
+          name="Çalışan Ekle"
           onClick={addEmployee}
           iconUrl={require("@/assets/icons/add-user.png")}
           width="100%"

@@ -12,7 +12,11 @@ import {
   listEmployeeByAssignedProjectId,
   listEmployeeWhoDoesNotWorkOnProject,
 } from "@/services/employeeService";
-import { findProjectById, listProject } from "@/services/projectService";
+import {
+  findProjectById,
+  isProjectDeletable,
+  listProject,
+} from "@/services/projectService";
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface ProjectState {
@@ -20,6 +24,8 @@ export interface ProjectState {
   isModalVisible: boolean;
   isUpdateModalVisible: boolean;
   isAssignModalVisible: boolean;
+  isDeleteModalVisible: boolean;
+  isProjectDeletable: boolean;
   addProjectForm: AddProjectDto;
   updateProjectForm: UpdateProjectDto;
   projectDetailInformation: Project | null;
@@ -35,6 +41,8 @@ const initialState: ProjectState = {
   isModalVisible: false,
   isUpdateModalVisible: false,
   isAssignModalVisible: false,
+  isDeleteModalVisible: false,
+  isProjectDeletable: false,
   listEmployeeDoesNotWorkOnProject: [],
   listEmployeesWorkOnProject: [],
   projectEmployeeList: [],
@@ -102,12 +110,10 @@ const projectSlice = createSlice({
         ? project?.material_cost
         : 0;
     },
-
     setEmployeesWorkOnProject: (state, action) => {
       const list = listEmployeeByAssignedProjectId(action.payload);
       state.listEmployeesWorkOnProject = list;
     },
-
     setAssignEmpToProjectEmployeeId: (state, action) => {
       state.assignEmpToProject.employee_id = action.payload;
     },
@@ -121,7 +127,6 @@ const projectSlice = createSlice({
       const list = listEmployeeWhoDoesNotWorkOnProject(action.payload);
       state.listEmployeeDoesNotWorkOnProject = list;
     },
-
     setAssignEmployeeToProject: (state, action) => {
       const employeeList = action.payload;
       employeeList.forEach((element: any) => {
@@ -143,6 +148,12 @@ const projectSlice = createSlice({
     setAssignModalVisible: (state) => {
       state.isAssignModalVisible = !state.isAssignModalVisible;
     },
+    setDeleteModalVisible: (state) => {
+      state.isDeleteModalVisible = !state.isDeleteModalVisible;
+    },
+    setIsProjectDeletable: (state, action) => {
+      state.isProjectDeletable = isProjectDeletable(action.payload);
+    },
     setProjectTitle: (state, action) => {
       state.addProjectForm.title = action.payload;
     },
@@ -161,7 +172,6 @@ const projectSlice = createSlice({
     setProjectPaidAmount: (state, action) => {
       state.addProjectForm.paid_amount = action.payload;
     },
-
     setUpdateProjectId: (state, action) => {
       state.updateProjectForm.id = action.payload;
     },
@@ -183,7 +193,6 @@ const projectSlice = createSlice({
     setUpdateProjectPaidAmount: (state, action) => {
       state.updateProjectForm.paid_amount = action.payload;
     },
-
     setProjectFormClear: (state) => {
       state.addProjectForm = {
         title: "",
@@ -194,7 +203,6 @@ const projectSlice = createSlice({
         paid_amount: 0,
       };
     },
-
     setUpdateProjectFormClear: (state) => {
       const project = findProjectById(state.updateProjectForm.id);
       state.updateProjectForm.id = project?.id ? project?.id : 0;
