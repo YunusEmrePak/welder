@@ -44,9 +44,7 @@ export default function TabLayout() {
         }}
         listeners={{
           tabPress: (e) => {
-            // Prevent default behavior
             e.preventDefault();
-            // Call your custom function
             handlePanelTabPress();
           },
         }}

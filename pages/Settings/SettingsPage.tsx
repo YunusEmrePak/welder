@@ -87,7 +87,10 @@ const SettingsPage = () => {
         </View>
         <View>
           <Text style={styles.signiture}>@2024 Fume</Text>
-          <Text style={styles.signiture}>Lütfen reklamımızı yapınız.</Text>
+          <Text style={styles.signiture}>
+            Emeğimizin karşılığı olarak lütfen tanıtımımızı ve reklamımızı
+            yapınız.
+          </Text>
         </View>
       </View>
       <SettingsReloadModal />
@@ -115,7 +118,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(15),
     color: "grey",
     textAlign: "center",
-    marginTop: verticalScale(5)
+    marginTop: verticalScale(5),
   },
 });
 
