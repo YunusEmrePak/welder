@@ -1,59 +1,25 @@
-import { Tabs } from "expo-router";
-import React, { useEffect } from "react";
-
+import { Tabs, useNavigation, useRouter } from "expo-router";
+import React, { useEffect, useCallback } from "react";
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
-import { clearDb, createTables, dropTables } from "@/database/database";
-import { AddProjectDto } from "@/dto/add/addProjectDto";
-import { addProject, listProjectByAssignedEmployee, makeProjectStatusCancelled, makeProjectStatusDone, makeProjectStatusInProgress, updateProject } from "@/services/projectService";
-import { listEmployeeByAssignedProjectId, listEmployeeWhoDoesNotWorkOnProject, updateEmployee } from "@/services/employeeService";
-import { UpdatedEmployeeDto } from "@/dto/update/updateEmployeeDto";
-import { UpdateProjectDto } from "@/dto/update/updateProjectDto";
-import { renderTable } from "@/utils/renderTable";
-import { done, inProgress, notStarted } from "@/enum/status";
-import { assignEmployeeToProject, decreaseWorkedDayEmployeeProject, dismissEmployeeFromProject, increaseWorkedDayEmployeeProject } from "@/services/employeeProjectService";
-import { numberOfCancelledProjects, numberOfDoneProjects, numberOfInProgressProjects, numberOfNotStartedProjects, totalCollectedMoney, totalDebt, totalMaterialCost, totolEmployeeCost } from "@/services/dashboardService";
-import { increaseWorkedDayEmployeeProjectDb } from "@/database/employeeProjectDb";
-
-const projectDto: AddProjectDto = {
-  title: "dis kapi",
-  detail: "6x2 metal dis kapi",
-  customer: "yunus emre",
-  price: 6000,
-  material_cost: 1500,
-  paid_amount: 6000,
-};
-
-const updateProjectDto: UpdateProjectDto = {
-  id: 1,
-  title: "Ev kapisi",
-  detail: null,
-  customer: "Mahmut Kara",
-  status: inProgress,
-  price: 6000,
-  material_cost: 1500,
-  paid_amount: 6000,
-};
+import { createTables } from "@/database/database";
+import { useAppDispatch } from "@/store";
+import { dashboardActions } from "@/redux/slices/dashboardSlice";
 
 export default function TabLayout() {
+  const dispatch = useAppDispatch();
+  const navigation = useNavigation();
+  const router = useRouter();
+
   useEffect(() => {
-    // clearDb();
-    // dropTables();
     createTables();
-
-
-    // renderTable();
-    // console.log("Total collected money: ", totalCollectedMoney())
-    // console.log("Total Debt: ", totalDebt())
-    // console.log("Total Material Cost: ", totalMaterialCost())
-    // console.log("Total Material Cost: ", totalMaterialCost())
-    // console.log("Total Employee Cost: ", totolEmployeeCost())
-
-    // console.log("Number of not started: ", numberOfNotStartedProjects())
-    // console.log("Number of in progress: ", numberOfInProgressProjects())
-    // console.log("Number of done: ", numberOfDoneProjects())
-    // console.log("Number of canceled: ", numberOfCancelledProjects())
   }, []);
+
+  const handlePanelTabPress = useCallback(() => {
+    dispatch(dashboardActions.setTotalMoneyAndProjects());
+
+    router.push(`/(tabs)/`);
+  }, [navigation]);
 
   return (
     <Tabs
@@ -75,6 +41,14 @@ export default function TabLayout() {
               color={color}
             />
           ),
+        }}
+        listeners={{
+          tabPress: (e) => {
+            // Prevent default behavior
+            e.preventDefault();
+            // Call your custom function
+            handlePanelTabPress();
+          },
         }}
       />
       <Tabs.Screen
