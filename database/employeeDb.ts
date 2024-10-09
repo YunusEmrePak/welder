@@ -80,3 +80,9 @@ export const totolEmployeeCostDb = (): number => {
   const result = db.getFirstSync("SELECT SUM(total_paid_amount) from employee");
   return result ? result["SUM(total_paid_amount)"] : 0;
 }
+
+export const isEmployeeDeletableDb = (employeeId: number): boolean =>{
+
+  const result = db.getFirstSync("SELECT 1 from employee_project where employee_id=?", employeeId)
+  return result === null ? true : false;
+}
