@@ -59,7 +59,7 @@ const ProjectAssignEmployeeToProjectModal: React.FC<
       dispatch(projectActions.setListEmployeeDoesNotWorkOnProject(id));
       dispatch(projectActions.setSelectedEmployee([]));
       dispatch(projectActions.setAssignModalVisible());
-      ToastAndroid.show("İşçi başarıyla projeye atandı.", ToastAndroid.LONG);
+      ToastAndroid.show("Çalışan başarıyla projeye atandı.", ToastAndroid.LONG);
     }
   };
 
@@ -77,7 +77,7 @@ const ProjectAssignEmployeeToProjectModal: React.FC<
           behavior="padding"
         >
           <Pressable style={styles.modalView}>
-            <Text style={styles.title}>Projeye İşçi Atama</Text>
+            <Text style={styles.title}>Projeye Çalışan Atama</Text>
             <View style={styles.dropdownContainer}>
               <MultiSelect
                 style={styles.dropdown}
@@ -90,8 +90,8 @@ const ProjectAssignEmployeeToProjectModal: React.FC<
                 data={listEmployeeDoesNotWorkOnProject}
                 labelField="name_surname"
                 valueField="id"
-                placeholder="İşçi Seç"
-                searchPlaceholder="İşçi Ara"
+                placeholder="Çalışan Seç"
+                searchPlaceholder="Çalışan Ara"
                 value={selectedEmployee}
                 onChange={(item) => {
                   dispatch(projectActions.setSelectedEmployee(item));
@@ -109,7 +109,7 @@ const ProjectAssignEmployeeToProjectModal: React.FC<
             </View>
 
             <CustomButton
-              name="İşçi Ata"
+              name="Çalışan Ata"
               onClick={assignEmployeeHandler}
               iconUrl={require("@/assets/icons/pen.png")}
               width={horizontalScale(270)}

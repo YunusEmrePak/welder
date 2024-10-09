@@ -45,14 +45,20 @@ const ProjectAddItemModal = () => {
   const addProjectHandler = () => {
     if (
       addProjectForm.title === "" ||
-      addProjectForm.detail === "" ||
       addProjectForm.customer === "" ||
       addProjectForm.price.toString() === "" ||
       addProjectForm.material_cost.toString() === "" ||
       addProjectForm.paid_amount.toString() === ""
     ) {
       ToastAndroid.show(
-        "Bütün alanları doldurmanız gerekmektedir.",
+        "Lütfen zorunlu alanları doldurunuz.",
+        ToastAndroid.LONG
+      );
+      return;
+    }
+    if (addProjectForm.paid_amount > addProjectForm.price) {
+      ToastAndroid.show(
+        "Ödenen miktar ücretten fazla olamaz.",
         ToastAndroid.LONG
       );
       return;

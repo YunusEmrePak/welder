@@ -1,4 +1,5 @@
 import Topbar from "@/components/bar/Topbar";
+import ProjectDeleteItem from "@/components/project/ProjectDeleteItem";
 import ProjectDetail from "@/components/project/ProjectDetail";
 import ProjectDetailStatusButton from "@/components/project/ProjectDetailStatusButtons";
 import ProjectEmployeeList from "@/components/project/ProjectEmployeeList";
@@ -39,7 +40,11 @@ const ProjectDetailPage: React.FC<ProjectDetailProps> = ({ id }) => {
               status={projectDetailInformation.status}
               id={parseInt(id.toString())}
             />
-            <ProjectEmployeeList status={projectDetailInformation.status} id={parseInt(id.toString())} />
+            <ProjectEmployeeList
+              status={projectDetailInformation.status}
+              id={parseInt(id.toString())}
+            />
+            <ProjectDeleteItem id={parseInt(id.toString())} />
             <ProjectUpdateItemModal />
           </View>
         </ScrollView>

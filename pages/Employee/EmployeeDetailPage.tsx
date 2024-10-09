@@ -1,4 +1,5 @@
 import Topbar from "@/components/bar/Topbar";
+import EmployeeDeleteItem from "@/components/employee/EmployeeDeleteItem";
 import EmployeeDetail from "@/components/employee/EmployeeDetail";
 import EmployeeProjectList from "@/components/employee/EmployeeProjectList";
 import EmployeeUpdateItemModal from "@/components/employee/EmployeeUpdateItemModal";
@@ -37,6 +38,7 @@ const EmployeeDetailPage: React.FC<EmployeeDetailProps> = ({ id }) => {
           <View style={styles.scrollContainer}>
             <EmployeeDetail />
             <EmployeeProjectList id={parseInt(id.toString())} />
+            <EmployeeDeleteItem id={parseInt(id.toString())} />
             <EmployeeUpdateItemModal />
           </View>
         </ScrollView>

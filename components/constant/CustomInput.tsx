@@ -157,7 +157,9 @@ const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
     <View
       style={[styles.container, isDetailInput && styles.detailInputContainer]}
     >
-      <Text style={styles.label}>{getPlaceholder()}</Text>
+      <Text style={styles.label}>
+        {getPlaceholder()} {`${!isDetailInput ? `(*)` : ""}`}
+      </Text>
       <TextInput
         style={[styles.input, isDetailInput && styles.detailInput]}
         onChangeText={handleInputChange}

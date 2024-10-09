@@ -27,22 +27,6 @@ interface CustomButtonProps {
   onClick: () => void;
 }
 
-{
-  /* <Tooltip
-                  isVisible={isTooltipVisible}
-                  content={<Text>Check this out!</Text>}
-                  placement="top"
-                  onClose={() => setIsTooltipVisible(false)}
-                >
-                  <CustomButton
-                    iconUrl={require("@/assets/icons/delete.png")}
-                    onClick={() => setIsTooltipVisible(true)}
-                    width={horizontalScale(40)}
-                    height={verticalScale(35)}
-                  />
-                </Tooltip> */
-}
-
 const CustomButton: React.FC<CustomButtonProps> = ({
   name = "",
   iconDirection = "right",

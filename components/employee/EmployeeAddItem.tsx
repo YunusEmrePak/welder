@@ -19,7 +19,7 @@ const EmployeeAddItem: React.FC = () => {
   return (
     <View style={[styles.container]}>
       <CustomButton
-        name="İşçi Ekle"
+        name="Çalışan Ekle"
         onClick={openAddItemModal}
         iconUrl={require("@/assets/icons/new-project.png")}
         width={"100%"}

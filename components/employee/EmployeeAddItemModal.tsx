@@ -55,7 +55,7 @@ const EmployeeAddItemModal = () => {
     dispatch(employeeActions.setEmployeeList());
     dispatch(employeeActions.setEmployeeAddModalVisible());
     dispatch(employeeActions.setEmployeeFormClear());
-    ToastAndroid.show("İşçi başarıyla eklendi.", ToastAndroid.LONG);
+    ToastAndroid.show("Çalışan başarıyla eklendi.", ToastAndroid.LONG);
   };
 
   return (
@@ -68,7 +68,7 @@ const EmployeeAddItemModal = () => {
       <Pressable style={styles.overlay} onPress={closeModal}>
         <KeyboardAvoidingView style={styles.centeredView}>
           <Pressable style={styles.modalView}>
-            <Text style={styles.title}>İşçi Ekleme</Text>
+            <Text style={styles.title}>Çalışan Ekleme</Text>
             {inputs.map((item) => (
               <CustomInput key={item.inputName} item={item} />
             ))}

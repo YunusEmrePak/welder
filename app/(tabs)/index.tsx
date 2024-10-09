@@ -5,7 +5,6 @@ import { useEffect } from "react";
 
 export default function HomeScreen() {
   useEffect(() => {
-    console.log("hi")
   }, [])
   return <HomePage />;
 }
