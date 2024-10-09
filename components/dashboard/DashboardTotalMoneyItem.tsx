@@ -56,7 +56,7 @@ const DashboardTotalMoneyItem: React.FC<TotalAndProjectsProps> = ({
       <View style={[styles.item, styles.item1]}>
         <Text style={styles.title}>{title} </Text>
         <Text style={[styles.valueName]} numberOfLines={1} ellipsizeMode="tail">
-          {formatMoney(item)}
+          {item !== null ? formatMoney(item) : `0₺`}
         </Text>
       </View>
     </LinearGradient>
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   icon: {
     width: horizontalScale(50),
     height: verticalScale(50),
-    marginLeft: horizontalScale(30)
+    marginLeft: horizontalScale(30),
   },
   item: {
     alignItems: "center",

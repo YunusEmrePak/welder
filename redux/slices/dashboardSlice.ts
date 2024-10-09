@@ -27,6 +27,7 @@ export interface TotalAndProjects {
 
 export interface DashboardState {
   totalAndProject: TotalAndProjects;
+  isImported: boolean;
 }
 
 const initialState: DashboardState = {
@@ -41,6 +42,7 @@ const initialState: DashboardState = {
     numberOfDoneProjects: 0,
     numberOfCancelledProjects: 0,
   },
+  isImported: false,
 };
 
 const dashboardSlice = createSlice({
@@ -60,6 +62,9 @@ const dashboardSlice = createSlice({
       state.totalAndProject.numberOfDoneProjects = numberOfDoneProjects();
       state.totalAndProject.numberOfCancelledProjects =
         numberOfCancelledProjects();
+    },
+    setIsImported: (state, action) => {
+      state.isImported = action.payload;
     },
   },
 });

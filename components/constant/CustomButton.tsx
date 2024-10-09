@@ -10,7 +10,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  ViewStyle
+  ViewStyle,
 } from "react-native";
 
 interface CustomButtonProps {

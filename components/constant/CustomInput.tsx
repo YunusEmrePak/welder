@@ -6,6 +6,7 @@ import {
   moderateScale,
   verticalScale,
 } from "@/themes/Metrics";
+import { formatInput } from "@/utils/formatMoney";
 import React from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { useSelector } from "react-redux";
@@ -69,9 +70,7 @@ const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
         break;
       case "paid_amount":
         dispatch(
-          projectActions.setProjectPaidAmount(
-            value === "" ? "" : parseInt(value)
-          )
+          projectActions.setProjectPaidAmount(value === "" ? "" : value)
         );
         break;
 
