@@ -1,7 +1,10 @@
-import Topbar from "@/components/bar/Topbar";
-import ProjectDetail from "@/components/project/ProjectDetail";
-import ProjectDetailStatusButton from "@/components/project/ProjectDetailStatusButtons";
+import { employeeActions } from "@/redux/slices/employeeSlice";
 import { projectActions } from "@/redux/slices/projectSlice";
+import {
+  decreaseWorkedDayEmployeeProject,
+  dismissEmployeeFromProject,
+  increaseWorkedDayEmployeeProject,
+} from "@/services/employeeProjectService";
 import { RootState, useAppDispatch } from "@/store";
 import {
   horizontalScale,
@@ -9,27 +12,10 @@ import {
   verticalScale,
 } from "@/themes/Metrics";
 import React, { useEffect } from "react";
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ToastAndroid,
-} from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
-import {
-  decreaseWorkedDayEmployeeProject,
-  increaseWorkedDayEmployeeProject,
-  listEmployeeProjectByProjectId,
-} from "@/services/employeeProjectService";
-import { EmployeeProject } from "@/entity/employeeProject";
 import ProjectAssignEmployeeToProjectModal from "./ProjectAssignEmployeeToProjectModal";
-import { listEmployeeByAssignedProjectId } from "@/services/employeeService";
-import { Employee } from "@/entity/employee";
-import { employeeActions } from "@/redux/slices/employeeSlice";
 
 interface StatusButtonProps {
   status: string;
@@ -39,11 +25,9 @@ interface StatusButtonProps {
 const ProjectEmployeeList: React.FC<StatusButtonProps> = ({ id, status }) => {
   const dispatch = useAppDispatch();
 
-  const {
-    projectDetailInformation,
-    projectEmployeeList,
-    listEmployeesWorkOnProject,
-  } = useSelector((state: RootState) => state.project);
+  const { projectDetailInformation, listEmployeesWorkOnProject } = useSelector(
+    (state: RootState) => state.project
+  );
 
   useEffect(() => {
     dispatch(projectActions.setEmployeesWorkOnProject(id ? id : 0));
@@ -74,6 +58,16 @@ const ProjectEmployeeList: React.FC<StatusButtonProps> = ({ id, status }) => {
       dispatch(projectActions.setEmployeesWorkOnProject(projectId));
       dispatch(employeeActions.setEmployeeList());
     }
+  };
+
+  const dismissEmployee = (employeeId: number, projectId: number) => {
+    dismissEmployeeFromProject({
+      employee_id: employeeId,
+      project_id: projectId,
+    });
+    dispatch(projectActions.setEmployeesWorkOnProject(projectId));
+    dispatch(projectActions.setListEmployeeDoesNotWorkOnProject(projectId));
+    dispatch(employeeActions.setEmployeeList());
   };
 
   return (
@@ -113,34 +107,49 @@ const ProjectEmployeeList: React.FC<StatusButtonProps> = ({ id, status }) => {
               </Text>
             </View>
             <View style={styles.dayButtons}>
-              <TouchableOpacity
-                onPress={() =>
-                  decreaseWorkDay(
-                    item.id,
-                    projectDetailInformation?.id
-                      ? projectDetailInformation?.id
-                      : 0,
-                    item.worked_day
-                  )
-                }
-                disabled={item.worked_day === 0 || status !== "inProgress"}
-                style={[
-                  styles.dayButtonContainer,
-                  {
-                    opacity:
-                      item.worked_day === 0 || status !== "inProgress"
-                        ? 0.5
-                        : 1,
-                  },
-                ]}
-              >
-                <Text style={styles.dayButton}>-</Text>
-              </TouchableOpacity>
+              {item.worked_day === 0 || status !== "inProgress" ? (
+                <CustomButton
+                  iconUrl={require("@/assets/icons/delete.png")}
+                  onClick={() =>
+                    dismissEmployee(
+                      item.id,
+                      projectDetailInformation?.id
+                        ? projectDetailInformation?.id
+                        : 0
+                    )
+                  }
+                  width={horizontalScale(40)}
+                  height={verticalScale(35)}
+                />
+              ) : (
+                <CustomButton
+                  name="-"
+                  onClick={() =>
+                    decreaseWorkDay(
+                      item.id,
+                      projectDetailInformation?.id
+                        ? projectDetailInformation?.id
+                        : 0,
+                      item.worked_day
+                    )
+                  }
+                  width={horizontalScale(40)}
+                  height={verticalScale(35)}
+                  disabled={
+                    item.worked_day === 0 || status !== "inProgress"
+                      ? true
+                      : false
+                  }
+                />
+              )}
+
               <View style={styles.workDay}>
                 <Text style={styles.workText}>{item.worked_day}</Text>
               </View>
-              <TouchableOpacity
-                onPress={() =>
+
+              <CustomButton
+                name="+"
+                onClick={() =>
                   increaseWorkDay(
                     item.id,
                     projectDetailInformation?.id
@@ -148,16 +157,9 @@ const ProjectEmployeeList: React.FC<StatusButtonProps> = ({ id, status }) => {
                       : 0
                   )
                 }
-                disabled={status !== "inProgress"}
-                style={[
-                  styles.dayButtonContainer,
-                  {
-                    opacity: status !== "inProgress" ? 0.5 : 1,
-                  },
-                ]}
-              >
-                <Text style={styles.dayButton}>+</Text>
-              </TouchableOpacity>
+                width={horizontalScale(40)}
+                height={verticalScale(35)}
+              />
             </View>
           </View>
         ))}

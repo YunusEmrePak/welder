@@ -20,6 +20,7 @@ import { RootState, useAppDispatch } from "@/store";
 import { projectActions } from "@/redux/slices/projectSlice";
 import { animateMoneyText } from "@/utils/animateText";
 import { employeeActions } from "@/redux/slices/employeeSlice";
+import EmployeeProjectList from "./EmployeeProjectList";
 
 const EmployeeDetail = () => {
   const dispatch = useAppDispatch();
@@ -84,6 +85,7 @@ const EmployeeDetail = () => {
           />
         </View>
       </View>
+      
     </View>
   );
 };

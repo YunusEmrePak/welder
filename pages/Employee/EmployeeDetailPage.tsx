@@ -1,5 +1,6 @@
 import Topbar from "@/components/bar/Topbar";
 import EmployeeDetail from "@/components/employee/EmployeeDetail";
+import EmployeeProjectList from "@/components/employee/EmployeeProjectList";
 import EmployeeUpdateItemModal from "@/components/employee/EmployeeUpdateItemModal";
 import ProjectDetail from "@/components/project/ProjectDetail";
 import ProjectDetailStatusButton from "@/components/project/ProjectDetailStatusButtons";
@@ -35,6 +36,7 @@ const EmployeeDetailPage: React.FC<EmployeeDetailProps> = ({ id }) => {
         <ScrollView style={styles.scrollView}>
           <View style={styles.scrollContainer}>
             <EmployeeDetail />
+            <EmployeeProjectList id={parseInt(id.toString())} />
             <EmployeeUpdateItemModal />
           </View>
         </ScrollView>

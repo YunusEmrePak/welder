@@ -13,62 +13,79 @@ import {
   moderateScale,
   verticalScale,
 } from "@/themes/Metrics";
+import Tooltip from "react-native-walkthrough-tooltip";
 
 interface CustomButtonProps {
-  name: string;
+  name?: string;
   iconDirection?: "left" | "right";
   bgColor?: string;
   textColor?: string;
   width: number | string;
   height: number | string;
   iconUrl?: ImageSourcePropType;
+  disabled?: boolean;
   onClick: () => void;
 }
 
+{
+  /* <Tooltip
+                  isVisible={isTooltipVisible}
+                  content={<Text>Check this out!</Text>}
+                  placement="top"
+                  onClose={() => setIsTooltipVisible(false)}
+                >
+                  <CustomButton
+                    iconUrl={require("@/assets/icons/delete.png")}
+                    onClick={() => setIsTooltipVisible(true)}
+                    width={horizontalScale(40)}
+                    height={verticalScale(35)}
+                  />
+                </Tooltip> */
+}
+
 const CustomButton: React.FC<CustomButtonProps> = ({
-  name,
+  name = "",
   iconDirection = "right",
   bgColor = "#E56E1E",
   textColor = "#fff",
   iconUrl,
   width,
   height,
+  disabled = false,
   onClick,
 }) => {
   return (
     <TouchableOpacity
       onPress={onClick}
-      style={
+      disabled={disabled}
+      style={[
+        styles.buttonContainer,
         {
-          width,
           justifyContent: "center",
           alignItems: "center",
-        } as ViewStyle
-      }
+          opacity: disabled ? 0.5 : 1,
+          backgroundColor: bgColor,
+          width,
+          height,
+        } as ViewStyle,
+      ]}
     >
-      <View
+      {iconDirection === "left" && iconUrl && (
+        <Image source={iconUrl} style={styles.icon} />
+      )}
+      <Text
         style={[
-          styles.buttonContainer,
-          { backgroundColor: bgColor, width, height } as ViewStyle,
+          styles.buttonText,
+          {
+            color: textColor,
+          },
         ]}
       >
-        {iconDirection === "left" && iconUrl && (
-          <Image source={iconUrl} style={styles.icon} />
-        )}
-        <Text
-          style={[
-            styles.buttonText,
-            {
-              color: textColor,
-            },
-          ]}
-        >
-          {name}
-        </Text>
-        {iconDirection === "right" && iconUrl && (
-          <Image source={iconUrl} style={styles.icon} />
-        )}
-      </View>
+        {name}
+      </Text>
+      {iconDirection === "right" && iconUrl && (
+        <Image source={iconUrl} style={styles.icon} />
+      )}
     </TouchableOpacity>
   );
 };

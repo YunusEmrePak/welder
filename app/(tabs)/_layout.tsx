@@ -38,6 +38,7 @@ const updateProjectDto: UpdateProjectDto = {
 export default function TabLayout() {
   useEffect(() => {
     // clearDb();
+    // dropTables();
     createTables();
     renderTable();
     console.log("Total collected money: ", totalCollectedMoney())

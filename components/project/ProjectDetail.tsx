@@ -94,9 +94,9 @@ const ProjectDetail = () => {
         <View style={styles.moneyContainer}>
           <View style={[styles.row]}>
             <View style={[styles.col]}>
-              <Text style={styles.moneyTitle}>Gider</Text>
-              <Text style={[styles.moneyText, { color: "#b50000" }]}>
-                {formatMoney(projectDetailInformation?.material_cost)}
+              <Text style={styles.moneyTitle}>Ücret</Text>
+              <Text style={[styles.moneyText]}>
+                {formatMoney(projectDetailInformation?.price)}
               </Text>
             </View>
             <View style={[styles.col]}>
@@ -109,11 +109,12 @@ const ProjectDetail = () => {
 
           <View style={[styles.row]}>
             <View style={[styles.col]}>
-              <Text style={styles.moneyTitle}>Ücret</Text>
-              <Text style={[styles.moneyText]}>
-                {formatMoney(projectDetailInformation?.price)}
+              <Text style={styles.moneyTitle}>Gider</Text>
+              <Text style={[styles.moneyText, { color: "#b50000" }]}>
+                {formatMoney(projectDetailInformation?.material_cost)}
               </Text>
             </View>
+
             <View style={[styles.col]}>
               <Text style={styles.moneyTitle}>Borç</Text>
               <Text

@@ -2,6 +2,7 @@ import { AddEmployeeDto } from "@/dto/add/addEmployeeDto";
 import { UpdatedEmployeeDto } from "@/dto/update/updateEmployeeDto";
 import { Employee } from "@/entity/employee";
 import { findEmployeeById, listEmployee } from "@/services/employeeService";
+import { listProjectByAssignedEmployee } from "@/services/projectService";
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface EmployeeState {
@@ -10,6 +11,7 @@ export interface EmployeeState {
   isUpdateModalVisible: boolean;
   addEmployeeForm: AddEmployeeDto;
   updateEmployeeForm: UpdatedEmployeeDto;
+  listProjectOnEmployees: ProjectDetailEmployeeDto[];
   employeeDetailInformation: Employee | null;
 }
 
@@ -17,6 +19,7 @@ const initialState: EmployeeState = {
   employeeList: [],
   isModalVisible: false,
   isUpdateModalVisible: false,
+  listProjectOnEmployees: [],
   addEmployeeForm: {
     name_surname: "",
     daily_pay: 0,
@@ -42,6 +45,12 @@ const employeeSlice = createSlice({
     setEmployeeList: (state) => {
       const employeeList = listEmployee();
       state.employeeList = employeeList;
+    },
+
+    setListProjectByAssignedEmployee: (state, action) => {
+      const list = listProjectByAssignedEmployee(action.payload);
+      state.listProjectOnEmployees = list;
+      console.log(list);
     },
 
     setEmployeeAddModalVisible: (state) => {
