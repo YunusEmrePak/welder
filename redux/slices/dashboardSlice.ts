@@ -27,7 +27,7 @@ export interface TotalAndProjects {
 
 export interface DashboardState {
   totalAndProject: TotalAndProjects;
-  isImported: boolean;
+  isReloadModalVisible: boolean;
 }
 
 const initialState: DashboardState = {
@@ -42,7 +42,7 @@ const initialState: DashboardState = {
     numberOfDoneProjects: 0,
     numberOfCancelledProjects: 0,
   },
-  isImported: false,
+  isReloadModalVisible: false,
 };
 
 const dashboardSlice = createSlice({
@@ -63,8 +63,8 @@ const dashboardSlice = createSlice({
       state.totalAndProject.numberOfCancelledProjects =
         numberOfCancelledProjects();
     },
-    setIsImported: (state, action) => {
-      state.isImported = action.payload;
+    setIsReloadModalVisivle: (state) => {
+      state.isReloadModalVisible = !state.isReloadModalVisible;
     },
   },
 });

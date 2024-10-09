@@ -15,17 +15,16 @@ import { useEffect } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
-import * as Updates from "expo-updates";
 import { dashboardActions } from "@/redux/slices/dashboardSlice";
+import SettingsReloadModal from "@/components/settings/SettingsReloadModal";
+import * as Updates from "expo-updates";
 
 const SettingsPage = () => {
   const dispatch = useAppDispatch();
 
-  const { isImported } = useSelector((state: RootState) => state.dashboard);
-
   const importHandler = async () => {
     await importDb();
-    // Updates.reloadAsync();
+    dispatch(dashboardActions.setIsReloadModalVisivle());
   };
 
   const exportHandler = () => {
@@ -86,6 +85,7 @@ const SettingsPage = () => {
             </Text>
           </View>
         </View>
+        <SettingsReloadModal />
       </ScrollView>
     </View>
   );
