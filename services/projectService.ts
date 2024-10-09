@@ -2,6 +2,7 @@ import {
   addProjectDb,
   deleteProjectByIdDb,
   findProjectByIdDb,
+  isProjectDeletableDb,
   listProjectByAssignedEmployeeIdDb,
   listProjectDb,
   makeProjectStatusCancelledDb,
@@ -80,7 +81,7 @@ export const updateProject = (project: UpdateProjectDto) => {
   }
 
   oldProject.debt_amount = oldProject.price - oldProject.paid_amount
-  
+
   updateProjectDb(oldProject);
 };
 
@@ -95,6 +96,11 @@ export const makeProjectStatusDone = (id: number) => {
 export const makeProjectStatusCancelled = (id: number) => {
   makeProjectStatusCancelledDb(id);
 };
+
+
+export const isProjectDeletable = (projectId: number): boolean =>{
+  return isProjectDeletableDb(projectId);
+}
 
 export const printProject = () => {
   const projects = listProject();

@@ -4,6 +4,7 @@ import {
   deleteEmployeeByIdDb,
   findEmployeeByIdDb,
   increaseWorkedDayEmployeeDb,
+  isEmployeeDeletableDb,
   listEmployeeByAssignedProjectIdDb,
   listEmployeeDb,
   listEmployeeWhoDoesNotWorkOnProjectDb,
@@ -77,6 +78,11 @@ export const increaseWorkedDayEmployee = (id: number) => {
 export const decreaseWorkedDayEmployee = (id: number) => {
   decreaseWorkedDayEmployeeDb(id);
 };
+
+
+export const isEmployeeDeletable = (employeeId: number): boolean => {
+  return isEmployeeDeletableDb(employeeId);
+}
 
 export const printEmployee = () => {
   const employees: Employee[] = listEmployee(); // Assuming listEmployee() fetches the employee list

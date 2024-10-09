@@ -116,3 +116,8 @@ const numberOfStatusProjectsDb = (status: string): number => {
   const result = db.getFirstSync("SELECT COUNT(id) from project where status=?", status);
   return result ? result["COUNT(id)"] : 0;
 }
+
+export const isProjectDeletableDb = (projectId: number): boolean =>{
+  const result = db.getFirstSync("SELECT 1 from employee_project where project_id=?", projectId)
+  return result === null ? true : false;
+}
