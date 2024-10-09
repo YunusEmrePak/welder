@@ -22,7 +22,6 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(dashboardActions.setTotalMoneyAndProjects());
-    console.log(totalAndProject)
   }, [totalAndProject]);
 
   const item = [
