@@ -69,13 +69,13 @@ export const updateProject = (project: UpdateProjectDto) => {
   if (project.status !== null && project.status !== "") {
     oldProject.status = project.status;
   }
-  if (project.price !== null && project.price > 0) {
+  if (project.price !== null && project.price >= 0) {
     oldProject.price = project.price;
   }
-  if (project.material_cost !== null && project.material_cost > 0) {
+  if (project.material_cost !== null && project.material_cost >= 0) {
     oldProject.material_cost = project.material_cost;
   }
-  if (project.paid_amount !== null && project.paid_amount > 0) {
+  if (project.paid_amount !== null && project.paid_amount >= 0) {
     oldProject.paid_amount = project.paid_amount;
     oldProject.debt_amount = oldProject.price - oldProject.paid_amount;
   }
