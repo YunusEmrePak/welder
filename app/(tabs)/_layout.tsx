@@ -12,7 +12,7 @@ import { UpdateProjectDto } from "@/dto/update/updateProjectDto";
 import { renderTable } from "@/utils/renderTable";
 import { done, inProgress, notStarted } from "@/enum/status";
 import { assignEmployeeToProject, decreaseWorkedDayEmployeeProject, dismissEmployeeFromProject, increaseWorkedDayEmployeeProject } from "@/services/employeeProjectService";
-import { totalCollectedMoney, totalDebt, totalMaterialCost, totolEmployeeCost } from "@/services/dashboardService";
+import { numberOfCancelledProjects, numberOfDoneProjects, numberOfInProgressProjects, numberOfNotStartedProjects, totalCollectedMoney, totalDebt, totalMaterialCost, totolEmployeeCost } from "@/services/dashboardService";
 import { increaseWorkedDayEmployeeProjectDb } from "@/database/employeeProjectDb";
 
 const projectDto: AddProjectDto = {
@@ -40,12 +40,19 @@ export default function TabLayout() {
     // clearDb();
     // dropTables();
     createTables();
-    // renderTable();
-    // console.log("Total collected money: ", totalCollectedMoney())
-    // console.log("Total Debt: ", totalDebt())
-    // console.log("Total Material Cost: ", totalMaterialCost())
-    // console.log("Total Material Cost: ", totalMaterialCost())
-    // console.log("Total Employee Cost: ", totolEmployeeCost())
+
+
+    renderTable();
+    console.log("Total collected money: ", totalCollectedMoney())
+    console.log("Total Debt: ", totalDebt())
+    console.log("Total Material Cost: ", totalMaterialCost())
+    console.log("Total Material Cost: ", totalMaterialCost())
+    console.log("Total Employee Cost: ", totolEmployeeCost())
+
+    console.log("Number of not started: ", numberOfNotStartedProjects())
+    console.log("Number of in progress: ", numberOfInProgressProjects())
+    console.log("Number of done: ", numberOfDoneProjects())
+    console.log("Number of canceled: ", numberOfCancelledProjects())
   }, []);
 
   return (

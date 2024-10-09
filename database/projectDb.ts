@@ -1,5 +1,5 @@
 import { Project } from "@/entity/project";
-import { cancelled, done, inProgress } from "@/enum/status";
+import { cancelled, done, inProgress, notStarted } from "@/enum/status";
 import { getCurrentDate } from "@/utils/dateUtils";
 import * as SQLite from "expo-sqlite";
 
@@ -93,4 +93,26 @@ export const totalDebtDb = (): number => {
 export const totalMaterialCostDb = (): number => {
   const result = db.getFirstSync("SELECT SUM(material_cost) from project");
   return result ? result["SUM(material_cost)"] : 0;
+}
+
+export const numberOfNotStartedProjectsDb = (): number => {
+  return numberOfStatusProjectsDb(notStarted)
+}
+
+export const numberOfInProgressProjectsDb = (): number => {
+  return numberOfStatusProjectsDb(inProgress)
+}
+
+export const numberOfDoneProjectsDb = (): number => {
+  return numberOfStatusProjectsDb(done)
+}
+
+export const numberOfCanceledProjectsDb = (): number => {
+  return numberOfStatusProjectsDb(cancelled)
+}
+
+
+const numberOfStatusProjectsDb = (status: string): number => {
+  const result = db.getFirstSync("SELECT COUNT(id) from project where status=?", status);
+  return result ? result["COUNT(id)"] : 0;
 }
