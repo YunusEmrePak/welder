@@ -11,7 +11,8 @@ import {
   Pressable,
   StyleSheet,
   Text,
-  ToastAndroid
+  ToastAndroid,
+  View
 } from "react-native";
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
@@ -62,7 +63,7 @@ const EmployeeAddItemModal = () => {
       onRequestClose={closeModal}
     >
       <Pressable style={styles.overlay} onPress={closeModal}>
-        <KeyboardAvoidingView style={styles.centeredView}>
+        <View style={styles.centeredView}>
           <Pressable style={styles.modalView}>
             <Text style={styles.title}>Çalışan Ekleme</Text>
             {inputs.map((item) => (
@@ -76,7 +77,7 @@ const EmployeeAddItemModal = () => {
               height={verticalScale(45)}
             />
           </Pressable>
-        </KeyboardAvoidingView>
+        </View>
       </Pressable>
     </Modal>
   );

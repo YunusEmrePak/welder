@@ -30,9 +30,9 @@ const ProjectPage = () => {
           {projectList.map((item) => (
             <ProjectItem key={item.id} item={item} />
           ))}
-          <ProjectAddItemModal />
         </View>
       </ScrollView>
+      <ProjectAddItemModal />
     </View>
   );
 };

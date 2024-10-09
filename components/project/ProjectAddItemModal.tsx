@@ -20,6 +20,7 @@ import {
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
 import CustomInput, { CutomInputItemState } from "../constant/CustomInput";
+import { View } from "react-native";
 
 const inputs: CutomInputItemState[] = [
   { inputName: "title" },
@@ -77,10 +78,7 @@ const ProjectAddItemModal = () => {
       onRequestClose={closeModal}
     >
       <Pressable style={styles.overlay} onPress={closeModal}>
-        <KeyboardAvoidingView
-          style={styles.centeredView}
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-        >
+        <View style={styles.centeredView}>
           <Pressable style={styles.modalView}>
             <Text style={styles.title}>Proje Ekleme</Text>
             {inputs.map((item) => (
@@ -94,7 +92,7 @@ const ProjectAddItemModal = () => {
               height={verticalScale(45)}
             />
           </Pressable>
-        </KeyboardAvoidingView>
+        </View>
       </Pressable>
     </Modal>
   );

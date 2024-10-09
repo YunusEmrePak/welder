@@ -34,9 +34,9 @@ const EmployeePage = () => {
           {employeeList.map((item: any) => (
             <EmployeeItem key={item.id} item={item} />
           ))}
-          <EmployeeAddItemModal />
         </View>
       </ScrollView>
+      <EmployeeAddItemModal />
     </View>
   );
 };

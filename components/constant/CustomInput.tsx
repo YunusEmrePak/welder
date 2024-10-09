@@ -70,7 +70,9 @@ const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
         break;
       case "paid_amount":
         dispatch(
-          projectActions.setProjectPaidAmount(value === "" ? "" : value)
+          projectActions.setProjectPaidAmount(
+            value === "" ? "" : parseInt(value)
+          )
         );
         break;
 
@@ -164,6 +166,7 @@ const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
         onChangeText={handleInputChange}
         value={getInputValue()}
         keyboardType={isNumberInput ? "number-pad" : "default"}
+        multiline={isDetailInput ? true : false}
       />
     </View>
   );

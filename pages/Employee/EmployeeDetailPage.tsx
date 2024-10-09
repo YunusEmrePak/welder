@@ -39,10 +39,10 @@ const EmployeeDetailPage: React.FC<EmployeeDetailProps> = ({ id }) => {
             <EmployeeDetail />
             <EmployeeProjectList id={parseInt(id.toString())} />
             <EmployeeDeleteItem id={parseInt(id.toString())} />
-            <EmployeeUpdateItemModal />
           </View>
         </ScrollView>
       )}
+      <EmployeeUpdateItemModal />
     </View>
   );
 };
