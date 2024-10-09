@@ -1,4 +1,3 @@
-import { projectActions } from "@/redux/slices/projectSlice";
 import { RootState, useAppDispatch } from "@/store";
 import {
   horizontalScale,
@@ -10,17 +9,14 @@ import {
   KeyboardAvoidingView,
   Modal,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
-  ToastAndroid,
+  ToastAndroid
 } from "react-native";
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
 import CustomInput, { CutomInputItemState } from "../constant/CustomInput";
-import { addProject } from "@/services/projectService";
 
-import Toast from "react-native-toast-message";
 import { employeeActions } from "@/redux/slices/employeeSlice";
 import { addEmployee } from "@/services/employeeService";
 

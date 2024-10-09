@@ -30,7 +30,7 @@ const HomePage = () => {
       color1: "#6dcf8f",
       color2: "#068f16",
       iconUrl: require("@/assets/icons/money-bag.png"),
-      title: "Toplam Kâr",
+      title: "Kâr",
     },
     {
       number: totalAndProject.totalCollectedMoney,
@@ -51,7 +51,7 @@ const HomePage = () => {
       color1: "#fc8888",
       color2: "#b00404",
       iconUrl: require("@/assets/icons/money.png"),
-      title: "Toplam Malzeme Gideri",
+      title: "Malzeme Gideri",
     },
     {
       number: totalAndProject.totolEmployeeCost,

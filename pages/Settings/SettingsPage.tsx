@@ -47,7 +47,7 @@ const SettingsPage = () => {
               iconUrl={require("@/assets/icons/export.png")}
               width={"100%"}
               height={verticalScale(45)}
-              bgColor="#8C52FF"
+              bgColor="#5D15EB"
             />
           </View>
           <View

@@ -1,38 +1,26 @@
-import { projectActions } from "@/redux/slices/projectSlice";
 import { RootState, useAppDispatch } from "@/store";
 import {
   horizontalScale,
   moderateScale,
   verticalScale,
 } from "@/themes/Metrics";
-import React, { useRef } from "react";
+import React from "react";
 import {
-  Animated,
   KeyboardAvoidingView,
   Modal,
   Platform,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
   ToastAndroid,
-  View,
+  View
 } from "react-native";
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
-import CustomInput, { CutomInputItemState } from "../constant/CustomInput";
-import {
-  addProject,
-  deleteProjectById,
-  updateProject,
-} from "@/services/projectService";
 
-import Toast from "react-native-toast-message";
-import CustomUpdateInput from "../constant/CustomUpdateInput";
-import { animateMoneyText } from "@/utils/animateText";
-import { useRouter } from "expo-router";
 import { employeeActions } from "@/redux/slices/employeeSlice";
 import { deleteEmployeeById } from "@/services/employeeService";
+import { useRouter } from "expo-router";
 
 interface ModalProps {
   id: number | null;

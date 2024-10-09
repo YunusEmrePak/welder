@@ -1,19 +1,17 @@
 import {
-  ImageSourcePropType,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-  ViewStyle,
-} from "react-native";
-import React from "react";
-import {
   horizontalScale,
   moderateScale,
   verticalScale,
 } from "@/themes/Metrics";
-import Tooltip from "react-native-walkthrough-tooltip";
+import React from "react";
+import {
+  Image,
+  ImageSourcePropType,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  ViewStyle
+} from "react-native";
 
 interface CustomButtonProps {
   name?: string;
