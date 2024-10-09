@@ -82,7 +82,7 @@ const EmployeeDeleteModal: React.FC<ModalProps> = ({ id }) => {
                   onClick={closeModal}
                   width={"100%"}
                   height={verticalScale(45)}
-                  bgColor="blue"
+                  bgColor="#E56E1E"
                 />
               </View>
             ) : (
@@ -109,7 +109,7 @@ const EmployeeDeleteModal: React.FC<ModalProps> = ({ id }) => {
                     onClick={closeModal}
                     width={"47%"}
                     height={verticalScale(45)}
-                    bgColor="blue"
+                    bgColor="#E56E1E"
                   />
                 </View>
               </View>

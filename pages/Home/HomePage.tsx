@@ -51,7 +51,7 @@ const HomePage = () => {
       color1: "#fc8888",
       color2: "#b00404",
       iconUrl: require("@/assets/icons/money.png"),
-      title: "Toplam Gider",
+      title: "Toplam Malzeme Gideri",
     },
     {
       number: totalAndProject.totolEmployeeCost,
