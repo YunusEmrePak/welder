@@ -63,7 +63,7 @@ export const updateProjectDb = (updatedProject: Project) => {
 
 export const makeProjectStatusInProgressDb = (id: number) => {
   const result = db.runSync(
-    "UPDATE project SET status=?, start_date=? where id=?", inProgress, getCurrentDate(), id
+    "UPDATE project SET status=?, start_date=?, finish_date = NULL where id=?", inProgress, getCurrentDate(), id
   )
 }
 
