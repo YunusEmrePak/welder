@@ -49,7 +49,7 @@ const EmployeeDetail = () => {
         <View style={styles.moneyContainer}>
           <View style={[styles.row]}>
             <View style={[styles.col]}>
-              <Text style={styles.moneyTitle}>Günlük Kazanç:</Text>
+              <Text style={styles.moneyTitle}>Günlük Kazanç</Text>
               <Text style={[styles.moneyText]}>
                 {formatMoney(employeeDetailInformation?.daily_pay)}
               </Text>
@@ -57,7 +57,7 @@ const EmployeeDetail = () => {
           </View>
           <View style={[styles.row]}>
             <View style={[styles.col]}>
-              <Text style={styles.moneyTitle}>Toplam Ödenen Miktar:</Text>
+              <Text style={styles.moneyTitle}>Toplam Ödenen Miktar</Text>
               <Text style={[styles.moneyText]}>
                 {formatMoney(employeeDetailInformation?.total_paid_amount)}
               </Text>
@@ -66,7 +66,7 @@ const EmployeeDetail = () => {
           <View style={[styles.row]}>
             <View style={[styles.col]}>
               <Text style={styles.moneyTitle}>
-                Toplam Çalıştığı Gün Sayısı:
+                Toplam Çalıştığı Gün Sayısı
               </Text>
               <Text style={[styles.moneyText]}>
                 {employeeDetailInformation?.total_worked_day}
@@ -148,11 +148,10 @@ const styles = StyleSheet.create({
     marginTop: verticalScale(20),
   },
   moneyTitle: {
-    fontSize: moderateScale(20),
+    fontSize: moderateScale(18),
   },
   moneyText: {
-    fontSize: moderateScale(26),
-    marginLeft: horizontalScale(10),
+    fontSize: moderateScale(24),
   },
   row: {
     flexDirection: "row",
@@ -162,8 +161,7 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(20),
   },
   col: {
-    flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
   },
   buttonContainer: {
     width: "100%",
