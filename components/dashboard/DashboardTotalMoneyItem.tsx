@@ -89,7 +89,6 @@ const styles = StyleSheet.create({
   iconItem: {
     width: "40%",
     height: "auto",
-    backgroundColor: "red",
   },
   item: {
     alignItems: "center",
