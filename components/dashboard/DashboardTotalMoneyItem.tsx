@@ -68,8 +68,6 @@ const styles = StyleSheet.create({
     width: "95%",
     height: verticalScale(115),
     borderRadius: moderateScale(10),
-    paddingVertical: verticalScale(7),
-    paddingHorizontal: horizontalScale(8),
     marginTop: moderateScale(10),
     flexDirection: "row",
     justifyContent: "space-between",
@@ -86,11 +84,12 @@ const styles = StyleSheet.create({
   icon: {
     width: horizontalScale(50),
     height: verticalScale(50),
-    marginLeft: horizontalScale(20),
+    marginLeft: horizontalScale(25),
   },
   iconItem: {
     width: "40%",
     height: "auto",
+    backgroundColor: "red",
   },
   item: {
     alignItems: "center",
