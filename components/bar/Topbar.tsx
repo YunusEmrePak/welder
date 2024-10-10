@@ -19,11 +19,6 @@ const Topbar: React.FC = () => {
         />
         <Text style={styles.text}>Welder</Text>
       </View>
-      <Image
-        source={require("@/assets/icons/4kırmızı.png")}
-        alt="Logo"
-        style={styles.logo2}
-      />
     </View>
   );
 };

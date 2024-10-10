@@ -4,7 +4,7 @@
     "slug": "welder",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/icons/appicon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
