@@ -65,9 +65,7 @@ const EmployeeDetail = () => {
           </View>
           <View style={[styles.row]}>
             <View style={[styles.col]}>
-              <Text style={styles.moneyTitle}>
-                Toplam Çalıştığı Gün Sayısı
-              </Text>
+              <Text style={styles.moneyTitle}>Toplam Çalıştığı Gün Sayısı</Text>
               <Text style={[styles.moneyText]}>
                 {employeeDetailInformation?.total_worked_day}
               </Text>
@@ -85,7 +83,6 @@ const EmployeeDetail = () => {
           />
         </View>
       </View>
-      
     </View>
   );
 };
@@ -121,6 +118,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     width: "100%",
+    height: "auto",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",

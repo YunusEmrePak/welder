@@ -50,7 +50,7 @@ const DashboardTotalMoneyItem: React.FC<TotalAndProjectsProps> = ({
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
     >
-      <View style={styles.item}>
+      <View style={[styles.item, styles.iconItem]}>
         <Image style={styles.icon} source={iconUrl} />
       </View>
       <View style={[styles.item, styles.item1]}>
@@ -86,14 +86,17 @@ const styles = StyleSheet.create({
   icon: {
     width: horizontalScale(50),
     height: verticalScale(50),
-    marginLeft: horizontalScale(30),
+    marginLeft: horizontalScale(20),
+  },
+  iconItem: {
+    width: "40%",
+    height: "auto",
   },
   item: {
     alignItems: "center",
     justifyContent: "center",
-    width: "40%",
-    height: "100%",
-    // backgroundColor: "red"
+    // width: "40%",
+    // height: "100%",
   },
   item1: {
     // backgroundColor: "red",

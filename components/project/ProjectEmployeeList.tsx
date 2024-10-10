@@ -94,7 +94,8 @@ const ProjectEmployeeList: React.FC<StatusButtonProps> = ({ id, status }) => {
                 source={require("@/assets/icons/worker.png")}
                 style={styles.icon}
               />
-              <Text style={[styles.text, styles.titleText]}>
+              <Text style={[styles.text, styles.titleText]} numberOfLines={1}
+              ellipsizeMode="tail">
                 {item.name_surname}
               </Text>
             </View>
@@ -201,7 +202,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   titleContainer: {
-    // width: "100%",
+    width: "55%",
+    height: "auto",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
@@ -209,6 +211,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: moderateScale(16),
     marginLeft: horizontalScale(5),
+    maxWidth: "80%"
   },
   text: {
     color: "#000",

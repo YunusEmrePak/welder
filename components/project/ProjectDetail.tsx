@@ -230,6 +230,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     width: "100%",
+    height: "auto",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "flex-start",
