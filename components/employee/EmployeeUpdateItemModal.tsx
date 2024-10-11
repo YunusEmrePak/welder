@@ -45,9 +45,10 @@ const EmployeeUpdateItemModal = () => {
       updateEmployeeForm.name_surname === "" ||
       updateEmployeeForm.daily_pay === null ||
       updateEmployeeForm.daily_pay.toString() === "" ||
-      updateEmployeeForm.daily_pay < 0
-      // updateEmployeeForm.total_given_amount.toString() === "" ||
-      // updateEmployeeForm.total_given_amount < 0
+      updateEmployeeForm.daily_pay < 0 ||
+      updateEmployeeForm.total_given_amount === null ||
+      updateEmployeeForm.total_given_amount.toString() === "" ||
+      updateEmployeeForm.total_given_amount < 0
     ) {
       ToastAndroid.show(
         "Bütün alanları doldurmanız gerekmektedir.",

@@ -95,13 +95,13 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
           )
         );
         break;
-      // case "emp_update_total_given_amount":
-      //   dispatch(
-      //     employeeActions.setUpdateEmployeeTotalGivenAmount(
-      //       value === "" ? "" : parseFloat(value)
-      //     )
-      //   );
-      //   break;
+      case "emp_update_total_given_amount":
+        dispatch(
+          employeeActions.setUpdateEmployeeTotalGivenAmount(
+            value === "" ? "" : parseFloat(value)
+          )
+        );
+        break;
       default:
         break;
     }
@@ -145,11 +145,11 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
           updateEmployeeForm.daily_pay === null
           ? ""
           : updateEmployeeForm?.daily_pay.toString();
-      // case "emp_update_total_given_amount":
-      //   return updateEmployeeForm.total_given_amount?.toString() === "" ||
-      //     updateEmployeeForm.total_given_amount === null
-      //     ? ""
-      //     : updateEmployeeForm?.total_given_amount.toString();
+      case "emp_update_total_given_amount":
+        return updateEmployeeForm.total_given_amount?.toString() === "" ||
+          updateEmployeeForm.total_given_amount === null
+          ? ""
+          : updateEmployeeForm?.total_given_amount.toString();
       default:
         return "";
     }
