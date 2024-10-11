@@ -8,6 +8,7 @@ import {
   listEmployeeByAssignedProjectIdDb,
   listEmployeeDb,
   listEmployeeWhoDoesNotWorkOnProjectDb,
+  makePaymentToEmployeeDb,
   updateEmployeeDb,
 } from "@/database/employeeDb";
 import { AddEmployeeDto } from "@/dto/add/addEmployeeDto";
@@ -91,6 +92,11 @@ export const decreaseWorkedDayEmployee = (id: number) => {
 export const isEmployeeDeletable = (employeeId: number): boolean => {
   return isEmployeeDeletableDb(employeeId);
 }
+
+export const makePaymentToEmployee = (employeeId: number, amount: number) => {
+  makePaymentToEmployeeDb(employeeId, amount)
+}
+
 
 export const printEmployee = () => {
   const employees: Employee[] = listEmployee(); // Assuming listEmployee() fetches the employee list

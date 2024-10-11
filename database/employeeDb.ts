@@ -72,16 +72,26 @@ export const updateTotalWorkedDayByEmployeeIdDb = (id: number, newTotalWorkedDay
 }
 
 export const increaseWorkedDayEmployeeDb = (id: number) => {
-  db.runSync("UPDATE employee SET total_worked_day = total_worked_day + 1, total_paid_amount = total_paid_amount + daily_pay WHERE id=?",  id)
+  db.runSync("UPDATE employee SET total_worked_day = total_worked_day + 1, total_paid_amount = total_paid_amount + daily_pay, amount_will_be_given = amount_will_be_given + daily_pay WHERE id=?",  id)
 }
 
 export const decreaseWorkedDayEmployeeDb = (id: number) => {
-  db.runSync("UPDATE employee SET total_worked_day = total_worked_day - 1, total_paid_amount = total_paid_amount - daily_pay WHERE id=?",  id)
+  db.runSync("UPDATE employee SET total_worked_day = total_worked_day - 1, total_paid_amount = total_paid_amount - daily_pay, amount_will_be_given = amount_will_be_given - daily_pay WHERE id=?",  id)
 }
 
 export const totolEmployeeCostDb = (): number => {
   const result = db.getFirstSync("SELECT SUM(total_paid_amount) from employee");
   return result ? result["SUM(total_paid_amount)"] : 0;
+}
+
+export const totalEmployeeDebtDb = (): number => {
+  const result = db.getFirstSync("SELECT SUM(amount_will_be_given) from employee");
+  return result ? result["SUM(amount_will_be_given)"] : 0;
+}
+
+export const makePaymentToEmployeeDb = (employeeId: number ,amount: number) => {
+  db.runSync("UPDATE employee SET total_given_amount = total_given_amount + ?, amount_will_be_given = amount_will_be_given - ? where id=?",amount, amount, employeeId);
+  
 }
 
 export const isEmployeeDeletableDb = (employeeId: number): boolean =>{
