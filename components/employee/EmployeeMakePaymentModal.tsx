@@ -63,7 +63,7 @@ const EmployeeMakePaymentModal: React.FC<ButtonProps> = ({ id }) => {
         makePaymentForm.amount > employeeDetailInformation?.amount_will_be_given
       ) {
         ToastAndroid.show(
-          "Ödenen miktar ödenmiş miktardan yüksek olamaz.",
+          "Ödenecek miktardan daha fazlasını ödeyemezsiniz!",
           ToastAndroid.LONG
         );
         return;

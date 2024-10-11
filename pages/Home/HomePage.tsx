@@ -62,8 +62,8 @@ const HomePage = () => {
     },
     {
       number: totalAndProject.totalEmployeeDebt,
-      color1: "#e39759",
-      color2: "#b05104",
+      color1: "#ff8bb1",
+      color2: "#ad005d",
       iconUrl: require("@/assets/icons/payment-method.png"),
       title: "Çalışana Borç",
     },
