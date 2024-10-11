@@ -1,4 +1,4 @@
-import { totolEmployeeCostDb } from "@/database/employeeDb"
+import { totalEmployeeDebtDb, totolEmployeeCostDb } from "@/database/employeeDb"
 import { numberOfCanceledProjectsDb, numberOfDoneProjectsDb, numberOfInProgressProjectsDb, numberOfNotStartedProjectsDb, totalCollectedMoneyDb, totalDebtDb, totalMaterialCostDb } from "@/database/projectDb"
 
 export const totalCollectedMoney = (): number => {
@@ -7,6 +7,10 @@ export const totalCollectedMoney = (): number => {
 
 export const totalDebt = (): number => {
     return totalDebtDb()
+}
+
+export const totalEmployeeDebt = (): number => {
+    return totalEmployeeDebtDb()
 }
 
 export const totalMaterialCost = (): number => {

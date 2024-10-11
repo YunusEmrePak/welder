@@ -84,6 +84,16 @@ export const totolEmployeeCostDb = (): number => {
   return result ? result["SUM(total_paid_amount)"] : 0;
 }
 
+export const totalEmployeeDebtDb = (): number => {
+  const result = db.getFirstSync("SELECT SUM(amount_will_be_given) from employee");
+  return result ? result["SUM(amount_will_be_given)"] : 0;
+}
+
+export const makePaymentToEmployeeDb = (employeeId: number ,amount: number) => {
+  db.runSync("UPDATE employee SET total_given_amount = total_given_amount + ?, amount_will_be_given = amount_will_be_given - ? where id=?",amount, amount, employeeId);
+  
+}
+
 export const isEmployeeDeletableDb = (employeeId: number): boolean =>{
 
   const result = db.getFirstSync("SELECT 1 from employee_project where employee_id=?", employeeId)
