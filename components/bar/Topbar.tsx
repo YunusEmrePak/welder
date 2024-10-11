@@ -13,7 +13,7 @@ const Topbar: React.FC = () => {
     <View style={styles.container}>
       <View style={styles.left}>
         <Image
-          source={require("@/assets/icons/welder.png")}
+          source={require("@/assets/icons/welder_trans.png")}
           alt="Logo"
           style={styles.logo}
         />
