@@ -21,6 +21,8 @@ export const addEmployee = (addEmployeeDto: AddEmployeeDto) => {
     daily_pay: addEmployeeDto.daily_pay,
     total_worked_day: 0,
     total_paid_amount: 0,
+    total_given_amount: 0,
+    amount_will_be_given:0
   };
 
   return addEmployeeDb(employee);
@@ -67,6 +69,12 @@ export const updateEmployee = (updateEmployeeDto: UpdatedEmployeeDto) => {
   if (updateEmployeeDto.daily_pay !== null && updateEmployeeDto.daily_pay > 0) {
     oldEmployee.daily_pay = updateEmployeeDto.daily_pay;
   }
+
+  if (updateEmployeeDto.total_given_amount !== null && updateEmployeeDto.total_given_amount > 0) {
+    oldEmployee.total_given_amount = updateEmployeeDto.total_given_amount;
+  }
+
+  oldEmployee.amount_will_be_given = oldEmployee.total_paid_amount - oldEmployee.total_given_amount;
 
   updateEmployeeDb(oldEmployee);
 };

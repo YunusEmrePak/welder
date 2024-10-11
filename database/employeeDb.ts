@@ -5,11 +5,12 @@ const db = SQLite.openDatabaseSync("project_management.db");
 
 export const addEmployeeDb = (employee: Employee) => {
   return db.runSync(
-    "INSERT INTO employee (name_surname, daily_pay, total_worked_day, total_paid_amount) VALUES (?, ?, ?, ?)",
+    "INSERT INTO employee (name_surname, daily_pay, total_worked_day, total_paid_amount, total_given_amount) VALUES (?, ?, ?, ?, ?)",
     employee.name_surname,
     employee.daily_pay,
     employee.total_worked_day,
-    employee.total_paid_amount
+    employee.total_paid_amount,
+    employee.total_given_amount
   );
 };
 
@@ -55,7 +56,9 @@ export const updateEmployeeDb = (employee: Employee) => {
   db.runSync(`
     UPDATE employee
     SET name_surname='${employee.name_surname}',
-    daily_pay='${employee.daily_pay}'
+    daily_pay='${employee.daily_pay}',
+    total_given_amount='${employee.total_given_amount}',
+    amount_will_be_given='${employee.amount_will_be_given}'
     where id='${employee.id}'
     `)
 }
