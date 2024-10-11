@@ -55,7 +55,7 @@ const EmployeeProjectItem: React.FC<ProjectProps> = ({ item }) => {
       </View>
       <View style={[styles.column, styles.column2]}>
         <View style={styles.item}>
-          <Text style={styles.title}>Ödenen Miktar </Text>
+          <Text style={styles.title}>Kazanılan Miktar </Text>
           <Text
             style={[styles.value, styles.valueNumber]}
             numberOfLines={1}

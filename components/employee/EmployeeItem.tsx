@@ -110,7 +110,7 @@ const EmployeeItem: React.FC<EmployeeProps> = ({ item }) => {
             </Text>
           </View>
           <View style={styles.item}>
-            <Text style={styles.title}>Toplam Ödenen Miktar</Text>
+            <Text style={styles.title}>Kazanılan Miktar</Text>
             <Text
               style={[styles.value, styles.valueNumber]}
               numberOfLines={1}

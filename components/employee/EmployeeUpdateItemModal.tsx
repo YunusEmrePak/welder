@@ -31,9 +31,11 @@ const inputs: CutomInputItemState[] = [
 
 const EmployeeUpdateItemModal = () => {
   const dispatch = useAppDispatch();
-  const { isUpdateModalVisible, updateEmployeeForm } = useSelector(
-    (state: RootState) => state.employee
-  );
+  const {
+    isUpdateModalVisible,
+    updateEmployeeForm,
+    employeeDetailInformation,
+  } = useSelector((state: RootState) => state.employee);
 
   const closeModal = () => {
     dispatch(employeeActions.setEmployeeUpdateModalVisible());
@@ -55,6 +57,19 @@ const EmployeeUpdateItemModal = () => {
         ToastAndroid.LONG
       );
       return;
+    }
+    console.log(employeeDetailInformation?.total_paid_amount);
+    if (employeeDetailInformation?.total_paid_amount) {
+      if (
+        updateEmployeeForm.total_given_amount >
+        employeeDetailInformation?.total_paid_amount
+      ) {
+        ToastAndroid.show(
+          "Ödenen miktar çalışanın kazandığı miktardan yüksek olamaz.",
+          ToastAndroid.LONG
+        );
+        return;
+      }
     }
     updateEmployee(updateEmployeeForm);
     dispatch(employeeActions.setEmployeeList());
