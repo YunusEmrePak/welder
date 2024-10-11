@@ -34,7 +34,9 @@ export const createTables = () => {
           name_surname TEXT,
           daily_pay REAL,
           total_worked_day INTEGER,
-          total_paid_amount REAL
+          total_paid_amount REAL,
+          total_given_amount REAL,
+          amount_will_be_given REAL
       );
 
     CREATE TABLE IF NOT EXISTS employee_project (
