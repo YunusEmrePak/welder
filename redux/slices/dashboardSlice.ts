@@ -5,6 +5,7 @@ import {
   numberOfNotStartedProjects,
   totalCollectedMoney,
   totalDebt,
+  totalEmployeeDebt,
   totalMaterialCost,
   totalProfit,
   totolEmployeeCost,
@@ -17,6 +18,7 @@ export interface TotalAndProjects {
   totalMaterialCost: number;
   totolEmployeeCost: number;
   totalProfit: number;
+  totalEmployeeDebt: number;
   numberOfNotStartedProjects: number;
   numberOfInProgressProjects: number;
   numberOfDoneProjects: number;
@@ -35,6 +37,7 @@ const initialState: DashboardState = {
     totalMaterialCost: 0,
     totolEmployeeCost: 0,
     totalProfit: 0,
+    totalEmployeeDebt: 0,
     numberOfNotStartedProjects: 0,
     numberOfInProgressProjects: 0,
     numberOfDoneProjects: 0,
@@ -53,6 +56,7 @@ const dashboardSlice = createSlice({
       state.totalAndProject.totalMaterialCost = totalMaterialCost();
       state.totalAndProject.totolEmployeeCost = totolEmployeeCost();
       state.totalAndProject.totalProfit = totalProfit();
+      state.totalAndProject.totalEmployeeDebt = totalEmployeeDebt();
       state.totalAndProject.numberOfNotStartedProjects =
         numberOfNotStartedProjects();
       state.totalAndProject.numberOfInProgressProjects =

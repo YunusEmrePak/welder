@@ -60,6 +60,13 @@ const HomePage = () => {
       iconUrl: require("@/assets/icons/employee-benefit.png"),
       title: "Çalışan Gideri",
     },
+    {
+      number: totalAndProject.totalEmployeeDebt,
+      color1: "#e39759",
+      color2: "#b05104",
+      iconUrl: require("@/assets/icons/payment-method.png"),
+      title: "Çalışana Borç",
+    },
   ];
 
   return (
