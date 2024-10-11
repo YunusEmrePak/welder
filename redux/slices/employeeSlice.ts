@@ -36,6 +36,7 @@ const initialState: EmployeeState = {
     id: 0,
     name_surname: "",
     daily_pay: 0,
+    total_given_amount: 0,
   },
   employeeDetailInformation: {
     id: null,
@@ -43,6 +44,8 @@ const initialState: EmployeeState = {
     daily_pay: 0,
     total_worked_day: 0,
     total_paid_amount: 0,
+    total_given_amount: 0,
+    amount_will_be_given: 0,
   },
 };
 
@@ -96,6 +99,9 @@ const employeeSlice = createSlice({
     setUpdateEmployeeDailyPay: (state, action) => {
       state.updateEmployeeForm.daily_pay = action.payload;
     },
+    setUpdateEmployeeTotalGivenAmount: (state, action) => {
+      state.updateEmployeeForm.total_given_amount = action.payload;
+    },
     setEmployeeFormClear: (state) => {
       state.addEmployeeForm = {
         name_surname: "",
@@ -110,6 +116,9 @@ const employeeSlice = createSlice({
         : "";
       state.updateEmployeeForm.daily_pay = employee?.daily_pay
         ? employee?.daily_pay
+        : 0;
+      state.updateEmployeeForm.total_given_amount = employee?.total_given_amount
+        ? employee?.total_given_amount
         : 0;
     },
   },

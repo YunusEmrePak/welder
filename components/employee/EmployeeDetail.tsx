@@ -57,9 +57,25 @@ const EmployeeDetail = () => {
           </View>
           <View style={[styles.row]}>
             <View style={[styles.col]}>
-              <Text style={styles.moneyTitle}>Toplam Ödenen Miktar</Text>
+              <Text style={styles.moneyTitle}>Kazanılan Miktar</Text>
               <Text style={[styles.moneyText]}>
                 {formatMoney(employeeDetailInformation?.total_paid_amount)}
+              </Text>
+            </View>
+          </View>
+          <View style={[styles.row]}>
+            <View style={[styles.col]}>
+              <Text style={styles.moneyTitle}>Ödenen Miktar</Text>
+              <Text style={[styles.moneyText, {color: "#e37500"}]}>
+                {formatMoney(employeeDetailInformation?.total_given_amount)}
+              </Text>
+            </View>
+          </View>
+          <View style={[styles.row]}>
+            <View style={[styles.col]}>
+              <Text style={styles.moneyTitle}>Ödenenecek Miktar</Text>
+              <Text style={[styles.moneyText, {color: "#b50000"}]}>
+                {formatMoney(employeeDetailInformation?.amount_will_be_given)}
               </Text>
             </View>
           </View>

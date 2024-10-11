@@ -26,9 +26,12 @@ const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
 
   const handleInputChange = (value: string) => {
     if (
-      ["price", "material_cost", "paid_amount", "daily_pay"].includes(
-        item.inputName
-      )
+      [
+        "price",
+        "material_cost",
+        "paid_amount",
+        "daily_pay",
+      ].includes(item.inputName)
     ) {
       if (value === "") {
         handleDispatch(item.inputName, value);
@@ -75,7 +78,6 @@ const CustomInput: React.FC<CustomInputProps> = ({ item }) => {
           )
         );
         break;
-
       case "name_surname":
         dispatch(employeeActions.setEmployeeName(value));
         break;

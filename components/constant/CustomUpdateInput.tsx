@@ -30,9 +30,13 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
 
   const handleInputChange = (value: string) => {
     if (
-      ["price", "material_cost", "paid_amount", "daily_pay"].includes(
-        item.inputName
-      )
+      [
+        "price",
+        "material_cost",
+        "paid_amount",
+        "daily_pay",
+        "emp_update_total_given_amount",
+      ].includes(item.inputName)
     ) {
       if (value === "") {
         handleDispatch(item.inputName, value);
@@ -91,6 +95,13 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
           )
         );
         break;
+      case "emp_update_total_given_amount":
+        dispatch(
+          employeeActions.setUpdateEmployeeTotalGivenAmount(
+            value === "" ? "" : parseFloat(value)
+          )
+        );
+        break;
       default:
         break;
     }
@@ -134,6 +145,11 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
           updateEmployeeForm.daily_pay === null
           ? ""
           : updateEmployeeForm?.daily_pay.toString();
+      case "emp_update_total_given_amount":
+        return updateEmployeeForm.total_given_amount?.toString() === "" ||
+          updateEmployeeForm.total_given_amount === null
+          ? ""
+          : updateEmployeeForm?.total_given_amount.toString();
       default:
         return "";
     }
@@ -157,6 +173,8 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
         return "İsim Soyisim";
       case "UpdatedDaily_pay":
         return "Günlük Kazanç";
+      case "emp_update_total_given_amount":
+        return "Ödenen Miktar";
       default:
         return "";
     }
@@ -167,6 +185,7 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
     "updateMaterial_cost",
     "updatePaid_amount",
     "UpdatedDaily_pay",
+    "emp_update_total_given_amount",
   ].includes(item.inputName);
 
   const isDetailInput = item.inputName === "updateDetail";
