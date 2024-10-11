@@ -26,6 +26,7 @@ import CustomUpdateInput from "../constant/CustomUpdateInput";
 const inputs: CutomInputItemState[] = [
   { inputName: "updatedName_surname" },
   { inputName: "UpdatedDaily_pay" },
+  { inputName: "emp_update_total_given_amount" },
 ];
 
 const EmployeeUpdateItemModal = () => {
@@ -45,6 +46,8 @@ const EmployeeUpdateItemModal = () => {
       updateEmployeeForm.daily_pay === null ||
       updateEmployeeForm.daily_pay.toString() === "" ||
       updateEmployeeForm.daily_pay < 0
+      // updateEmployeeForm.total_given_amount.toString() === "" ||
+      // updateEmployeeForm.total_given_amount < 0
     ) {
       ToastAndroid.show(
         "Bütün alanları doldurmanız gerekmektedir.",

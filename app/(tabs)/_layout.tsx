@@ -1,6 +1,6 @@
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
-import { createTables } from "@/database/database";
+import { createTables, dropTables } from "@/database/database";
 import { dashboardActions } from "@/redux/slices/dashboardSlice";
 import { useAppDispatch } from "@/store";
 import { Tabs, useNavigation, useRouter } from "expo-router";
@@ -12,6 +12,7 @@ export default function TabLayout() {
   const router = useRouter();
 
   useEffect(() => {
+    // dropTables();
     createTables();
   }, []);
 
