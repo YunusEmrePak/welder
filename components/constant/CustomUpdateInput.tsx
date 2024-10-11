@@ -24,7 +24,7 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
   const { addProjectForm, updateProjectForm } = useSelector(
     (state: RootState) => state.project
   );
-  const { addEmployeeForm, updateEmployeeForm } = useSelector(
+  const { makePaymentForm, updateEmployeeForm } = useSelector(
     (state: RootState) => state.employee
   );
 
@@ -36,6 +36,7 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
         "paid_amount",
         "daily_pay",
         "emp_update_total_given_amount",
+        "amount",
       ].includes(item.inputName)
     ) {
       if (value === "") {
@@ -102,6 +103,13 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
           )
         );
         break;
+      case "amount":
+        dispatch(
+          employeeActions.setEmployeeMakePaymentAmount(
+            value === "" ? "" : parseFloat(value)
+          )
+        );
+        break;
       default:
         break;
     }
@@ -150,6 +158,11 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
           updateEmployeeForm.total_given_amount === null
           ? ""
           : updateEmployeeForm?.total_given_amount.toString();
+      case "amount":
+        return makePaymentForm.amount?.toString() === "" ||
+          makePaymentForm.amount === null
+          ? ""
+          : makePaymentForm?.amount.toString();
       default:
         return "";
     }
@@ -175,6 +188,8 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
         return "Günlük Kazanç";
       case "emp_update_total_given_amount":
         return "Ödenen Miktar";
+      case "amount":
+        return "Miktar";
       default:
         return "";
     }
@@ -186,6 +201,7 @@ const CustomUpdateInput: React.FC<CustomInputProps> = ({ item }) => {
     "updatePaid_amount",
     "UpdatedDaily_pay",
     "emp_update_total_given_amount",
+    "amount",
   ].includes(item.inputName);
 
   const isDetailInput = item.inputName === "updateDetail";

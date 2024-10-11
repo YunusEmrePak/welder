@@ -33,6 +33,10 @@ const EmployeeDetail = () => {
     dispatch(employeeActions.setEmployeeUpdateModalVisible());
   };
 
+  const openMakePaymentModal = () => {
+    dispatch(employeeActions.setEmployeeMakePaymentModalVisible());
+  };
+
   return (
     <View style={[styles.container]}>
       <View style={styles.customerContainer}>
@@ -66,7 +70,7 @@ const EmployeeDetail = () => {
           <View style={[styles.row]}>
             <View style={[styles.col]}>
               <Text style={styles.moneyTitle}>Ödenen Miktar</Text>
-              <Text style={[styles.moneyText, {color: "#e37500"}]}>
+              <Text style={[styles.moneyText, { color: "#e37500" }]}>
                 {formatMoney(employeeDetailInformation?.total_given_amount)}
               </Text>
             </View>
@@ -74,7 +78,7 @@ const EmployeeDetail = () => {
           <View style={[styles.row]}>
             <View style={[styles.col]}>
               <Text style={styles.moneyTitle}>Ödenenecek Miktar</Text>
-              <Text style={[styles.moneyText, {color: "#b50000"}]}>
+              <Text style={[styles.moneyText, { color: "#b50000" }]}>
                 {formatMoney(employeeDetailInformation?.amount_will_be_given)}
               </Text>
             </View>
@@ -90,6 +94,14 @@ const EmployeeDetail = () => {
         </View>
 
         <View style={styles.buttonContainer}>
+          <CustomButton
+            name="Ödeme Yap"
+            onClick={openMakePaymentModal}
+            iconUrl={require("@/assets/icons/payment-method.png")}
+            width={horizontalScale(140)}
+            height={verticalScale(45)}
+            bgColor="#b50000"
+          />
           <CustomButton
             name="Güncelle"
             onClick={openUpdateEmployeeModal}
@@ -179,7 +191,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: "100%",
-    alignItems: "flex-end",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   progressContainer: {
     position: "absolute",

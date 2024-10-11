@@ -1,6 +1,7 @@
 import Topbar from "@/components/bar/Topbar";
 import EmployeeDeleteItem from "@/components/employee/EmployeeDeleteItem";
 import EmployeeDetail from "@/components/employee/EmployeeDetail";
+import EmployeeMakePaymentModal from "@/components/employee/EmployeeMakePaymentModal";
 import EmployeeProjectList from "@/components/employee/EmployeeProjectList";
 import EmployeeUpdateItemModal from "@/components/employee/EmployeeUpdateItemModal";
 import ProjectDetail from "@/components/project/ProjectDetail";
@@ -43,6 +44,7 @@ const EmployeeDetailPage: React.FC<EmployeeDetailProps> = ({ id }) => {
         </ScrollView>
       )}
       <EmployeeUpdateItemModal />
+      <EmployeeMakePaymentModal id={parseInt(id.toString())} />
     </View>
   );
 };

@@ -9,16 +9,23 @@ import {
 import { listProjectByAssignedEmployee } from "@/services/projectService";
 import { createSlice } from "@reduxjs/toolkit";
 
+interface MakePayment {
+  id: number;
+  amount: number;
+}
+
 export interface EmployeeState {
   employeeList: Employee[];
   isModalVisible: boolean;
   isUpdateModalVisible: boolean;
   isDeleteModalVisible: boolean;
+  isMakePaymentModalVisible: boolean;
   isEmployeeDeletable: boolean;
   addEmployeeForm: AddEmployeeDto;
   updateEmployeeForm: UpdatedEmployeeDto;
   listProjectOnEmployees: ProjectDetailEmployeeDto[];
   employeeDetailInformation: Employee | null;
+  makePaymentForm: MakePayment;
 }
 
 const initialState: EmployeeState = {
@@ -26,8 +33,13 @@ const initialState: EmployeeState = {
   isModalVisible: false,
   isUpdateModalVisible: false,
   isDeleteModalVisible: false,
+  isMakePaymentModalVisible: false,
   isEmployeeDeletable: false,
   listProjectOnEmployees: [],
+  makePaymentForm: {
+    id: 0,
+    amount: 0,
+  },
   addEmployeeForm: {
     name_surname: "",
     daily_pay: 0,
@@ -83,6 +95,15 @@ const employeeSlice = createSlice({
     },
     setEmployeeUpdateModalVisible: (state) => {
       state.isUpdateModalVisible = !state.isUpdateModalVisible;
+    },
+    setEmployeeMakePaymentModalVisible: (state) => {
+      state.isMakePaymentModalVisible = !state.isMakePaymentModalVisible;
+    },
+    setEmployeeMakePaymentAmount: (state, action) => {
+      state.makePaymentForm.amount = action.payload;
+    },
+    setEmployeeMakePaymentId: (state, action) => {
+      state.makePaymentForm.id = action.payload;
     },
     setEmployeeName: (state, action) => {
       state.addEmployeeForm.name_surname = action.payload;
