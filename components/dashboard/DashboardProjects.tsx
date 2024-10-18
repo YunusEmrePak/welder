@@ -8,13 +8,8 @@ import {
 import { formatMoney } from "@/utils/formatMoney";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import {
-  Animated,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Animated, { FadeInUp } from "react-native-reanimated";
 import { useSelector } from "react-redux";
 
 const DashboardProjects: React.FC = () => {
@@ -25,7 +20,10 @@ const DashboardProjects: React.FC = () => {
   );
 
   return (
-    <View style={[styles.container]}>
+    <Animated.View
+      entering={FadeInUp.duration(400).springify()}
+      style={[styles.container]}
+    >
       <Text style={styles.containerTitle}>Projeler</Text>
       <View style={styles.detail}>
         <View style={[styles.row, styles.row1]}>
@@ -73,7 +71,7 @@ const DashboardProjects: React.FC = () => {
           </View>
         </View>
       </View>
-    </View>
+    </Animated.View>
   );
 };
 
@@ -99,7 +97,7 @@ const styles = StyleSheet.create({
   },
   containerTitle: {
     fontSize: moderateScale(22),
-    marginBottom: verticalScale(10)
+    marginBottom: verticalScale(10),
   },
   detail: {
     flexDirection: "row",

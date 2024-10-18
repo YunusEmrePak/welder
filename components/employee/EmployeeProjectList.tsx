@@ -36,8 +36,8 @@ const EmployeeProjectList: React.FC<StatusButtonProps> = ({ id }) => {
     <View style={styles.container}>
       <Text style={styles.workedProjectText}>Çalıştığı Projeler</Text>
       {listProjectOnEmployees.length > 0 ? (
-        listProjectOnEmployees.map((item: ProjectDetailEmployeeDto) => (
-          <EmployeeProjectItem key={item.id} item={item} />
+        listProjectOnEmployees.map((item: ProjectDetailEmployeeDto, index: number) => (
+          <EmployeeProjectItem key={item.id} item={item} index={index} />
         ))
       ) : (
         <Text style={styles.noProjectText}>

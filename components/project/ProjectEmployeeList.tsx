@@ -16,6 +16,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import CustomButton from "../constant/CustomButton";
 import ProjectAssignEmployeeToProjectModal from "./ProjectAssignEmployeeToProjectModal";
+import Animated, { FadeInDown, FadeInLeft } from "react-native-reanimated";
 
 interface StatusButtonProps {
   status: string;
@@ -87,57 +88,68 @@ const ProjectEmployeeList: React.FC<StatusButtonProps> = ({ id, status }) => {
           },
         ]}
       >
-        {listEmployeesWorkOnProject.map((item: ProjectDetailEmployeeDto) => (
-          <View key={item.id} style={styles.employeeContainer}>
-            <View style={styles.titleContainer}>
-              <Image
-                source={require("@/assets/icons/worker.png")}
-                style={styles.icon}
-              />
-              <Text style={[styles.text, styles.titleText]} numberOfLines={1}
-              ellipsizeMode="tail">
-                {item.name_surname}
-              </Text>
-            </View>
-            <View style={styles.dayButtons}>
-              {item.worked_day === 0 ? (
+        {listEmployeesWorkOnProject.map(
+          (item: ProjectDetailEmployeeDto, index: number) => (
+            <Animated.View
+              entering={FadeInLeft.duration(400)
+                .delay(index * 200)
+                .springify()}
+              key={item.id}
+              style={styles.employeeContainer}
+            >
+              <View style={styles.titleContainer}>
+                <Image
+                  source={require("@/assets/icons/worker.png")}
+                  style={styles.icon}
+                />
+                <Text
+                  style={[styles.text, styles.titleText]}
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                >
+                  {item.name_surname}
+                </Text>
+              </View>
+              <View style={styles.dayButtons}>
+                {item.worked_day === 0 ? (
+                  <CustomButton
+                    iconUrl={require("@/assets/icons/delete.png")}
+                    onClick={() => dismissEmployee(item.id, id ? id : 0)}
+                    width={horizontalScale(40)}
+                    height={verticalScale(35)}
+                    disabled={status !== "inProgress" ? true : false}
+                  />
+                ) : (
+                  <CustomButton
+                    name="-"
+                    onClick={() =>
+                      decreaseWorkDay(item.id, id ? id : 0, item.worked_day)
+                    }
+                    width={horizontalScale(40)}
+                    height={verticalScale(35)}
+                    disabled={
+                      item.worked_day === 0 || status !== "inProgress"
+                        ? true
+                        : false
+                    }
+                  />
+                )}
+
+                <View style={styles.workDay}>
+                  <Text style={styles.workText}>{item.worked_day}</Text>
+                </View>
+
                 <CustomButton
-                  iconUrl={require("@/assets/icons/delete.png")}
-                  onClick={() => dismissEmployee(item.id, id ? id : 0)}
+                  name="+"
+                  onClick={() => increaseWorkDay(item.id, id ? id : 0)}
                   width={horizontalScale(40)}
                   height={verticalScale(35)}
                   disabled={status !== "inProgress" ? true : false}
                 />
-              ) : (
-                <CustomButton
-                  name="-"
-                  onClick={() =>
-                    decreaseWorkDay(item.id, id ? id : 0, item.worked_day)
-                  }
-                  width={horizontalScale(40)}
-                  height={verticalScale(35)}
-                  disabled={
-                    item.worked_day === 0 || status !== "inProgress"
-                      ? true
-                      : false
-                  }
-                />
-              )}
-
-              <View style={styles.workDay}>
-                <Text style={styles.workText}>{item.worked_day}</Text>
               </View>
-
-              <CustomButton
-                name="+"
-                onClick={() => increaseWorkDay(item.id, id ? id : 0)}
-                width={horizontalScale(40)}
-                height={verticalScale(35)}
-                disabled={status !== "inProgress" ? true : false}
-              />
-            </View>
-          </View>
-        ))}
+            </Animated.View>
+          )
+        )}
       </View>
       <ProjectAssignEmployeeToProjectModal id={id} />
     </View>
@@ -211,7 +223,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: moderateScale(16),
     marginLeft: horizontalScale(5),
-    maxWidth: "80%"
+    maxWidth: "80%",
   },
   text: {
     color: "#000",

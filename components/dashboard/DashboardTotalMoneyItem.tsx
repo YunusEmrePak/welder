@@ -1,4 +1,3 @@
-import { TotalAndProjects } from "@/redux/slices/dashboardSlice";
 import { RootState, useAppDispatch } from "@/store";
 import {
   horizontalScale,
@@ -6,19 +5,17 @@ import {
   verticalScale,
 } from "@/themes/Metrics";
 import { formatMoney } from "@/utils/formatMoney";
+import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
-import { useState } from "react";
 import {
-  Animated,
   Image,
   ImageSourcePropType,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
+import Animated, { FadeInDown } from "react-native-reanimated";
 import { useSelector } from "react-redux";
-import { LinearGradient } from "expo-linear-gradient";
 
 type TotalAndProjectsProps = {
   item: number;
@@ -26,6 +23,7 @@ type TotalAndProjectsProps = {
   color1: string;
   color2: string;
   title: string;
+  index: number;
 };
 
 const DashboardTotalMoneyItem: React.FC<TotalAndProjectsProps> = ({
@@ -34,9 +32,9 @@ const DashboardTotalMoneyItem: React.FC<TotalAndProjectsProps> = ({
   color1,
   color2,
   title,
+  index,
 }) => {
   const dispatch = useAppDispatch();
-  const [scaleAnim] = useState(new Animated.Value(1));
   const router = useRouter();
 
   const { totalAndProject } = useSelector(
@@ -44,22 +42,32 @@ const DashboardTotalMoneyItem: React.FC<TotalAndProjectsProps> = ({
   );
 
   return (
-    <LinearGradient
-      style={[styles.container]}
-      colors={[color1, color2]}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
+    <Animated.View
+      entering={FadeInDown.duration(400)
+        .delay(index+1 * 200)
+        .springify()}
     >
-      <View style={[styles.item, styles.iconItem]}>
-        <Image style={styles.icon} source={iconUrl} />
-      </View>
-      <View style={[styles.item, styles.item1]}>
-        <Text style={styles.title}>{title} </Text>
-        <Text style={[styles.valueName]} numberOfLines={1} ellipsizeMode="tail">
-          {item !== null ? formatMoney(item) : "0₺"}
-        </Text>
-      </View>
-    </LinearGradient>
+      <LinearGradient
+        style={[styles.container]}
+        colors={[color1, color2]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+      >
+        <View style={[styles.item, styles.iconItem]}>
+          <Image style={styles.icon} source={iconUrl} />
+        </View>
+        <View style={[styles.item, styles.item1]}>
+          <Text style={styles.title}>{title} </Text>
+          <Text
+            style={[styles.valueName]}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {item !== null ? formatMoney(item) : "0₺"}
+          </Text>
+        </View>
+      </LinearGradient>
+    </Animated.View>
   );
 };
 

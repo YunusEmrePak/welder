@@ -7,6 +7,10 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import { useSelector } from "react-redux";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "../constant/CustomButton";
@@ -69,7 +73,12 @@ const ProjectDetail = () => {
             source={require("@/assets/icons/titleIcon.png")}
             style={styles.titleIcon}
           />
-          <Text style={[styles.text, styles.titleText]}>
+          <Text
+            className="text-zinc-950"
+            style={[styles.text, {
+              fontSize: hp(3)
+            }]}
+          >
             {projectDetailInformation?.title}
           </Text>
         </View>
@@ -222,7 +231,7 @@ const styles = StyleSheet.create({
     marginRight: horizontalScale(8),
   },
   text: {
-    color: "#000",
+    // color: "#000",
   },
   titleDetailContainer: {
     width: "100%",

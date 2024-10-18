@@ -1,18 +1,7 @@
-import { StyleSheet } from "react-native";
-
-import HomePage from "../../pages/Home/HomePage";
 import { useEffect } from "react";
+import HomePage from "../../pages/Home/HomePage";
 
 export default function HomeScreen() {
-  useEffect(() => {
-  }, [])
+  useEffect(() => {}, []);
   return <HomePage />;
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-});

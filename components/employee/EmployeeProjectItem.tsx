@@ -7,9 +7,11 @@ import {
 } from "@/themes/Metrics";
 import { formatMoney } from "@/utils/formatMoney";
 import { StyleSheet, Text, View } from "react-native";
+import Animated, { FadeInDown } from "react-native-reanimated";
 
 type ProjectProps = {
   item: ProjectDetailEmployeeDto;
+  index: number;
 };
 
 const bgColor = {
@@ -26,11 +28,16 @@ const statusMessage = {
   cancelled: "İptal Edildi",
 };
 
-const EmployeeProjectItem: React.FC<ProjectProps> = ({ item }) => {
+const EmployeeProjectItem: React.FC<ProjectProps> = ({ item, index }) => {
   const dispatch = useAppDispatch();
 
   return (
-    <View style={[styles.container]}>
+    <Animated.View
+      entering={FadeInDown.duration(400)
+        .delay(index * 200)
+        .springify()}
+      style={[styles.container]}
+    >
       <View style={[styles.column, styles.column1]}>
         <View style={styles.item}>
           <Text style={styles.title}>Başlık </Text>
@@ -75,7 +82,7 @@ const EmployeeProjectItem: React.FC<ProjectProps> = ({ item }) => {
           </Text>
         </View>
       </View>
-    </View>
+    </Animated.View>
   );
 };
 

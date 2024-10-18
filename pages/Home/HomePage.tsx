@@ -76,7 +76,7 @@ const HomePage = () => {
         <View style={styles.scrollContainer}>
           <DashboardProjects />
           {totalAndProject &&
-            item.map((item) => (
+            item.map((item, index) => (
               <DashboardTotalMoneyItem
                 key={item.iconUrl}
                 iconUrl={item.iconUrl}
@@ -84,6 +84,7 @@ const HomePage = () => {
                 color1={item.color1}
                 color2={item.color2}
                 title={item.title}
+                index={index}
               />
             ))}
         </View>
